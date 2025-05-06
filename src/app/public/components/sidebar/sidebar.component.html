@@ -1,0 +1,20 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport>
+    <h2>Navigation</h2>
+    @for (option of options; track option.label) {
+      <p><a mat-button [routerLink]="option.link" routerLinkActive="active">{{ option.label }}</a></p>
+    }
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button (click)="drawer.toggle()"
+              aria-label="Toggle Sidenav"
+              mat-icon-button
+              type="button">
+        <mat-icon aria-label="Sidenav toggle icon">Menu</mat-icon>
+      </button>
+      <h1 style="padding-left: 60px">Catchup</h1>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
