@@ -27,4 +27,6 @@ import {MatButton} from "@angular/material/button";
 })
 export class GroupItemComponent {
   @Input() group: Group = new Group({});
+
+
 }

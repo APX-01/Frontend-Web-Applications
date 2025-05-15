@@ -6,8 +6,7 @@
       "firstName": "Omar",
       "lastName": "Luquillas",
       "role": "teacher",
-      "password": "123",
-
+      "password": "123"
     },
     {
       "id": 2,
@@ -32,6 +31,46 @@
       "role": "student",
       "password": "123",
       "id": 4
+    },
+    {
+      "email": "u2021@upc",
+      "firstName": "JJ",
+      "lastName": "AA",
+      "role": "student",
+      "password": "1234",
+      "id": 5
+    },
+    {
+      "email": "sada@eqwqew",
+      "firstName": "JJ",
+      "lastName": "AA",
+      "role": "student",
+      "password": "123",
+      "profilesInGroups": [],
+      "id": 6
+    },
+    {
+      "email": "jsjsjs@upc",
+      "firstName": "sss",
+      "lastName": "jjjj",
+      "role": "student",
+      "password": "123",
+      "profilesInGroups": [],
+      "id": 7
+    },
+    {
+      "email": "example@example.com",
+      "firstName": "example",
+      "lastName": "example",
+      "role": "student",
+      "password": "example",
+      "profilesInGroups": [
+        {
+          "groupId": 2,
+          "score": 0
+        }
+      ],
+      "id": 8
     }
   ],
   "groups": [
@@ -44,6 +83,11 @@
       "id": 2,
       "name": "Grupo Coms",
       "description": "Grupo de comunicación de 5to grado"
+    },
+    {
+      "id": 3,
+      "name": "Grupo Backyardigans",
+      "description": "Grupo de Open Source"
     }
   ],
   "groupJoinCodes": [
@@ -54,6 +98,10 @@
     {
       "key": "BC3ED4",
       "groupId": 2
+    },
+    {
+      "key": "ABC777",
+      "groupId": 3
     }
   ]
 }
