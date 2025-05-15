@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import {MatAnchor, MatIconButton} from '@angular/material/button';
 import {
-  MatDrawer,
-  MatDrawerContainer,
-  MatDrawerContent,
   MatSidenav,
   MatSidenavContainer,
   MatSidenavContent,
 } from '@angular/material/sidenav';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {RouterLink, RouterOutlet} from '@angular/router';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatIcon} from '@angular/material/icon';
 
@@ -16,10 +13,6 @@ import {MatIcon} from '@angular/material/icon';
   selector: 'app-sidebar',
   imports: [
     MatAnchor,
-    MatDrawer,
-    MatDrawerContainer,
-    MatDrawerContent,
-    RouterLinkActive,
     RouterOutlet,
     RouterLink,
     MatSidenavContainer,
