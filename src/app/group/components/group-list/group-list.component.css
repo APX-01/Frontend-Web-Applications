@@ -1,0 +1,9 @@
+.join-code-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-form-field {
+    width: 200px;
+}

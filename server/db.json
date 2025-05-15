@@ -1,3 +1,25 @@
 {
 
+  "groups": [
+    {
+      "id": 1,
+      "name": "Grupo Mates",
+      "description": "Grupo de matemáticas de 4to grado"
+    },
+    {
+      "id": 2,
+      "name": "Grupo Coms",
+      "description": "Grupo de comunicación de 5to grado"
+    }
+  ],
+  "groupJoinCodes": [
+    {
+      "key": "A8C9EA",
+      "groupId": 1
+    },
+    {
+      "key": "BC3ED4",
+      "groupId": 2
+    }
+  ]
 }
