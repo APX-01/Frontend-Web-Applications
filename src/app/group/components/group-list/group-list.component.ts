@@ -32,7 +32,7 @@ import {User} from "../../../iam/model/user.entity";
 })
 export class GroupListComponent implements OnInit {
 
-  tempUser: User = new User();
+  tempUser: User = new User({});
   tempProfilesInGroups: ProfilesInGroups[] = [];
 
   joinCodeString: string = '';
@@ -47,7 +47,7 @@ export class GroupListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.tempUser = this.authService.getUser() || new User();
+    this.tempUser = this.authService.getUser() || new User({});
 
     this.getUserGroupList()
     this.getAvailableGroups()
