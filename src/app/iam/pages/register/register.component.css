@@ -4,7 +4,6 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    gap: 20px;
     text-align: center;
     animation: fadeIn 2s ease-in-out forwards;
 }
@@ -12,6 +11,7 @@
 form {
     display: flex;
     flex-direction: column;
+    gap: 10px;
     width: 300px;
 }
 
@@ -27,6 +27,21 @@ input:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+select {
+    background-color: transparent;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid black;
+    border-radius: 2px;
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+}
+select:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 
 button {
     background-color: black;
@@ -51,55 +66,3 @@ button:hover {
         opacity: 1;
     }
 }
-
-p {
-    text-align: left;
-    color: gray;
-}
-
-p:hover{
-    cursor: pointer;
-}
-
-.social-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 300px;
-
-}
-
-.social-button {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    font-size: 16px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: left;
-}
-
-.social-button span {
-    flex: 1;
-    text-align: center;
-}
-
-.social-button i {
-    font-size: 20px;
-}
-
-.social-button.facebook {
-    background-color: #3b5998;
-}
-
-.social-button.twitter {
-    background-color: #1da1f2;
-}
-
-.social-button.apple {
-    background-color: #000000;
-}
-

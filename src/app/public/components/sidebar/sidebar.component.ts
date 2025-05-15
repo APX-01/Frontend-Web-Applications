@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import {MatAnchor, MatIconButton} from '@angular/material/button';
 import {
-  MatDrawer,
-  MatDrawerContainer,
-  MatDrawerContent,
   MatSidenav,
   MatSidenavContainer,
   MatSidenavContent,
@@ -16,9 +13,6 @@ import {MatIcon} from '@angular/material/icon';
   selector: 'app-sidebar',
   imports: [
     MatAnchor,
-    MatDrawer,
-    MatDrawerContainer,
-    MatDrawerContent,
     RouterLinkActive,
     RouterOutlet,
     RouterLink,
@@ -37,5 +31,6 @@ export class SidebarComponent {
   options = [
     { link: '/home', label: 'Home' },
     { link: '/login', label: 'Login' },
+    { link: '/register', label: 'Register' }
   ]
 }

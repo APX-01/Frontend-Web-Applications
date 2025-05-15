@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "123@upc.edu.pe",
+      "firstName": "Omar",
+      "lastName": "Luquillas",
+      "role": "teacher",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "email": "456@upc.edu.pe",
+      "firstName": "Josue",
+      "lastName": "Flores",
+      "role": "student",
+      "password": "456"
+    },
+    {
+      "id": 3,
+      "email": "789@upc.edu.pe",
+      "firstName": "Sebastian",
+      "lastName": "Real",
+      "role": "student",
+      "password": "789"
+    },
+    {
+      "email": "u202122777@upc.edu.pe",
+      "firstName": "Luis",
+      "lastName": "Angel",
+      "role": "student",
+      "password": "123",
+      "id": 4
+    }
+  ]
+}
