@@ -19,7 +19,6 @@ import {MatButton} from "@angular/material/button";
     MatCardSubtitle,
     MatCardContent,
     MatCardFooter,
-    MatCardActions,
     MatButton
   ],
   templateUrl: './group-item.component.html',

@@ -32,5 +32,6 @@ export class SidebarComponent {
   options = [
     { link: '/home', label: 'Home' },
     { link: '/login', label: 'Login' },
+    { link: '/register', label: 'Register' },
   ]
 }
