@@ -8,20 +8,22 @@ import {
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatIcon} from '@angular/material/icon';
+import {LanguageSwitcherComponent} from "../language-switcher/language-switcher.component";
 
 @Component({
   selector: 'app-sidebar',
-  imports: [
-    MatAnchor,
-    RouterOutlet,
-    RouterLink,
-    MatSidenavContainer,
-    MatToolbar,
-    MatIcon,
-    MatIconButton,
-    MatSidenav,
-    MatSidenavContent,
-  ],
+    imports: [
+        MatAnchor,
+        RouterOutlet,
+        RouterLink,
+        MatSidenavContainer,
+        MatToolbar,
+        MatIcon,
+        MatIconButton,
+        MatSidenav,
+        MatSidenavContent,
+        LanguageSwitcherComponent,
+    ],
   templateUrl: './sidebar.component.html',
   standalone: true,
   styleUrl: './sidebar.component.css'
