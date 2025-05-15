@@ -1,0 +1,22 @@
+
+<div class="join-code-section">
+    <h3 style="padding: 10px">Join Group</h3>
+    <mat-form-field style="padding: 10px" class="example-form-field">
+        <mat-label>Insert Code</mat-label>
+        <input matInput type="text" [(ngModel)]="joinCodeString">
+        @if (joinFailed) {
+            <mat-hint>El código ingresado no existe o está vacío</mat-hint>
+        }
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="joinCodeString=''">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <button mat-flat-button (click)="submitCode()" style="padding: 10px">Join</button>
+</div>
+
+
+<h2 style="padding: 10px">Your Groups</h2>
+<br>
+@for (group of groups; track group.name) {
+    <app-group-item [group]="group"></app-group-item>
+}
