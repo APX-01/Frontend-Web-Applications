@@ -9,6 +9,9 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {GroupJoinCode} from "../../model/group-join-code.entity";
 import {GroupJoinCodeService} from "../../services/group-join-code.service";
 import {AuthService} from "../../../iam/services/auth.service";
+import {ProfilesInGroups} from "../../../iam/model/profiles-in-groups.entity";
+import {of} from "rxjs";
+import {User} from "../../../iam/model/user.entity";
 
 @Component({
   selector: 'app-group-list',
@@ -29,6 +32,9 @@ import {AuthService} from "../../../iam/services/auth.service";
 })
 export class GroupListComponent implements OnInit {
 
+  tempUser: User = new User();
+  tempProfilesInGroups: ProfilesInGroups[] = [];
+
   joinCodeString: string = '';
 
   joinCode!: GroupJoinCode;
@@ -40,13 +46,23 @@ export class GroupListComponent implements OnInit {
   constructor(private groupService: GroupService, private groupJoinCodeService: GroupJoinCodeService,private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getAvailableGroups()
 
+    this.tempUser = this.authService.getUser() || new User();
+
+    this.getUserGroupList()
+    this.getAvailableGroups()
+  }
+
+  private getUserGroupList(): void {
+    this.tempProfilesInGroups = this.authService.getUser()?.profilesInGroups || new Array<ProfilesInGroups>()
+
+    for (let profile of this.tempProfilesInGroups) {
+      this.availableGroups.push(profile.groupId);
+    }
   }
 
   private getAvailableGroups(): void {
     this.groups = []
-
     this.availableGroups.forEach((groupId) => {
       this.groupService.getById(groupId).subscribe({
         next: group => {
@@ -60,9 +76,6 @@ export class GroupListComponent implements OnInit {
   }
 
   submitCode(): void {
-
-
-
     this.joinCode = new GroupJoinCode({});
 
     this.groupJoinCodeService.getByKey(this.joinCodeString).subscribe({
@@ -70,26 +83,22 @@ export class GroupListComponent implements OnInit {
         this.joinCode = code;
         console.log(code)
 
-        /*const user = this.authService.getUser();
-        if (user) {
-          console.log(user.profilesInGroups,"AQUIIIIII ANTES DE HACER EL PUSH");
-          this.authService.addProfilesInGroups(user, this.joinCode.key).subscribe({
-            next: updatedUser => {
-              console.log('Perfiles en grupos actualizados:', updatedUser);
-            },
-            error: err => {
-              console.error('Error al actualizar perfiles en grupos:', err);
-            }
-          });
-
-        }*/
-
         console.log(`Codigo de grupo asignado al código: ${code.groupId}`)
 
         if (this.joinCode && !this.availableGroups.includes(this.joinCode.groupId)) {
           this.availableGroups.push(this.joinCode.groupId)
           console.log(this.availableGroups)
           this.getAvailableGroups()
+
+          console.log('Usuario antes de actualizarse', this.tempUser)
+
+          this.tempUser.profilesInGroups?.push({ groupId: this.joinCode.groupId, score: 0})
+
+          console.log('Usuario después de actualizarse', this.tempUser)
+
+          this.authService.update(this.tempUser.id, this.tempUser).subscribe(user => {
+            console.log('User actualizado', user)
+          })
 
         } else {
           this.joinFailed = true;
