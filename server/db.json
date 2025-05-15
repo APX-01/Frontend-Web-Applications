@@ -31,6 +31,22 @@
       "role": "student",
       "password": "123",
       "id": 4
+    },
+    {
+      "email": "Donlox@lolsito.com",
+      "firstName": "Donlox",
+      "lastName": "Paletazo",
+      "role": "teacher",
+      "password": "666",
+      "id": 5
+    },
+    {
+      "email": "JosueGOD@GOD.com",
+      "firstName": "Josue2",
+      "lastName": "Flores",
+      "role": "teacher",
+      "password": "777",
+      "id": 6
     }
   ]
 }
