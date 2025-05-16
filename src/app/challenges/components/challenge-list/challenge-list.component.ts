@@ -14,6 +14,7 @@ import {AuthService} from "../../../iam/services/auth.service";
     ChallengeCardItemComponent
   ],
   templateUrl: './challenge-list.component.html',
+  standalone: true,
   styleUrl: './challenge-list.component.css'
 })
 export class ChallengeListComponent implements OnInit {
