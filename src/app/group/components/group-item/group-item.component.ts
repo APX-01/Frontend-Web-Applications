@@ -32,5 +32,4 @@ export class GroupItemComponent {
   @Input() group: Group = new Group({});
   @Input() groupProfile: ProfileInGroup = new ProfileInGroup({});
 
-
 }
