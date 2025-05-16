@@ -2,7 +2,7 @@ import NewCommandModule from '@angular/cli/src/commands/new/cli';
 import {HttpBackend, HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {inject} from '@angular/core';
 import {catchError, Observable, retry, throwError} from 'rxjs';
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 
 /**
  * Abstract base service class providing common CRUD operations for REST APIs endpoints.
