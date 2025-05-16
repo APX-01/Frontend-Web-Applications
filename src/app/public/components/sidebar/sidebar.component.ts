@@ -5,7 +5,7 @@ import {
   MatSidenavContainer,
   MatSidenavContent,
 } from '@angular/material/sidenav';
-import {RouterLink, RouterOutlet} from '@angular/router';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatIcon} from '@angular/material/icon';
 import {LanguageSwitcherComponent} from "../language-switcher/language-switcher.component";
@@ -23,6 +23,7 @@ import {LanguageSwitcherComponent} from "../language-switcher/language-switcher.
         MatSidenav,
         MatSidenavContent,
         LanguageSwitcherComponent,
+        RouterLinkActive,
     ],
   templateUrl: './sidebar.component.html',
   standalone: true,

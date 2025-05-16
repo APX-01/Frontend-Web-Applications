@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError, switchMap, map } from 'rxjs';
 import {User} from "../model/user.entity";
-import {BaseService} from "../../shared/base.service";
+import {BaseService} from "../../shared/services/base.service";
 import {environment} from "../../../environments/environment";
 import {GroupJoinCodeService} from "../../group/services/group-join-code.service";
-import {ProfilesInGroups} from "../model/profiles-in-groups.entity";
+import {ProfileInGroup} from "../model/profile-in-group.entity";
 
 
 const usersResourceEndpoint = environment.usersEndpointPath;
@@ -55,7 +55,7 @@ export class AuthService extends BaseService<User> {
       localStorage.setItem('auth_user', JSON.stringify(user));
   }
 
-  getAllProfilesInGroups(user: User): Observable<ProfilesInGroups[]> {
+  getAllProfilesInGroups(user: User): Observable<ProfileInGroup[]> {
         return new Observable(observer => {
             if (user.profilesInGroups) {
                 observer.next(user.profilesInGroups);
@@ -71,6 +71,17 @@ export class AuthService extends BaseService<User> {
           user.profilesInGroups = user.profilesInGroups.filter(profile => profile.groupId !== groupId);
       }
       return super.update(user.id, user);
+  }
+
+  getUsersByGroupId(groupId: number): Observable<User[]> {
+      return this.http.get<User[]>(this.resourcePath()).pipe(
+          map(users => {
+              return users.filter(user =>
+                  user.profilesInGroups &&
+                  user.profilesInGroups.some(profile => profile.groupId === groupId)
+              );
+          })
+      );
   }
 
 }

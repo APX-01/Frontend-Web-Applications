@@ -9,6 +9,8 @@ import {
   MatCardTitle
 } from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
+import {ProfileInGroup} from "../../../iam/model/profile-in-group.entity";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-group-item',
@@ -19,7 +21,8 @@ import {MatButton} from "@angular/material/button";
     MatCardSubtitle,
     MatCardContent,
     MatCardFooter,
-    MatButton
+    MatButton,
+    RouterLink
   ],
   templateUrl: './group-item.component.html',
   standalone: true,
@@ -27,6 +30,7 @@ import {MatButton} from "@angular/material/button";
 })
 export class GroupItemComponent {
   @Input() group: Group = new Group({});
+  @Input() groupProfile: ProfileInGroup = new ProfileInGroup({});
 
 
 }
