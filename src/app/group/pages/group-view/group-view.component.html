@@ -3,14 +3,20 @@
         <p>Loading group details...</p>
     } @else {
         <mat-card>
-            <mat-card-header>
-                <mat-card-title>{{ group.name }}</mat-card-title>
-                <mat-card-subtitle>Group Details</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p><strong>Description:</strong> {{ group.description }}</p>
-                <p>Puntaje total en este grupo: {{userGroupProfile.score}}</p>
 
+            <div style="display: flex; align-items: center; justify-content: center; padding: 10px; text-align: center;">
+                <img src="{{ group.imageUrl }}" alt="Descripción de la imagen" style="border-radius: 10px; max-width: 30%; height: 100px;">
+                <div>
+                    <mat-card-header>
+                        <mat-card-title>{{ group.name }}</mat-card-title>
+                        <mat-card-subtitle>Group Details</mat-card-subtitle>
+                    </mat-card-header>
+
+                    <p><strong>Description:</strong> {{ group.description }}</p>
+
+                </div>
+            </div>
+            <mat-card-content>
                 <!-- Añadir lista de challenges aquí -->
                 <app-challenge-list [currentGroupId]="group.id"></app-challenge-list>
 
