@@ -65,11 +65,10 @@ export class GroupListComponent implements OnInit {
 
   private getAvailableGroups(): void {
     this.groups = [];
-    this.availableGroups.forEach((groupId) => {
+    this.availableGroups.map((groupId) => {
       this.groupService.getById(groupId).subscribe({
         next: group => {
-          this.groups = [...this.groups, group]; // Crear nuevo array
-          this.changeDetector.detectChanges();
+          this.groups.push(group);
         },
         error: err => {
           console.error(`Error al obtener el grupo con ID ${groupId}:`, err);
@@ -84,19 +83,21 @@ export class GroupListComponent implements OnInit {
     this.groupJoinCodeService.getByKey(this.joinCodeString).subscribe({
       next: code => {
         this.joinCode = code;
+        this.joinCodeString = '';
 
         if (this.joinCode && !this.availableGroups.includes(this.joinCode.groupId)) {
-          this.availableGroups = [...this.availableGroups, this.joinCode.groupId]; // Crear nuevo array
-
           if (this.user.profilesInGroups) {
-            this.user.profilesInGroups = [...this.user.profilesInGroups, { groupId: this.joinCode.groupId, score: 0 }];
+            this.user.profilesInGroups.push({ groupId: this.joinCode.groupId, score: 0 });
           }
+          this.joinCode = new GroupJoinCode({});
 
-          this.authService.update(this.user.id, this.user).subscribe(user => {
-            this.user = user;
-            this.getAvailableGroups();
-            this.changeDetector.detectChanges();
-          });
+          this.authService.update(this.user.id, this.user).subscribe({
+            next: (user) => {
+              this.authService.setUser(user)
+              this.getUserGroupList()
+              this.getAvailableGroups()
+            }
+          })
         } else {
           this.joinFailed = true;
         }
@@ -133,26 +134,28 @@ export class GroupListComponent implements OnInit {
       description: groupData.description,
     });
 
-    // Añadir a la lista local
-    this.groups.push(newGroup);
-
-
     //Publicar al db.json
 
     this.groupService.create(newGroup).subscribe({
       next: (createdGroup) => {
-        this.availableGroups = [...this.availableGroups, createdGroup.id];
+        // Añadir a la lista local
+        this.groups.push(createdGroup);
+        console.log('Grupos con agregado: ', this.groups)
+        this.availableGroups.push(createdGroup.id)
 
+        //Actualizar Profiles del usuario
         if (this.user.profilesInGroups) {
-          this.user.profilesInGroups = [...this.user.profilesInGroups, { groupId: createdGroup.id, score: 0 }];
+          this.user.profilesInGroups.push({ groupId: createdGroup.id, score: 0 });
         }
 
-        this.authService.update(this.user.id, this.user).subscribe(user => {
-          this.user = user;
-          this.getUserGroupList();
-          this.getAvailableGroups();
-          this.changeDetector.detectChanges();
-        });
+        // Actualizar Valores
+        this.authService.update(this.user.id, this.user).subscribe({
+          next: (user) => {
+            this.authService.setUser(user)
+            this.getUserGroupList()
+            this.getAvailableGroups()
+          }
+        })
       },
       error: (err) => {
         console.error('Error creating group:', err);
