@@ -48,28 +48,54 @@
     },
     {
       "email": "u2021@upc",
-      "firstName": "JJ",
-      "lastName": "AA",
+      "firstName": "Ana",
+      "lastName": "Alvarez",
       "role": "student",
       "password": "1234",
       "id": 5
     },
     {
       "email": "sada@eqwqew",
-      "firstName": "JJ",
-      "lastName": "AA",
+      "firstName": "Marco",
+      "lastName": "Oliva",
       "role": "student",
       "password": "123",
-      "profilesInGroups": [],
+      "profilesInGroups": [
+        {
+          "groupId": 1,
+          "score": 5
+        },
+        {
+          "groupId": 3,
+          "score": 15
+        },
+        {
+          "groupId": 2,
+          "score": 20
+        }
+      ],
       "id": 6
     },
     {
       "email": "jsjsjs@upc",
-      "firstName": "sss",
-      "lastName": "jjjj",
+      "firstName": "Juan",
+      "lastName": "Pérez",
       "role": "student",
       "password": "123",
-      "profilesInGroups": [],
+      "profilesInGroups": [
+        {
+          "groupId": 1,
+          "score": 5
+        },
+        {
+          "groupId": 3,
+          "score": 15
+        },
+        {
+          "groupId": 2,
+          "score": 20
+        }
+      ],
       "id": 7
     },
     {
@@ -81,15 +107,11 @@
       "profilesInGroups": [
         {
           "groupId": 1,
-          "score": 0
+          "score": 5
         },
         {
           "groupId": 3,
-          "score": 0
-        },
-        {
-          "groupId": 2,
-          "score": 0
+          "score": 15
         }
       ],
       "id": 8
@@ -137,6 +159,7 @@
       "groupId": 1,
       "deadline": "2023-10-01T00:00:00Z",
       "imageUrl": "https://www.searchenginejournal.com/wp-content/uploads/2019/04/the-seo-guide-to-angular.png"
+
     }
   ],
   "submissions": [
@@ -147,11 +170,12 @@
       "content": "This is my submission",
       "score": 0,
       "imageUrl": "https://picsum.photos/seed/1/1600/800"
+
     },
     {
       "id": 2,
       "challengeId": 1,
-      "studentId": 2,
+      "studentId": 6,
       "content": "This is my submission2",
       "score": 0,
       "imageUrl": "https://picsum.photos/seed/2/1600/800"
@@ -159,10 +183,11 @@
     {
       "id": 3,
       "challengeId": 1,
-      "studentId": 1,
+      "studentId": 7,
       "content": "This is my submission3",
       "score": 0,
       "imageUrl": "https://picsum.photos/seed/3/1600/800"
+
     },
     {
       "id": 4,
@@ -179,6 +204,7 @@
       "content": "Hola uwu",
       "score": 17,
       "imageUrl": "https://picsum.photos/seed/5/1600/800"
+
     },
     {
       "id": 6,
