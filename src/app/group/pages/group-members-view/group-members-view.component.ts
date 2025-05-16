@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../../iam/services/auth.service";
 import {GroupService} from "../../services/group.service";
 import {User} from "../../../iam/model/user.entity";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {GroupJoinCodeService} from "../../services/group-join-code.service";
@@ -47,7 +47,8 @@ export class GroupMembersViewComponent implements OnInit {
       private authService: AuthService,
       private route: ActivatedRoute,
       private groupJoinCodeService: GroupJoinCodeService,
-      private snackBar: MatSnackBar
+      private snackBar: MatSnackBar,
+      private router: Router
   ) {
   }
 
@@ -55,6 +56,13 @@ export class GroupMembersViewComponent implements OnInit {
     this.user = this.authService.getUser() || new User({});
     this.loadData();
     this.loadGroupJoinCode();
+
+    console.log('Is logged in:', this.authService.isUserLoggedIn());
+    console.log('Is in group:', this.authService.userIsInGroup(this.groupId));
+
+    if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
+      this.router.navigate(['no-access']);
+    }
   }
 
   private loadData(): void {

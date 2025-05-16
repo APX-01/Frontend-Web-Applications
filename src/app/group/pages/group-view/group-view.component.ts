@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Group} from "../../model/group.entity";
 import {GroupService} from "../../services/group.service";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {MatCardModule } from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
 import {User} from "../../../iam/model/user.entity";
@@ -39,12 +39,20 @@ export class GroupViewComponent implements OnInit {
       private groupService: GroupService,
       private route: ActivatedRoute,
       private authService: AuthService,
-      private joinCodeService: GroupJoinCodeService
+      private joinCodeService: GroupJoinCodeService,
+      private router: Router
   ) {}
 
   ngOnInit(): void {
     this.user = this.authService.getUser() || new User({});
     this.loadData();
+
+    console.log('Is logged in:', this.authService.isUserLoggedIn());
+    console.log('Is in group:', this.authService.userIsInGroup(this.groupId));
+
+    if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
+      this.router.navigate(['no-access']);
+    }
   }
 
   private loadData(): void {

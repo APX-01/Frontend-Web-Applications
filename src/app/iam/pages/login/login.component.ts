@@ -38,7 +38,7 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe({
       next: (user) => {
         alert(`Bienvenido, ${user.firstName}`);
-        this.router.navigate(['/home']); // Cambia al route deseado
+        this.router.navigate(['/dashboard']); // Cambia al route deseado
       }
     });
   }

@@ -8,14 +8,15 @@ import {AuthService} from "../../../iam/services/auth.service";
 import {User} from "../../../iam/model/user.entity";
 
 @Component({
-  selector: 'app-submission-card-list',
+    selector: 'app-submission-card-list',
     imports: [
         MatGridList,
         MatGridTile,
         SubmissionCardItemComponent
     ],
-  templateUrl: './submission-card-list.component.html',
-  styleUrl: './submission-card-list.component.css'
+    templateUrl: './submission-card-list.component.html',
+    standalone: true,
+    styleUrl: './submission-card-list.component.css'
 })
 export class SubmissionCardListComponent implements OnInit {
     submissions: Submission[] = [];

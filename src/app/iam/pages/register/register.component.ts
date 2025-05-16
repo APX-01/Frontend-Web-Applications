@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
     ReactiveFormsModule,
   ],
   templateUrl: './register.component.html',
+  standalone: true,
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {

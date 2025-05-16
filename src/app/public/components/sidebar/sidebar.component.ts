@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatAnchor, MatIconButton} from '@angular/material/button';
 import {
   MatSidenav,
   MatSidenavContainer,
   MatSidenavContent,
 } from '@angular/material/sidenav';
-import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatIcon} from '@angular/material/icon';
 import {LanguageSwitcherComponent} from "../language-switcher/language-switcher.component";
+import {AuthService} from "../../../iam/services/auth.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -31,8 +32,20 @@ import {LanguageSwitcherComponent} from "../language-switcher/language-switcher.
 })
 export class SidebarComponent {
   options = [
-    { link: '/home', label: 'Home' },
-    { link: '/login', label: 'Login' },
-    { link: '/register', label: 'Register' },
-  ]
+    { link: '/dashboard', label: 'Dashboard' },
+  ];
+
+  constructor(
+      private authService: AuthService,
+      private router: Router,
+  ) {
+  }
+
+  LogOut() {
+      this.authService.logout()
+  }
+
+  IsUserConnected() {
+      return this.authService.getUser() !== null;
+  }
 }

@@ -17,10 +17,8 @@ export class AppComponent implements OnInit{
   title = 'EduHive-FrontEnd';
   //currentUser: any = null; // Aquí almacenarás los datos del usuario
 
-
-
   constructor(private authService: AuthService) {
-    console.log(localStorage.getItem('currentUser'),'AppComponent cargado');
+    console.log(localStorage.getItem('auth_user'),'AppComponent cargado');
     this.loadUserFromStorage()
   }
 
@@ -30,8 +28,7 @@ export class AppComponent implements OnInit{
 
   private loadUserFromStorage(): void {
     if (this.authService.getUser()!== null) {
-      // @ts-ignore
-      this.authService.getById(this.authService.getUser().id).subscribe(
+      this.authService.getById(this.authService.getUser()?.id).subscribe(
         (user: User) => {
           this.authService.setUser(user);
         }
