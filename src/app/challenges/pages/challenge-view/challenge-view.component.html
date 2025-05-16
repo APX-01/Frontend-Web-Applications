@@ -21,7 +21,10 @@
                 <button mat-raised-button color="primary" routerLink="/home">Back to Groups</button>
             </mat-card-actions>
             <div *ngIf="tempUser.role === 'student'">
-                <button mat-raised-button color="accent" (click)="toggleSubmissionForm()">Crear Submission</button>
+                <button mat-raised-button color="primary" (click)="resetAttempts()">Reiniciar intentos</button>
+                <button mat-raised-button color="accent" (click)="toggleSubmissionForm()" [disabled]="remainingAttempts === 0">Create Submission</button>
+                <p>remaining Attempts: {{ remainingAttempts }}</p>
+                <p *ngIf="remainingAttempts === 0">You dont have remaining attempts for this challenge</p>
                 <div *ngIf="isSubmissionFormVisible" class="submission-form-container">
                     <form (ngSubmit)="createSubmission()">
                         <mat-form-field>

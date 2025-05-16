@@ -1,4 +1,9 @@
-<h3 style="margin-bottom: 20px;">All Submissions by groupId information</h3>
+
+@if (currentUser.role==="teacher"){
+    <h3 style="margin-bottom: 20px;">Submissions</h3>
+} @else {
+    <h3 style="margin-bottom: 20px;">Your Submissions</h3>
+}
 <mat-grid-list cols="2" rowHeight="500px">
 
     @for (submission of submissions; track submission) {

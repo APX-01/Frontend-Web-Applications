@@ -21,6 +21,7 @@ import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 import {SubmissionApiService} from "../../services/submission-api.service";
 import {Submission} from "../../model/submission.entity";
 
+const MAX_ATTEMPTS = 3;
 @Component({
   selector: 'app-challenge-view',
   imports: [
@@ -47,6 +48,9 @@ export class ChallengeViewComponent implements OnInit {
   isLoading = true;
   tempUser= new User({});
   isSubmissionFormVisible = false;
+  //remainingAttempts:number=3;
+  remainingAttempts: number = parseInt(localStorage.getItem('remainingAttempts') || '3', 10);
+
 
     constructor(
         private challengeService:ChallengeApiService,
@@ -94,9 +98,16 @@ export class ChallengeViewComponent implements OnInit {
         console.error('Error al crear la submission:', err);
       }
     });
+    this.remainingAttempts--;
+    localStorage.setItem('remainingAttempts', this.remainingAttempts.toString());
   }
 
   toggleSubmissionForm(): void {
     this.isSubmissionFormVisible = !this.isSubmissionFormVisible;
+  }
+
+  resetAttempts(): void {
+    this.remainingAttempts = MAX_ATTEMPTS;
+    localStorage.setItem('remainingAttempts', this.remainingAttempts.toString());
   }
 }

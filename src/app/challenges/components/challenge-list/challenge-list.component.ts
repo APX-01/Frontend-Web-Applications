@@ -21,6 +21,7 @@ import {User} from "../../../iam/model/user.entity";
 export class ChallengeListComponent implements OnInit {
   challenges: Challenge[] = [];
   @Input() currentGroupId:number=0;
+  currentUser: User = new User({});
 
 
   constructor(private challengeService: ChallengeApiService
@@ -29,7 +30,7 @@ export class ChallengeListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAvailableChallenges()
-
+    this.currentUser= this.authService.getUser() || new User({});
   }
 
   private getAvailableChallenges():void{
