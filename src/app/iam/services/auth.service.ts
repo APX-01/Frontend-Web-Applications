@@ -51,24 +51,9 @@ export class AuthService extends BaseService<User> {
     return JSON.parse(localStorage.getItem('auth_user') || 'null');
   }
 
-  /*addProfilesInGroups(user: User, key: string): Observable<User> {
-        return this.groupJoinCodeService.getByKey(key).pipe(
-            switchMap(joinCode => {
-                if (!user.profilesInGroups) {
-                    user.profilesInGroups = [];
-                }
-                //console.log(user.profilesInGroups,"Antes del push");
-                user.profilesInGroups.push({
-                    groupId: joinCode.groupId,
-                    score: 0
-                });
-                //console.log(user.profilesInGroups,"Despues del push");
-                return super.update(user.id, user); // Actualiza el usuario en el backend
-            })
-        );
-  }*/
-
-
+  setUser(user: User): void {
+      localStorage.setItem('auth_user', JSON.stringify(user));
+  }
 
   getAllProfilesInGroups(user: User): Observable<ProfilesInGroups[]> {
         return new Observable(observer => {
