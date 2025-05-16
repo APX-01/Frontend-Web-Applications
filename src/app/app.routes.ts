@@ -11,8 +11,8 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'group/:id', component: GroupViewComponent },
-  { path: 'group/members/:id', component: GroupMembersViewComponent },
+  { path: 'group/:groupId', component: GroupViewComponent },
+  { path: 'group/:groupId/members', component: GroupMembersViewComponent },
   { path: 'challenge/:id', component: ChallengeViewComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
