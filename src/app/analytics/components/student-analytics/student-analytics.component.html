@@ -1,0 +1,50 @@
+<div class="analytics-container">
+    <h2>Analíticas de {{ studentName }}</h2>
+
+    @if (isLoading) {
+        <p>Cargando datos...</p>
+    } @else {
+        @if (submissions.length > 0) {
+            <div class="chart-container">
+                <canvas baseChart
+                        [data]="lineChartData"
+                        [options]="lineChartOptions"
+                        [type]="lineChartType">
+                </canvas>
+            </div>
+
+            <div class="stats">
+                <p>Promedio: {{ calculateAverage() | number:'1.1-1' }}</p>
+                <p>Total tareas: {{ submissions.length }}</p>
+            </div>
+
+            <div class="submissions-list">
+                <h3>Detalle de Tareas</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nota</th>
+                        <th>Contenido</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @for (sub of submissions; track sub.id; let i = $index) {
+                            <tr>
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ sub.score }}</td>
+                                <td>{{ sub.content | slice:0:30 }}</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        } @else {
+            <p>No se encontraron tareas entregadas.</p>
+        }
+    }
+
+    <button class="back-button" [routerLink]="['/group', groupId, 'members']">
+        Volver a miembros
+    </button>
+</div>
