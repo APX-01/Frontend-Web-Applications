@@ -1,0 +1,10 @@
+<h3 style="margin-bottom: 20px;">All Challenges by groupId information</h3>
+<mat-grid-list cols="2" rowHeight="500px">
+
+    @for (challenge of challenges; track challenge) {
+        <mat-grid-tile>
+            <app-challenge-card-item [challenge]="challenge"></app-challenge-card-item>
+        </mat-grid-tile>
+    }
+</mat-grid-list>
+

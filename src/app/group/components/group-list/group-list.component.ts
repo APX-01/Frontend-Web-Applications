@@ -110,4 +110,12 @@ export class GroupListComponent implements OnInit {
       }
     })
   }
+
+  findGroupProfileById(id: number): ProfilesInGroups {
+    return this.tempProfilesInGroups.find(profile => profile.groupId === id) || new ProfilesInGroups({});
+  }
+
+  findGroupById(id: number): Group {
+    return this.groups.find(group => group.id === id) || new Group({});
+  }
 }

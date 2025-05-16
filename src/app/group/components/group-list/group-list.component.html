@@ -17,6 +17,6 @@
 
 <h2 style="padding: 10px">Your Groups</h2>
 <br>
-@for (group of groups; track group.name) {
-    <app-group-item [group]="group"></app-group-item>
+@for (groupProfile of tempProfilesInGroups; track groupProfile.groupId) {
+    <app-group-item [group]="findGroupById(groupProfile.groupId)" [groupProfile]="findGroupProfileById(groupProfile.groupId)"></app-group-item>
 }

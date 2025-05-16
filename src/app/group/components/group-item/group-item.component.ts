@@ -9,6 +9,7 @@ import {
   MatCardTitle
 } from "@angular/material/card";
 import {MatButton} from "@angular/material/button";
+import {ProfilesInGroups} from "../../../iam/model/profiles-in-groups.entity";
 
 @Component({
   selector: 'app-group-item',
@@ -27,6 +28,12 @@ import {MatButton} from "@angular/material/button";
 })
 export class GroupItemComponent {
   @Input() group: Group = new Group({});
+  @Input() groupProfile: ProfilesInGroups = new ProfilesInGroups({});
+
 
 
 }
+
+
+
+

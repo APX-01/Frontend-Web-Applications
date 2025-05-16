@@ -11,6 +11,7 @@ export class User {
     profilesInGroups?: ProfilesInGroups[];
 
 
+
     constructor(user:{id?: number, email?: string, firstName?: string, lastName?: string, role?: Role, password?: string, profilesInGroups?: ProfilesInGroups[]}) {
         this.id = user.id || 0;
         this.email = user.email || '';

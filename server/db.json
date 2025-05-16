@@ -55,7 +55,12 @@
       "lastName": "jjjj",
       "role": "student",
       "password": "123",
-      "profilesInGroups": [],
+      "profilesInGroups": [
+        {
+          "groupId": 1,
+          "score": 0
+        }
+      ],
       "id": 7
     },
     {
@@ -67,18 +72,41 @@
       "profilesInGroups": [
         {
           "groupId": 2,
-          "score": 0
+          "score": 60
         },
         {
           "groupId": 1,
+          "score": 50
+        },
+        {
+          "groupId": 3,
+          "score": 40
+        }
+      ],
+
+      "id": 8
+    },
+    {
+      "email": "moroco@upc.edu.pe",
+      "firstName": "moroco",
+      "lastName": "moroco",
+      "role": "student",
+      "password": "123",
+      "profilesInGroups": [
+        {
+          "groupId": 2,
           "score": 0
         },
         {
           "groupId": 3,
           "score": 0
+        },
+        {
+          "groupId": 1,
+          "score": 0
         }
       ],
-      "id": 8
+      "id": 9
     }
   ],
   "groups": [
@@ -110,6 +138,24 @@
     {
       "key": "ABC777",
       "groupId": 3
+    }
+  ],
+  "challenges": [
+    {
+      "id": 1,
+      "title": "Open",
+      "description": "Open Source Challenge",
+      "groupId": 1,
+      "deadline": "2023-10-01T00:00:00Z"
+    }
+  ],
+  "submissions": [
+    {
+      "id": 1,
+      "challengeId": 1,
+      "studentId": 1,
+      "content": "This is my submission",
+      "score": 0
     }
   ]
 }
