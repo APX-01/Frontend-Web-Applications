@@ -68,4 +68,12 @@ export class GroupViewComponent implements OnInit {
     this.userGroupProfile = this.user.profilesInGroups?.find(profile => profile.groupId === this.group.id) || new ProfileInGroup({});
     console.log(this.userGroupProfile)
   }
+
+  leaveGroup(): void {
+    this.user.profilesInGroups = this.user.profilesInGroups?.filter(profile => profile.groupId != this.group.id)
+    console.log(this.user)
+    this.authService.setUser(this.user)
+
+    this.authService.update(this.user.id, this.authService.getUser() || new User({})).subscribe({})
+  }
 }

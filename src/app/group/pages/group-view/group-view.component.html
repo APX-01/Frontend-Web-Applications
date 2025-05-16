@@ -17,7 +17,9 @@
             </mat-card-content>
 
             <mat-card-actions>
-                <button mat-raised-button color="primary" routerLink="/home">Back to Groups</button>
+                <button mat-raised-button routerLink="/home">Back to Groups</button>
+                <div class="button-spacer"></div>
+                <button mat-flat-button class="leave-button" routerLink="/home" (click)="leaveGroup()">Leave Group</button>
             </mat-card-actions>
         </mat-card>
     }
