@@ -120,18 +120,21 @@
   "groups": [
     {
       "id": 1,
-      "name": "Grupo Mates",
-      "description": "Grupo de matemáticas de 4to grado"
+      "name": "Grupo Programacion",
+      "description": "Grupo de matemáticas de 4to grado",
+      "imageUrl":"https://picsum.photos/seed/13/1600/800"
     },
     {
       "id": 2,
       "name": "Grupo Coms",
-      "description": "Grupo de comunicación de 5to grado"
+      "description": "Grupo de comunicación de 5to grado",
+      "imageUrl":"https://picsum.photos/seed/12/1600/800"
     },
     {
       "id": 3,
       "name": "Grupo Backyardigans",
-      "description": "Grupo de Open Source"
+      "description": "Grupo de Open Source",
+      "imageUrl": "https://picsum.photos/seed/11/1600/800"
     }
   ],
   "groupJoinCodes": [
@@ -154,65 +157,86 @@
       "title": "Open Source",
       "description": "Open Source Challenge",
       "groupId": 1,
-      "deadline": "2023-10-01T00:00:00Z"
-    },
-    {
-      "id": 2,
-      "title": "Comunicación",
-      "description": "Challenge de Comunicación",
-      "groupId": 2,
-      "deadline": "2023-11-01T00:00:00Z"
-    },
-    {
-      "id": 3,
-      "title": "Matemáticas",
-      "description": "Challenge de Matemáticas",
-      "groupId": 1,
-      "deadline": "2023-12-01T00:00:00Z"
+      "deadline": "2023-10-01T00:00:00Z",
+      "imageUrl": "https://www.searchenginejournal.com/wp-content/uploads/2019/04/the-seo-guide-to-angular.png"
+
     }
   ],
   "submissions": [
     {
       "id": 1,
       "challengeId": 1,
-      "studentId": 6,
-      "content": "This is my submission1",
-      "score": 5
+      "studentId": 1,
+      "content": "This is my submission",
+      "score": 0,
+      "imageUrl": "https://picsum.photos/seed/1/1600/800"
+
     },
     {
       "id": 2,
       "challengeId": 1,
       "studentId": 6,
       "content": "This is my submission2",
-      "score": 10
+      "score": 0,
+      "imageUrl": "https://picsum.photos/seed/2/1600/800"
     },
     {
       "id": 3,
       "challengeId": 1,
       "studentId": 7,
       "content": "This is my submission3",
-      "score": 2
+      "score": 0,
+      "imageUrl": "https://picsum.photos/seed/3/1600/800"
+
     },
     {
       "id": 4,
       "challengeId": 1,
       "studentId": 8,
-      "content": "This is my submission4",
-      "score": 5
+      "content": "This is my submission8",
+      "score": 20,
+      "imageUrl": "https://picsum.photos/seed/4/1600/800"
     },
     {
       "id": 5,
       "challengeId": 1,
       "studentId": 8,
       "content": "Hola uwu",
-      "score": 15
+      "score": 17,
+      "imageUrl": "https://picsum.photos/seed/5/1600/800"
+
     },
     {
       "id": 6,
       "challengeId": 1,
       "studentId": 8,
-      "content": "Hola uwu",
-      "score": 20
+      "content": "This is my attempt",
+      "score": 0,
+      "imageUrl": "https://picsum.photos/seed/6/1600/800"
+    },
+    {
+      "id": 7,
+      "challengeId": 1,
+      "studentId": 8,
+      "content": "I1",
+      "score": 0,
+      "imageUrl": "https://picsum.photos/seed/1747434418975.5981/1600/800"
+    },
+    {
+      "id": 8,
+      "challengeId": 1,
+      "studentId": 8,
+      "content": "I2",
+      "score": 0,
+      "imageUrl": "https://picsum.photos/seed/1747434418975.5981/1600/800"
+    },
+    {
+      "id": 9,
+      "challengeId": 1,
+      "studentId": 8,
+      "content": "crear 3 submit",
+      "score": 0,
+      "imageUrl": "https://picsum.photos/seed/1747434429419.1653/1600/800"
     }
   ]
 }

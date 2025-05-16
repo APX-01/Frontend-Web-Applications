@@ -1,14 +1,19 @@
 <mat-card>
+    <!-- Imagen en la parte superior -->
+    <img mat-card-image [src]="challenge.imageUrl" alt="Challenge image">
     <mat-card-content>
 
-        <mat-card-header>TITLE: {{ challenge.title }}</mat-card-header><br>
+
+        <mat-card-header>Title : {{ challenge.title }}</mat-card-header><br>
 
         <span><strong>description: </strong>{{ challenge.description }}</span><br>
         <span><strong>deadline: </strong>{{ challenge.deadline }}</span><br>
 
     </mat-card-content>
     <mat-card-footer>
-        <button mat-button [routerLink]="['/challenge', challenge.id]">Ver</button>
+        <button mat-button [routerLink]="['/challenge', challenge.id]" style="background-color: orange;">
+            <mat-icon style="color: white;">arrow_forward</mat-icon>
+        </button>
 
     </mat-card-footer>
 </mat-card>

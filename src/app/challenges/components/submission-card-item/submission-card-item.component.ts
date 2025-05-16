@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MatCard, MatCardContent, MatCardFooter, MatCardHeader} from "@angular/material/card";
+import {MatCard, MatCardContent, MatCardFooter, MatCardHeader, MatCardImage} from "@angular/material/card";
 import {Submission} from "../../model/submission.entity";
 import {MatButton} from "@angular/material/button";
 import {NgIf} from "@angular/common";
@@ -16,7 +16,8 @@ import {SubmissionEditComponent} from "../submission-edit/submission-edit.compon
         MatCardHeader,
         MatCardFooter,
         MatButton,
-        NgIf
+        NgIf,
+        MatCardImage
     ],
   templateUrl: './submission-card-item.component.html',
   styleUrl: './submission-card-item.component.css'
