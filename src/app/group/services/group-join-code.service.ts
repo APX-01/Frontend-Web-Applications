@@ -50,4 +50,12 @@ export class GroupJoinCodeService extends BaseService<GroupJoinCode> {
       return this.http.delete<any>(`${this.resourcePath()}?groupId=${groupId}`, this.httpOptions)
           .pipe( retry(2), catchError(this.handleError));
   }
+
+  public codeExists(key: string): Observable<boolean> {
+      return this.http.get<GroupJoinCode[]>(`${this.resourcePath()}?key=${key}`, this.httpOptions)
+          .pipe(
+              map((codes) => codes.length > 0),
+              catchError(this.handleError)
+          );
+  }
 }

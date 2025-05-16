@@ -1,0 +1,106 @@
+<div class="code-section">
+    <button mat-flat-button [routerLink]="['/group', groupId]" style="margin-left: 100px">Back to Group</button>
+
+    @if (user.role === 'teacher') {
+        <div class="join-code-container">
+            @if (groupJoinCode != '') {
+                <div class="code-display">
+                    <span class="code-text">Código de unión: {{groupJoinCode}}</span>
+                    <button mat-icon-button (click)="copyToClipboard()" matTooltip="Copiar código">
+                        <mat-icon>content_copy</mat-icon>
+                    </button>
+                </div>
+            } @else {
+                @if (showCodeInput) {
+                    <div class="code-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Código</mat-label>
+                            <input matInput [(ngModel)]="newCode" placeholder="O deja vacío para generar automático">
+                        </mat-form-field>
+                        <button mat-flat-button color="primary" (click)="createJoinCode()">Crear código</button>
+                        <button mat-flat-button (click)="toggleCodeInput()">Cancelar</button>
+                    </div>
+                } @else {
+                    <button mat-flat-button color="primary" (click)="toggleCodeInput()">
+                        Generar código de unión
+                    </button>
+                }
+            }
+        </div>
+    }
+</div>
+
+<table class="user-table">
+    <thead>
+    <h2>Profesor</h2>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+            <tr>
+                <td>{{teacher.id}}</td>
+                <td>{{teacher.firstName}}</td>
+                <td>{{teacher.lastName}}</td>
+                <td>{{teacher.email}}</td>
+                <td>
+                <span [class.student]="teacher.role === 'student'"
+                      [class.teacher]="teacher.role === 'teacher'">
+                  {{teacher.role === 'student' ? 'Estudiante' : 'Profesor'}}
+                </span>
+                </td>
+            </tr>
+
+    </tbody>
+</table>
+
+<table class="user-table">
+    <thead>
+    <h2>Alumnos</h2>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Score</th>
+        @if (user.role == 'teacher') {
+            <th>Actions</th>
+        }
+    </tr>
+    </thead>
+    <tbody>
+        @for (student of studentList; track student.id) {
+            <tr>
+                <td>{{student.id}}</td>
+                <td>{{student.firstName}}</td>
+                <td>{{student.lastName}}</td>
+                <td>{{student.email}}</td>
+                <td>
+                <span [class.student]="student.role === 'student'"
+                      [class.teacher]="student.role === 'teacher'">
+                  {{student.role === 'student' ? 'Estudiante' : 'Profesor'}}
+                </span>
+                </td>
+                <td>
+                    {{getUserScore(student)}}
+                </td>
+                @if (user.role == 'teacher') {
+                    <td>
+                        <button mat-icon-button aria-label="kick" (click)="kickStudent(student.id)"><mat-icon>cancel</mat-icon></button>
+                        <!-- Botón para los analytics -->
+                        <button mat-icon-button><mat-icon>info</mat-icon></button>
+                    </td>
+                }
+            </tr>
+        } @empty {
+            <tr>
+                <td colspan="7">No hay miembros en este grupo</td>
+            </tr>
+        }
+    </tbody>
+</table>
