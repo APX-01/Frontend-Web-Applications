@@ -163,6 +163,13 @@
       "studentId": 8,
       "content": "This is my submission8",
       "score": 20
+    },
+    {
+      "id": 5,
+      "challengeId": 1,
+      "studentId": 8,
+      "content": "Hola uwu",
+      "score": 0
     }
   ]
 }

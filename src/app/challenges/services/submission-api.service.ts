@@ -22,5 +22,9 @@ export class SubmissionApiService extends BaseService<Submission>{
         .pipe(retry(2), catchError(this.handleError));
   }
 
+  createSubmission(submission: Submission):Observable<Submission> {
+    return this.create(submission);
+  }
+
 
 }

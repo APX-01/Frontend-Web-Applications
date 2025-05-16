@@ -20,6 +20,18 @@
             <mat-card-actions>
                 <button mat-raised-button color="primary" routerLink="/home">Back to Groups</button>
             </mat-card-actions>
+            <div *ngIf="tempUser.role === 'student'">
+                <button mat-raised-button color="accent" (click)="toggleSubmissionForm()">Crear Submission</button>
+                <div *ngIf="isSubmissionFormVisible" class="submission-form-container">
+                    <form (ngSubmit)="createSubmission()">
+                        <mat-form-field>
+                            <textarea matInput [(ngModel)]="challengeToSubmit.content" name="description" required></textarea>
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" type="submit">Enviar</button>
+                        <button mat-raised-button color="warn" type="button" (click)="toggleSubmissionForm()">Cancelar</button>
+                    </form>
+                </div>
+            </div>
         </mat-card>
     }
 </div>
