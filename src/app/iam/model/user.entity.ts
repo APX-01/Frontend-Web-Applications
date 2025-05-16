@@ -10,14 +10,14 @@ export class User {
     password: string;         // Solo para formularios (¡nunca lo almacenes en frontend!)
     profilesInGroups?: ProfilesInGroups[];
 
-    constructor() {
-        this.id = 0;
-        this.email = "";
-        this.firstName = "";
-        this.lastName = "";
-        this.role = "student";
-        this.password = "";
-        this.profilesInGroups = [];
-    }
 
+    constructor(user:{id?: number, email?: string, firstName?: string, lastName?: string, role?: Role, password?: string, profilesInGroups?: ProfilesInGroups[]}) {
+        this.id = user.id || 0;
+        this.email = user.email || '';
+        this.firstName = user.firstName || '';
+        this.lastName = user.lastName || '';
+        this.role = user.role || 'student';
+        this.password = user.password || '';
+        this.profilesInGroups = user.profilesInGroups || [];
+    }
 }

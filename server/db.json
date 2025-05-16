@@ -68,6 +68,14 @@
         {
           "groupId": 2,
           "score": 0
+        },
+        {
+          "groupId": 1,
+          "score": 0
+        },
+        {
+          "groupId": 3,
+          "score": 0
         }
       ],
       "id": 8
