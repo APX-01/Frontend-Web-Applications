@@ -111,5 +111,23 @@
       "key": "ABC777",
       "groupId": 3
     }
+  ],
+  "challenges": [
+    {
+      "id": 1,
+      "title": "Open Source",
+      "description": "Open Source Challenge",
+      "groupId": 1,
+      "deadline": "2023-10-01T00:00:00Z"
+    }
+  ],
+  "submissions": [
+    {
+      "id": 1,
+      "challengeId": 1,
+      "studentId": 1,
+      "content": "This is my submission",
+      "score": 0
+    }
   ]
 }

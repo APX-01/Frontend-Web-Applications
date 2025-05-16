@@ -7,13 +7,17 @@ import {MatButton} from "@angular/material/button";
 import {User} from "../../../iam/model/user.entity";
 import {AuthService} from "../../../iam/services/auth.service";
 import {ProfileInGroup} from "../../../iam/model/profile-in-group.entity";
+import {ChallengeListComponent} from "../../../challenges/components/challenge-list/challenge-list.component";
+
 
 @Component({
   selector: 'app-group-view',
   imports: [
     MatCardModule,
     MatButton,
-    RouterLink
+    RouterLink,
+    ChallengeListComponent,
+
   ],
   templateUrl: './group-view.component.html',
   standalone: true,

@@ -12,6 +12,7 @@
                 <p>Puntaje total en este grupo: {{userGroupProfile.score}}</p>
 
                 <!-- Añadir lista de challenges aquí -->
+                <app-challenge-list [currentGroupId]="group.id"></app-challenge-list>
 
             </mat-card-content>
 
