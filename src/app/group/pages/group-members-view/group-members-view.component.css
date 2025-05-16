@@ -1,0 +1,117 @@
+.user-table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+.user-table th, .user-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.user-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.user-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.user-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.student {
+    background-color: #e6f7ff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #1890ff;
+}
+
+.teacher {
+    background-color: #f6ffed;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: #52c41a;
+}
+
+.user-table ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.user-table li {
+    list-style-type: none;
+    position: relative;
+    padding-left: 15px;
+}
+
+.user-table li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #666;
+}
+
+.code-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.join-code-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f5f5f5;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+.code-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.code-text {
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.code-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+mat-form-field {
+    width: 300px;
+}
+
+@media (max-width: 768px) {
+    .code-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .join-code-container {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .code-input {
+        flex-wrap: wrap;
+    }
+
+    mat-form-field {
+        width: 100%;
+    }
+}

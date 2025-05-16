@@ -133,6 +133,12 @@ export class GroupListComponent implements OnInit {
       description: groupData.description,
     });
 
+    // Añadir a la lista local
+    this.groups.push(newGroup);
+
+
+    //Publicar al db.json
+
     this.groupService.create(newGroup).subscribe({
       next: (createdGroup) => {
         this.availableGroups = [...this.availableGroups, createdGroup.id];

@@ -18,8 +18,8 @@
 
             <mat-card-actions>
                 <button mat-raised-button routerLink="/home">Back to Groups</button>
+                <button mat-raised-button [routerLink]="['/group/members', group.id]">See Members</button>
                 <div class="button-spacer"></div>
-
                 @if (user.role == "teacher") {
                     <button mat-flat-button class="leave-button" (click)="deleteGroup()" routerLink="/home" >Delete Group</button>
                 } @else {
