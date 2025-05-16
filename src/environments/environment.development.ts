@@ -5,5 +5,6 @@ export const environment = {
   groupJoinCodesEndpointPath: '/groupJoinCodes',
   usersEndpointPath: '/users',
   challengesEndpointPath: '/challenges',
+  submissionsEndpointPath: '/submissions',
 
 };

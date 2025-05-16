@@ -5,6 +5,7 @@ import {ChallengeApiService} from "../../services/challenge-api.service";
 import {ChallengeCardItemComponent} from "../challenge-card-item/challenge-card-item.component";
 import {GroupService} from "../../../group/services/group.service";
 import {AuthService} from "../../../iam/services/auth.service";
+import {User} from "../../../iam/model/user.entity";
 
 @Component({
   selector: 'app-challenge-list',
@@ -20,12 +21,14 @@ export class ChallengeListComponent implements OnInit {
   challenges: Challenge[] = [];
   @Input() currentGroupId:number=0;
 
+
   constructor(private challengeService: ChallengeApiService
       ,private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.getAvailableChallenges()
+
   }
 
   private getAvailableChallenges():void{

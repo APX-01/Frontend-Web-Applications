@@ -6,7 +6,21 @@
       "firstName": "Omar",
       "lastName": "Luquillas",
       "role": "teacher",
-      "password": "123"
+      "password": "123",
+      "profilesInGroups": [
+        {
+          "groupId": 1,
+          "score": 0
+        },
+        {
+          "groupId": 3,
+          "score": 0
+        },
+        {
+          "groupId": 2,
+          "score": 0
+        }
+      ]
     },
     {
       "id": 2,
@@ -66,15 +80,15 @@
       "password": "example",
       "profilesInGroups": [
         {
-          "groupId": 2,
-          "score": 0
-        },
-        {
           "groupId": 1,
           "score": 0
         },
         {
           "groupId": 3,
+          "score": 0
+        },
+        {
+          "groupId": 2,
           "score": 0
         }
       ],
@@ -128,6 +142,27 @@
       "studentId": 1,
       "content": "This is my submission",
       "score": 0
+    },
+    {
+      "id": 2,
+      "challengeId": 1,
+      "studentId": 2,
+      "content": "This is my submission2",
+      "score": 0
+    },
+    {
+      "id": 3,
+      "challengeId": 1,
+      "studentId": 1,
+      "content": "This is my submission3",
+      "score": 0
+    },
+    {
+      "id": 4,
+      "challengeId": 1,
+      "studentId": 8,
+      "content": "This is my submission8",
+      "score": 20
     }
   ]
 }

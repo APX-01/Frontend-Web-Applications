@@ -1,0 +1,11 @@
+<h3 style="margin-bottom: 20px;">All Submissions by groupId information</h3>
+<mat-grid-list cols="2" rowHeight="500px">
+
+    @for (submission of submissions; track submission) {
+        <mat-grid-tile>
+            <app-submission-card-item [submission]="submission"></app-submission-card-item>
+        </mat-grid-tile>
+    }
+</mat-grid-list>
+
+
