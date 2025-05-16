@@ -87,6 +87,7 @@ export class ChallengeViewComponent implements OnInit {
       studentId: this.tempUser.id,
       content: this.challengeToSubmit.content,
       score: 0,
+      imageUrl: this.challengeToSubmit.imageUrl,
     };
 
     this.submissionService.createSubmission(submission).subscribe({
