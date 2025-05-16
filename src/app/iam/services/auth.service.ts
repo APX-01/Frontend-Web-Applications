@@ -84,4 +84,17 @@ export class AuthService extends BaseService<User> {
       );
   }
 
+  isUserLoggedIn(): boolean {
+      return this.getUser() !== null;
+  }
+
+  userIsInGroup(groupId: number): boolean {
+      let groups: Array<number> = []
+      this.getUser()?.profilesInGroups?.map((profile) => {
+          groups.push(profile.groupId);
+      });
+
+      return groups.includes(groupId)
+  }
+
 }

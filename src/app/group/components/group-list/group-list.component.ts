@@ -14,6 +14,7 @@ import {of} from "rxjs";
 import {User} from "../../../iam/model/user.entity";
 import {MatDialog} from "@angular/material/dialog";
 import {GroupCreateAndEditComponent} from "../group-create-and-edit/group-create-and-edit.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-group-list',
@@ -45,9 +46,22 @@ export class GroupListComponent implements OnInit {
   availableGroups:number[]= [];
   groups: Group[] = [];
 
-  constructor(private changeDetector: ChangeDetectorRef, private createDialog: MatDialog, private groupService: GroupService, private groupJoinCodeService: GroupJoinCodeService,private authService: AuthService) { }
+  constructor(
+      private changeDetector: ChangeDetectorRef,
+      private createDialog: MatDialog,
+      private groupService: GroupService,
+      private groupJoinCodeService: GroupJoinCodeService,
+      private authService: AuthService,
+      private router: Router
+  ) { }
 
   ngOnInit(): void {
+
+    console.log('Is logged in:', this.authService.isUserLoggedIn());
+
+    if (!this.authService.isUserLoggedIn()) {
+      this.router.navigate(['login']);
+    }
 
     this.user = this.authService.getUser() || new User({});
 

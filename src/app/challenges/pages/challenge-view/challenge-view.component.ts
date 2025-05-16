@@ -9,7 +9,7 @@ import {
   MatCardSubtitle,
   MatCardTitle
 } from "@angular/material/card";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Challenge} from "../../model/challenge.entity";
 import {ChallengeApiService} from "../../services/challenge-api.service";
 import {SubmissionCardListComponent} from "../../components/submission-card-list/submission-card-list.component";
@@ -40,6 +40,7 @@ const MAX_ATTEMPTS = 3;
     MatInput
   ],
   templateUrl: './challenge-view.component.html',
+  standalone: true,
   styleUrl: './challenge-view.component.css'
 })
 export class ChallengeViewComponent implements OnInit {
@@ -48,6 +49,8 @@ export class ChallengeViewComponent implements OnInit {
   isLoading = true;
   tempUser= new User({});
   isSubmissionFormVisible = false;
+  groupId!: number;
+
   //remainingAttempts:number=3;
   remainingAttempts: number = parseInt(localStorage.getItem('remainingAttempts') || '3', 10);
 
@@ -56,15 +59,24 @@ export class ChallengeViewComponent implements OnInit {
         private challengeService:ChallengeApiService,
         private route: ActivatedRoute,
         private authService: AuthService,
-        private submissionService: SubmissionApiService) {
+        private submissionService: SubmissionApiService,
+        private router: Router) {
     }
 
     ngOnInit(): void {
       this.tempUser=this.authService.getUser()|| new User({});
       this.loadData();
+
+      console.log('Is logged in:', this.authService.isUserLoggedIn());
+      console.log('Is in group:', this.authService.userIsInGroup(this.groupId));
+
+      if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
+        this.router.navigate(['no-access']);
+      }
     }
   loadData(): void {
-    const challengeId = this.route.snapshot.paramMap.get('id');
+    const challengeId = this.route.snapshot.paramMap.get('challengeId');
+    this.groupId = Number(this.route.snapshot.paramMap.get('groupId'));
 
     if (challengeId) {
       this.challengeService.getById(challengeId).subscribe({

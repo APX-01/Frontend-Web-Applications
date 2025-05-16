@@ -17,13 +17,13 @@
             </mat-card-content>
 
             <mat-card-actions>
-                <button mat-raised-button routerLink="/home">Back to Groups</button>
+                <button mat-raised-button routerLink="/dashboard">Back to Groups</button>
                 <button mat-raised-button [routerLink]="['/group', group.id, 'members']">See Members</button>
                 <div class="button-spacer"></div>
                 @if (user.role == "teacher") {
-                    <button mat-flat-button class="leave-button" (click)="deleteGroup()" routerLink="/home" >Delete Group</button>
+                    <button mat-flat-button class="leave-button" (click)="deleteGroup()" routerLink="/dashboard" >Delete Group</button>
                 } @else {
-                    <button mat-flat-button class="leave-button" (click)="leaveGroup()" routerLink="/home">Leave Group</button>
+                    <button mat-flat-button class="leave-button" (click)="leaveGroup()" routerLink="/dashboard">Leave Group</button>
                 }
             </mat-card-actions>
         </mat-card>
