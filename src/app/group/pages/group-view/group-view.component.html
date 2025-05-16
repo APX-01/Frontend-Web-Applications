@@ -1,0 +1,23 @@
+<div class="group-details-container">
+    @if (isLoading) {
+        <p>Loading group details...</p>
+    } @else {
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{ group.name }}</mat-card-title>
+                <mat-card-subtitle>Group Details</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p><strong>Description:</strong> {{ group.description }}</p>
+                <p>Puntaje total en este grupo: {{userGroupProfile.score}}</p>
+
+                <!-- Añadir lista de challenges aquí -->
+
+            </mat-card-content>
+
+            <mat-card-actions>
+                <button mat-raised-button color="primary" routerLink="/home">Back to Groups</button>
+            </mat-card-actions>
+        </mat-card>
+    }
+</div>

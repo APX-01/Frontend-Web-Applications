@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
-import {BaseService} from "../../shared/base.service";
+import {BaseService} from "../../shared/services/base.service";
 import {GroupJoinCode} from "../model/group-join-code.entity";
 import {catchError, map, Observable, retry} from "rxjs";
 

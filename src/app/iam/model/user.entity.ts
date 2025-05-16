@@ -1,4 +1,4 @@
-import {ProfilesInGroups} from "./profiles-in-groups.entity";
+import {ProfileInGroup} from "./profile-in-group.entity";
 
 export type Role = 'student' | 'teacher';
 export class User {
@@ -8,10 +8,10 @@ export class User {
     lastName: string;
     role: Role;                // Solo 'estudiante' o 'profesor'
     password: string;         // Solo para formularios (¡nunca lo almacenes en frontend!)
-    profilesInGroups?: ProfilesInGroups[];
+    profilesInGroups?: ProfileInGroup[];
 
 
-    constructor(user:{id?: number, email?: string, firstName?: string, lastName?: string, role?: Role, password?: string, profilesInGroups?: ProfilesInGroups[]}) {
+    constructor(user:{id?: number, email?: string, firstName?: string, lastName?: string, role?: Role, password?: string, profilesInGroups?: ProfileInGroup[]}) {
         this.id = user.id || 0;
         this.email = user.email || '';
         this.firstName = user.firstName || '';

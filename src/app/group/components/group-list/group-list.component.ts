@@ -9,7 +9,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {GroupJoinCode} from "../../model/group-join-code.entity";
 import {GroupJoinCodeService} from "../../services/group-join-code.service";
 import {AuthService} from "../../../iam/services/auth.service";
-import {ProfilesInGroups} from "../../../iam/model/profiles-in-groups.entity";
+import {ProfileInGroup} from "../../../iam/model/profile-in-group.entity";
 import {of} from "rxjs";
 import {User} from "../../../iam/model/user.entity";
 
@@ -32,8 +32,8 @@ import {User} from "../../../iam/model/user.entity";
 })
 export class GroupListComponent implements OnInit {
 
-  tempUser: User = new User({});
-  tempProfilesInGroups: ProfilesInGroups[] = [];
+  user: User = new User({});
+  profilesInGroups: ProfileInGroup[] = [];
 
   joinCodeString: string = '';
 
@@ -47,16 +47,16 @@ export class GroupListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.tempUser = this.authService.getUser() || new User({});
+    this.user = this.authService.getUser() || new User({});
 
     this.getUserGroupList()
     this.getAvailableGroups()
   }
 
   private getUserGroupList(): void {
-    this.tempProfilesInGroups = this.authService.getUser()?.profilesInGroups || new Array<ProfilesInGroups>()
+    this.profilesInGroups = this.authService.getUser()?.profilesInGroups || new Array<ProfileInGroup>()
 
-    for (let profile of this.tempProfilesInGroups) {
+    for (let profile of this.profilesInGroups) {
       this.availableGroups.push(profile.groupId);
     }
   }
@@ -90,13 +90,13 @@ export class GroupListComponent implements OnInit {
           console.log(this.availableGroups)
           this.getAvailableGroups()
 
-          console.log('Usuario antes de actualizarse', this.tempUser)
+          console.log('Usuario antes de actualizarse', this.user)
 
-          this.tempUser.profilesInGroups?.push({ groupId: this.joinCode.groupId, score: 0})
+          this.user.profilesInGroups?.push({ groupId: this.joinCode.groupId, score: 0})
 
-          console.log('Usuario después de actualizarse', this.tempUser)
+          console.log('Usuario después de actualizarse', this.user)
 
-          this.authService.update(this.tempUser.id, this.tempUser).subscribe(user => {
+          this.authService.update(this.user.id, this.user).subscribe(user => {
             console.log('User actualizado', user)
           })
 
@@ -109,5 +109,13 @@ export class GroupListComponent implements OnInit {
         console.error(`No existe el código: ${this.joinCodeString}:`, err);
       }
     })
+  }
+
+  findGroupById(id: number): Group {
+    return this.groups.find(group => group.id === id) || new Group({});
+  }
+
+  findGroupProfileById(id: number): ProfileInGroup {
+    return this.profilesInGroups.find(profile => profile.groupId === id) || new ProfileInGroup({});
   }
 }

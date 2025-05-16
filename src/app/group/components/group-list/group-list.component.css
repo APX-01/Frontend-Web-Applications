@@ -7,3 +7,13 @@
 .example-form-field {
     width: 200px;
 }
+
+.group-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allows cards to wrap to next line if needed */
+    justify-content: center; /* Centers cards horizontally */
+    gap: 20px; /* Adds space between cards */
+    padding: 20px; /* Adds padding around the container */
+    width: 100%; /* Ensures container takes full width */
+}

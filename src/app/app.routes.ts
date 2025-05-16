@@ -2,10 +2,13 @@ import { Routes } from '@angular/router';
 import {HomeComponent} from './public/pages/home/home.component';
 import {LoginComponent} from './iam/pages/login/login.component';
 import {RegisterComponent} from "./iam/pages/register/register.component";
+import {GroupListComponent} from "./group/components/group-list/group-list.component";
+import {GroupViewComponent} from "./group/pages/group-view/group-view.component";
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: 'group/:id', component: GroupViewComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
