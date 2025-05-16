@@ -19,7 +19,7 @@ import {User} from "../../../iam/model/user.entity";
 })
 export class SubmissionCardListComponent implements OnInit {
     submissions: Submission[] = [];
-    user: any;
+    currentUser: User = new User({});
 
 
     @Input() currentChallengeId: number=0;
@@ -30,6 +30,7 @@ export class SubmissionCardListComponent implements OnInit {
 
     ngOnInit() {
         this.getAvailableSubmissions()
+        this.currentUser= this.authService.getUser() || new User({});
     }
 
     private getAvailableSubmissions(): void {

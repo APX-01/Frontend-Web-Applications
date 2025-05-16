@@ -1,4 +1,10 @@
-<h3 style="margin-bottom: 20px;">All Challenges by groupId information</h3>
+
+
+@if (currentUser.role==="teacher"){
+    <h3 style="margin-bottom: 20px;">Challenges</h3>
+} @else {
+    <h3 style="margin-bottom: 20px;">Your Challenges</h3>
+}
 <mat-grid-list cols="2" rowHeight="500px">
 
     @for (challenge of challenges; track challenge) {
