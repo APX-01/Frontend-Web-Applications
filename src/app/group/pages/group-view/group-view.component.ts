@@ -30,6 +30,7 @@ export class GroupViewComponent implements OnInit {
   user: User = new User({});
   userGroupProfile: ProfileInGroup = new ProfileInGroup({})
 
+  groupId!: number;
 
   group: Group = new Group({});
   isLoading = true;
@@ -47,10 +48,10 @@ export class GroupViewComponent implements OnInit {
   }
 
   private loadData(): void {
-    const groupId = this.route.snapshot.paramMap.get('id');
+    this.groupId = Number(this.route.snapshot.paramMap.get('groupId'));
 
-    if (groupId) {
-      this.groupService.getById(groupId).subscribe({
+    if (this.groupId) {
+      this.groupService.getById(this.groupId).subscribe({
         next: (group) => {
           this.group = group;
           this.isLoading = false;

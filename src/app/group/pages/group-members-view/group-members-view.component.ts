@@ -58,7 +58,7 @@ export class GroupMembersViewComponent implements OnInit {
   }
 
   private loadData(): void {
-    this.groupId = Number(this.route.snapshot.paramMap.get('id')) || 0;
+    this.groupId = Number(this.route.snapshot.paramMap.get('groupId')) || 0;
     this.getUserListForGroup(this.groupId)
   }
 
