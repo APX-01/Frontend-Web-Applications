@@ -93,7 +93,7 @@
                     <td>
                         <button mat-icon-button aria-label="kick" (click)="kickStudent(student.id)"><mat-icon>cancel</mat-icon></button>
                         <!-- Botón para los analytics -->
-                        <button mat-icon-button><mat-icon>info</mat-icon></button>
+                        <button mat-icon-button [routerLink]="['/group', groupId, 'student', student.id, 'analytics']" matTooltip="Analytics"><mat-icon>info</mat-icon></button>
                     </td>
                 }
             </tr>
