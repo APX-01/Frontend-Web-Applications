@@ -3,6 +3,7 @@ export const environment = {
   serverBaseUrl: 'http://localhost:3000/api/v1',
   groupsEndpointPath: '/groups',
   groupJoinCodesEndpointPath: '/groupJoinCodes',
-    usersEndpointPath: '/users',
+  usersEndpointPath: '/users',
+  challengesEndpointPath: '/challenges',
 
 };
