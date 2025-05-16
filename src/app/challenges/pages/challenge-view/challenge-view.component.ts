@@ -15,6 +15,11 @@ import {ChallengeApiService} from "../../services/challenge-api.service";
 import {SubmissionCardListComponent} from "../../components/submission-card-list/submission-card-list.component";
 import {AuthService} from "../../../iam/services/auth.service";
 import {User} from "../../../iam/model/user.entity";
+import {NgIf} from "@angular/common";
+import {FormsModule} from "@angular/forms";
+import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
+import {SubmissionApiService} from "../../services/submission-api.service";
+import {Submission} from "../../model/submission.entity";
 
 @Component({
   selector: 'app-challenge-view',
@@ -27,20 +32,27 @@ import {User} from "../../../iam/model/user.entity";
     MatCardSubtitle,
     MatCardTitle,
     RouterLink,
-    SubmissionCardListComponent
+    SubmissionCardListComponent,
+    NgIf,
+    FormsModule,
+    MatFormField,
+    MatInput
   ],
   templateUrl: './challenge-view.component.html',
   styleUrl: './challenge-view.component.css'
 })
 export class ChallengeViewComponent implements OnInit {
+  challengeToSubmit: Submission = new Submission({});
   challenge:Challenge = new Challenge({});
   isLoading = true;
   tempUser= new User({});
+  isSubmissionFormVisible = false;
 
     constructor(
         private challengeService:ChallengeApiService,
         private route: ActivatedRoute,
-        private authService: AuthService) {
+        private authService: AuthService,
+        private submissionService: SubmissionApiService) {
     }
 
     ngOnInit(): void {
@@ -62,10 +74,29 @@ export class ChallengeViewComponent implements OnInit {
         }
       });
     }
-
-
   }
 
+  createSubmission(): void {
+    const submission :Submission= {
+      id: 0,
+      challengeId: this.challenge.id,
+      studentId: this.tempUser.id,
+      content: this.challengeToSubmit.content,
+      score: 0,
+    };
 
+    this.submissionService.createSubmission(submission).subscribe({
+      next: (response) => {
+        console.log('Submission creada exitosamente:', response);
+        this.isSubmissionFormVisible = false;
+      },
+      error: (err) => {
+        console.error('Error al crear la submission:', err);
+      }
+    });
+  }
 
+  toggleSubmissionForm(): void {
+    this.isSubmissionFormVisible = !this.isSubmissionFormVisible;
+  }
 }
