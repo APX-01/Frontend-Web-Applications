@@ -8,4 +8,7 @@
         <span><strong>Score: </strong>{{ submission.score }}</span><br>
 
     </mat-card-content>
+    <mat-card-footer>
+        <button *ngIf="currentUser.role === 'teacher'" mat-button (click)="editSubmission()">Set Score</button>
+    </mat-card-footer>
 </mat-card>

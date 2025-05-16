@@ -26,5 +26,9 @@ export class SubmissionApiService extends BaseService<Submission>{
     return this.create(submission);
   }
 
+  updateSubmission(id: number, submission: Submission): Observable<Submission> {
+    return this.update(id, submission);
+  }
+
 
 }
