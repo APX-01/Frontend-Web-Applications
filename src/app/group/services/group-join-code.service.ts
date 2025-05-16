@@ -30,4 +30,24 @@ export class GroupJoinCodeService extends BaseService<GroupJoinCode> {
             catchError(this.handleError)
         );
   }
+
+    public getByGroupId(groupId: number): Observable<GroupJoinCode> {
+        return this.http.get<GroupJoinCode[]>(`${this.resourcePath()}?groupId=${groupId}`, this.httpOptions)
+            .pipe(
+                retry(2),
+                map((codes: GroupJoinCode[]) => {
+                    const foundCode = codes.find(code => code.groupId === groupId);
+                    if (!foundCode) {
+                        throw new Error('Code not found');
+                    }
+                    return foundCode;
+                }),
+                catchError(this.handleError)
+            );
+    }
+
+  public deleteByGroupId(groupId: number): Observable<any> {
+      return this.http.delete<any>(`${this.resourcePath()}?groupId=${groupId}`, this.httpOptions)
+          .pipe( retry(2), catchError(this.handleError));
+  }
 }
