@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ChallengeListComponent} from "../../components/challenge-list/challenge-list.component";
 import {MatButton} from "@angular/material/button";
 import {
@@ -37,7 +37,8 @@ const MAX_ATTEMPTS = 3;
     NgIf,
     FormsModule,
     MatFormField,
-    MatInput
+    MatInput,
+
   ],
   templateUrl: './challenge-view.component.html',
   standalone: true,
@@ -45,11 +46,12 @@ const MAX_ATTEMPTS = 3;
 })
 export class ChallengeViewComponent implements OnInit {
   challengeToSubmit: Submission = new Submission({});
-  challenge:Challenge = new Challenge({});
+  challenge:Challenge =new Challenge({})  ;
   isLoading = true;
   tempUser= new User({});
   isSubmissionFormVisible = false;
   groupId!: number;
+  currentChallenge:Challenge=new Challenge({});
 
   //remainingAttempts:number=3;
   remainingAttempts: number = parseInt(localStorage.getItem('remainingAttempts') || '3', 10);
@@ -70,10 +72,9 @@ export class ChallengeViewComponent implements OnInit {
       console.log('Is logged in:', this.authService.isUserLoggedIn());
       console.log('Is in group:', this.authService.userIsInGroup(this.groupId));
 
-      if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
-        this.router.navigate(['no-access']);
-      }
+
     }
+
   loadData(): void {
     const challengeId = this.route.snapshot.paramMap.get('challengeId');
     this.groupId = Number(this.route.snapshot.paramMap.get('groupId'));
@@ -83,6 +84,12 @@ export class ChallengeViewComponent implements OnInit {
         next: (challenge) => {
           this.challenge = challenge;
           this.isLoading = false;
+          if (!this.authService.userIsInGroup(this.groupId) ||
+              !this.authService.isUserLoggedIn() ||
+              this.challenge.groupId != this.groupId) {
+
+            this.router.navigate(['no-access']);
+          }
         },
         error: (err) => {
           console.error('Error loading challenge:', err);
