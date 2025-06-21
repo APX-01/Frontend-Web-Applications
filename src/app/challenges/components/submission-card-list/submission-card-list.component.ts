@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ChallengeCardItemComponent} from "../challenge-card-item/challenge-card-item.component";
 import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {Submission} from "../../model/submission.entity";
@@ -19,6 +19,9 @@ import {User} from "../../../iam/model/user.entity";
     styleUrl: './submission-card-list.component.css'
 })
 export class SubmissionCardListComponent implements OnInit {
+
+
+
     submissions: Submission[] = [];
     currentUser: User = new User({});
 
@@ -34,7 +37,7 @@ export class SubmissionCardListComponent implements OnInit {
         this.currentUser= this.authService.getUser() || new User({});
     }
 
-    private getAvailableSubmissions(): void {
+    public getAvailableSubmissions(): void {
         this.currentUserId = this.authService.getUser()?.id || 0;
         const userRole = this.authService.getUser()?.role || 'student'; // Asume 'student' por defecto
         this.submissions = [];

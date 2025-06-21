@@ -205,33 +205,23 @@ export class GroupMembersViewComponent implements OnInit {
   }
 
   kickStudent(studentId: number) {
-
-    console.log(`Borrando estudiante con id: ${studentId}`)
+    console.log(`Borrando estudiante con id: ${studentId}`);
     console.log("Lista de estudiantes: ");
     console.log(this.studentList);
 
-    // Eliminar de lista local
-    this.studentList = this.studentList.filter((student) => {
-      return (student.id != studentId)
-    })
+    // Eliminar de la lista local
+    this.studentList = this.studentList.filter((student) => student.id !== studentId);
+    console.log("Lista de estudiantes tras borrado:");
+    console.log(this.studentList);
 
-    console.log("Lista de estudiantes tras borrado")
-    console.log(this.studentList)
-
-    // Eliminar profileInGroup del json-server
-    let tempStudent: User = new User({});
-
-    this.authService.getById(studentId).subscribe({
-      next: (user) => {
-        tempStudent = user;
-        tempStudent.profilesInGroups = tempStudent.profilesInGroups?.filter((profile) => { return profile.groupId !== this.groupId })
-        this.authService.update(tempStudent.id, tempStudent).subscribe({
-          next: (user) => {}
-        })
+    // Llamar a leaveGroup del servicio
+    this.authService.leaveGroup(studentId, this.groupId).subscribe({
+      next: () => {
+        console.log(`Estudiante ${studentId} eliminado del grupo ${this.groupId}`);
+      },
+      error: (err) => {
+        console.error(`Error al eliminar estudiante del grupo:`, err);
       }
-    })
-
-
-
+    });
   }
 }
