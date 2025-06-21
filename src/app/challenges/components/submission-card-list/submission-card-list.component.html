@@ -8,7 +8,10 @@
 
     @for (submission of submissions; track submission) {
         <mat-grid-tile>
-            <app-submission-card-item [submission]="submission"></app-submission-card-item>
+            <app-submission-card-item
+                    [submission]="submission"
+                    (submissionUpdated)="getAvailableSubmissions()">
+            </app-submission-card-item>
         </mat-grid-tile>
     }
 </mat-grid-list>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatCard, MatCardContent, MatCardFooter, MatCardHeader, MatCardImage} from "@angular/material/card";
 import {Submission} from "../../model/submission.entity";
 import {MatButton} from "@angular/material/button";
@@ -25,27 +25,27 @@ import {SubmissionEditComponent} from "../submission-edit/submission-edit.compon
 })
 export class SubmissionCardItemComponent implements OnInit{
  @Input() submission!: Submission;
+ @Output() submissionUpdated = new EventEmitter<void>();
  currentUser: User = new User({});
  constructor(private authService: AuthService, private dialog: MatDialog) {
  }
 
- ngOnInit() {
-     this.currentUser= this.authService.getUser() || new User({});
- }
+    ngOnInit() {
+        this.currentUser= this.authService.getUser() || new User({});
+    }
 
- editSubmission(): void {
-     const dialogRef = this.dialog.open(SubmissionEditComponent, {
-         width: '400px',
-         data: { ...this.submission, } // Pasar los datos del submission al formulario
-     });
+    editSubmission(): void {
+        const dialogRef = this.dialog.open(SubmissionEditComponent, {
+            width: '400px',
+            data: { ...this.submission }
+        });
 
-     dialogRef.afterClosed().subscribe(result => {
-         if (result) {
-             // Aquí puedes manejar los datos editados
-             console.log('Datos editados:', result);
-         }
-     });
- }
+        dialogRef.afterClosed().subscribe(result => {
+            if (result === true) {
+                this.submissionUpdated.emit(); // 🚀 Notifica al padre que hubo un update
+            }
+        });
+    }
 
 
 }

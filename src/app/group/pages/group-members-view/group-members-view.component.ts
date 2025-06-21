@@ -12,6 +12,8 @@ import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {catchError, firstValueFrom, of} from "rxjs";
 import {MatTooltip} from "@angular/material/tooltip";
+import {ChallengeApiService} from "../../../challenges/services/challenge-api.service";
+import {Challenge} from "../../../challenges/model/challenge.entity";
 
 @Component({
   selector: 'app-group-members-view',
@@ -43,14 +45,19 @@ export class GroupMembersViewComponent implements OnInit {
   showCodeInput: boolean = false;
   newCode: string = '';
 
+  challenges: Challenge[] = [];
+
   constructor(
       private authService: AuthService,
       private route: ActivatedRoute,
       private groupJoinCodeService: GroupJoinCodeService,
       private snackBar: MatSnackBar,
-      private router: Router
+      private router: Router,
+      private challengeService: ChallengeApiService
   ) {
   }
+
+
 
   ngOnInit() {
     this.user = this.authService.getUser() || new User({});
@@ -60,9 +67,19 @@ export class GroupMembersViewComponent implements OnInit {
     console.log('Is logged in:', this.authService.isUserLoggedIn());
     console.log('Is in group:', this.authService.userIsInGroup(this.groupId));
 
+    this.challengeService.getByGroupId(this.groupId).subscribe({
+      next: (challenges) => {
+        this.challenges = challenges;
+      },
+      error: (err) => {
+        console.error('Error al cargar challenges:', err);
+      }
+    });
+
     if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
       this.router.navigate(['no-access']);
     }
+
   }
 
   private loadData(): void {
@@ -205,33 +222,23 @@ export class GroupMembersViewComponent implements OnInit {
   }
 
   kickStudent(studentId: number) {
-
-    console.log(`Borrando estudiante con id: ${studentId}`)
+    console.log(`Borrando estudiante con id: ${studentId}`);
     console.log("Lista de estudiantes: ");
     console.log(this.studentList);
 
-    // Eliminar de lista local
-    this.studentList = this.studentList.filter((student) => {
-      return (student.id != studentId)
-    })
+    // Eliminar de la lista local
+    this.studentList = this.studentList.filter((student) => student.id !== studentId);
+    console.log("Lista de estudiantes tras borrado:");
+    console.log(this.studentList);
 
-    console.log("Lista de estudiantes tras borrado")
-    console.log(this.studentList)
-
-    // Eliminar profileInGroup del json-server
-    let tempStudent: User = new User({});
-
-    this.authService.getById(studentId).subscribe({
-      next: (user) => {
-        tempStudent = user;
-        tempStudent.profilesInGroups = tempStudent.profilesInGroups?.filter((profile) => { return profile.groupId !== this.groupId })
-        this.authService.update(tempStudent.id, tempStudent).subscribe({
-          next: (user) => {}
-        })
+    // Llamar a leaveGroup del servicio
+    this.authService.leaveGroup(studentId, this.groupId).subscribe({
+      next: () => {
+        console.log(`Estudiante ${studentId} eliminado del grupo ${this.groupId}`);
+      },
+      error: (err) => {
+        console.error(`Error al eliminar estudiante del grupo:`, err);
       }
-    })
-
-
-
+    });
   }
 }

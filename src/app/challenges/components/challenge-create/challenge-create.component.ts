@@ -14,6 +14,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatLabel } from "@angular/material/form-field";
 
+import { ReactiveFormsModule } from "@angular/forms";
+
 
 @Component({
   selector: 'app-challenge-create',
@@ -26,11 +28,9 @@ import { MatLabel } from "@angular/material/form-field";
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    MatLabel
-  ],
-  providers: [
-    MatDatepickerModule,
+    MatNativeDateModule, // ✅ importante para DateAdapter
+    MatLabel,
+    ReactiveFormsModule
   ],
   templateUrl: './challenge-create.component.html',
   standalone: true,
@@ -62,10 +62,15 @@ export class ChallengeCreateComponent {
 
   onSubmit(): void {
     if (
-        this.challengeData.title
-        && this.challengeData.description
+        this.challengeData.title &&
+        this.challengeData.description &&
+        this.challengeData.deadline
     ) {
-      console.log(this.challengeData)
+      // Generar imagen aleatoria
+      const randomId = Math.floor(Math.random() * 1000);
+      this.challengeData.imageUrl = `https://picsum.photos/seed/${randomId}/600/300`;
+
+      console.log(this.challengeData);
       this.dialogRef.close(this.challengeData);
     }
   }

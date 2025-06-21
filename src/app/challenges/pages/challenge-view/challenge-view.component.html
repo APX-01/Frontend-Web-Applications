@@ -25,7 +25,7 @@
             </mat-card-content>
 
 
-            <div *ngIf="tempUser.role === 'student'" class="submission-container">
+            <div *ngIf="tempUser.role === 'ROLE_STUDENT'" class="submission-container">
                 <!--<button mat-raised-button color="primary" (click)="resetAttempts()">Reiniciar intentos</button>-->
                 <button mat-raised-button color="accent" (click)="toggleSubmissionForm()" [disabled]="remainingAttempts === 0">Create Submission</button>
                 <p>remaining Attempts: {{ remainingAttempts }}</p>

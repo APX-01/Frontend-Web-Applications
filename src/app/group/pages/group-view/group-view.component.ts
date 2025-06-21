@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Group} from "../../model/group.entity";
 import {GroupService} from "../../services/group.service";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
@@ -28,6 +28,9 @@ import {ChallengeApiService} from "../../../challenges/services/challenge-api.se
   styleUrl: './group-view.component.css'
 })
 export class GroupViewComponent implements OnInit {
+
+
+  @ViewChild('challengeList') challengeListComponent!: ChallengeListComponent;
 
   // User
   user: User = new User({});
@@ -90,10 +93,18 @@ export class GroupViewComponent implements OnInit {
   }
 
   leaveGroup(): void {
-    this.getActualUser();
-    console.log(this.user);
-    this.authService.leaveGroup(this.user.id, this.groupId)
-    this.getActualUser();
+    const studentId = this.user.id;
+    console.log(`Borrando estudiante con id: ${studentId}`);
+
+    this.authService.leaveGroup(studentId, this.groupId).subscribe({
+      next: () => {
+        console.log(`Estudiante ${studentId} eliminado del grupo ${this.groupId}`);
+        this.router.navigate(['/dashboard']); // Redirige al dashboard tras dejar el grupo
+      },
+      error: (err) => {
+        console.error(`Error al eliminar estudiante del grupo:`, err);
+      }
+    });
   }
 
   deleteGroup(): void {
@@ -108,7 +119,7 @@ export class GroupViewComponent implements OnInit {
     })
   }
 
-  openCreateChallengeDialog(): void {
+  /*openCreateChallengeDialog(): void {
     const dialogRef = this.createDialog.open(ChallengeCreateComponent, {
       width: "600px",
       data: {groupId: this.groupId}
@@ -124,6 +135,26 @@ export class GroupViewComponent implements OnInit {
             }
           }
         })
+      }
+    });
+  }*/
+
+  openCreateChallengeDialog(): void {
+    const dialogRef = this.createDialog.open(ChallengeCreateComponent, {
+      width: "600px",
+      data: { groupId: this.groupId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.challengeService.create(result).subscribe({
+          next: () => {
+            // Ahora sí: esto es seguro y correcto
+            if (this.challengeListComponent) {
+              this.challengeListComponent.getAvailableChallenges();
+            }
+          }
+        });
       }
     });
   }
