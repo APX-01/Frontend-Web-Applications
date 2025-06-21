@@ -43,4 +43,8 @@ export class AnalyticsService {
     getSubmissionsByStudentId(studentId: number): Observable<Submission[]> {
         return this.http.get<Submission[]>(`${this.apiUrl}/submissions/student/${studentId}`);
     }
+
+    getSubmissionsByStudentIdAndGroupId(studentId: number, groupId: number): Observable<Submission[]> {
+        return this.http.get<Submission[]>(`${this.apiUrl}/submissions/student/${studentId}/group/${groupId}`);
+    }
 }

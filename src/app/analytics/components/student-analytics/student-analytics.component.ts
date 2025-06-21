@@ -19,6 +19,7 @@ Chart.register(...registerables);
     DecimalPipe,
     SlicePipe
   ],
+  standalone: true,
   styleUrls: ['./student-analytics.component.css']
 })
 export class StudentAnalyticsComponent implements OnInit {
@@ -78,9 +79,11 @@ export class StudentAnalyticsComponent implements OnInit {
   }
 
   loadStudentSubmissions() {
-    this.analyticsService.getSubmissionsByStudentId(this.studentId).subscribe({
+    this.analyticsService.getSubmissionsByStudentIdAndGroupId(this.studentId,this.groupId).subscribe({
       next: (submissions) => {
         this.submissions = submissions;
+        console.log(submissions)
+        console.log(this.submissions)
 
         const scores = submissions.map(sub => sub.score);
 
