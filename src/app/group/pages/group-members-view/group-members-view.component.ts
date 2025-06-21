@@ -12,6 +12,8 @@ import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {catchError, firstValueFrom, of} from "rxjs";
 import {MatTooltip} from "@angular/material/tooltip";
+import {ChallengeApiService} from "../../../challenges/services/challenge-api.service";
+import {Challenge} from "../../../challenges/model/challenge.entity";
 
 @Component({
   selector: 'app-group-members-view',
@@ -43,14 +45,19 @@ export class GroupMembersViewComponent implements OnInit {
   showCodeInput: boolean = false;
   newCode: string = '';
 
+  challenges: Challenge[] = [];
+
   constructor(
       private authService: AuthService,
       private route: ActivatedRoute,
       private groupJoinCodeService: GroupJoinCodeService,
       private snackBar: MatSnackBar,
-      private router: Router
+      private router: Router,
+      private challengeService: ChallengeApiService
   ) {
   }
+
+
 
   ngOnInit() {
     this.user = this.authService.getUser() || new User({});
@@ -60,9 +67,19 @@ export class GroupMembersViewComponent implements OnInit {
     console.log('Is logged in:', this.authService.isUserLoggedIn());
     console.log('Is in group:', this.authService.userIsInGroup(this.groupId));
 
+    this.challengeService.getByGroupId(this.groupId).subscribe({
+      next: (challenges) => {
+        this.challenges = challenges;
+      },
+      error: (err) => {
+        console.error('Error al cargar challenges:', err);
+      }
+    });
+
     if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
       this.router.navigate(['no-access']);
     }
+
   }
 
   private loadData(): void {

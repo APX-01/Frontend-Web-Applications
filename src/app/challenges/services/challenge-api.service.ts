@@ -29,4 +29,9 @@ export class ChallengeApiService extends BaseService<Challenge>{
     );
   }
 
+  getChallengesByGroupId(groupId: number): Observable<Challenge[]> {
+    const url = `${this.resourcePath()}/group/${groupId}`;
+    return this.http.get<Challenge[]>(url, this.httpOptions);
+  }
+
 }
