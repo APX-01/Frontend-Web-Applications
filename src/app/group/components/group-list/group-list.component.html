@@ -2,7 +2,7 @@
     <h3 style="text-align: center; margin-top: 50px">Loading Groups...</h3>
 } @else {
     <div class="join-code-section">
-        @if (user.role == 'teacher') {
+        @if (user.role == 'ROLE_TEACHER') {
             <h3>Create Group: </h3>
             <button mat-icon-button (click)="openCreateGroupDialog()" style="margin-left: 10px"><mat-icon style="text-align: center">add_box</mat-icon></button>
         } @else {
@@ -24,8 +24,8 @@
     <h2 style="padding: 10px">Your Groups</h2>
     <br>
     <div class="group-cards">
-        @for (groupProfile of profilesInGroups; track groupProfile.groupId) {
-            <app-group-item [group]="findGroupById(groupProfile.groupId)" [groupProfile]="findGroupProfileById(groupProfile.groupId)"></app-group-item>
+        @for (group of groups; track group.id) {
+            <app-group-item [group]="group"></app-group-item>
         }
     </div>
 }

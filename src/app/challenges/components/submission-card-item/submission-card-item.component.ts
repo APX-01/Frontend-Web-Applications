@@ -9,7 +9,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {SubmissionEditComponent} from "../submission-edit/submission-edit.component";
 
 @Component({
-  selector: 'app-submission-card-item',
+    selector: 'app-submission-card-item',
     imports: [
         MatCard,
         MatCardContent,
@@ -19,8 +19,9 @@ import {SubmissionEditComponent} from "../submission-edit/submission-edit.compon
         NgIf,
         MatCardImage
     ],
-  templateUrl: './submission-card-item.component.html',
-  styleUrl: './submission-card-item.component.css'
+    templateUrl: './submission-card-item.component.html',
+    standalone: true,
+    styleUrl: './submission-card-item.component.css'
 })
 export class SubmissionCardItemComponent implements OnInit{
  @Input() submission!: Submission;

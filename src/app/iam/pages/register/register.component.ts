@@ -32,13 +32,26 @@ export class RegisterComponent {
       return;
     }
 
+    switch (this.form.value.role)
+    {
+      case 'student':
+        this.form.value.role = "ROLE_STUDENT"
+        break;
+      case 'teacher':
+        this.form.value.role = "ROLE_TEACHER"
+        break;
+    }
+
     this.auth.register(this.form.value).subscribe({
-      next: () => {
+      next: (user) => {
         alert('Registrado con éxito');
         this.form.reset({ role: 'student' });
         this.router.navigate(['/login']);
       },
-      error: err => this.error = err.message
+      error: (err) => {
+        console.log(err);
+        this.error = err.message
+      }
     });
 
   }

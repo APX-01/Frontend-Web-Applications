@@ -9,6 +9,9 @@ import {AuthService} from "../../../iam/services/auth.service";
 import {ProfileInGroup} from "../../../iam/model/profile-in-group.entity";
 import {ChallengeListComponent} from "../../../challenges/components/challenge-list/challenge-list.component";
 import {GroupJoinCodeService} from "../../services/group-join-code.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ChallengeCreateComponent} from "../../../challenges/components/challenge-create/challenge-create.component";
+import {ChallengeApiService} from "../../../challenges/services/challenge-api.service";
 
 
 @Component({
@@ -36,15 +39,16 @@ export class GroupViewComponent implements OnInit {
   isLoading = true;
 
   constructor(
+      private createDialog: MatDialog,
       private groupService: GroupService,
       private route: ActivatedRoute,
       private authService: AuthService,
-      private joinCodeService: GroupJoinCodeService,
+      private challengeService: ChallengeApiService,
       private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.user = this.authService.getUser() || new User({});
+    this.getActualUser();
     this.loadData();
 
     console.log('Is logged in:', this.authService.isUserLoggedIn());
@@ -53,6 +57,11 @@ export class GroupViewComponent implements OnInit {
     if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
       this.router.navigate(['no-access']);
     }
+  }
+
+  private getActualUser() {
+    this.authService.updateUser();
+    this.user = this.authService.getUser() || new User({});
   }
 
   private loadData(): void {
@@ -81,32 +90,41 @@ export class GroupViewComponent implements OnInit {
   }
 
   leaveGroup(): void {
-    console.log('User antes de salir: ', this.user)
-    this.user.profilesInGroups = this.user.profilesInGroups?.filter(profile => profile.groupId != this.group.id)
-    console.log('User después de salir: ', this.user)
-    this.authService.setUser(this.user)
-
-    this.authService.update(this.user.id, this.authService.getUser() || new User({})).subscribe({})
+    this.getActualUser();
+    console.log(this.user);
+    this.authService.leaveGroup(this.user.id, this.groupId)
+    this.getActualUser();
   }
 
   deleteGroup(): void {
-
-    let studentList: User[] = []
-
-    this.leaveGroup()
-
-    this.authService.getUsersByGroupId(this.group.id).subscribe({
-      next: (users) => {
-
-        studentList = users;
-        studentList.forEach(user => {
-          user.profilesInGroups = user.profilesInGroups?.filter(profile => profile.groupId != this.group.id)
-          this.authService.update(user.id, user).subscribe({})
-        })
-
-        this.joinCodeService.deleteByGroupId(this.group.id).subscribe({})
-        this.groupService.delete(this.group.id).subscribe({})
+    this.groupService.delete(this.groupId).subscribe({
+      next: (group) => {
+        console.log("Deleted Group: ");
+        console.log(group);
+      },
+      error: (err) => {
+        throw new Error("")
       }
     })
+  }
+
+  openCreateChallengeDialog(): void {
+    const dialogRef = this.createDialog.open(ChallengeCreateComponent, {
+      width: "600px",
+      data: {groupId: this.groupId}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.challengeService.create(result).subscribe({
+          next: () => {
+            const challengeList = document.querySelector('app-challenge-list');
+            if (challengeList) {
+              (challengeList as any).getAvailableChallenges();
+            }
+          }
+        })
+      }
+    });
   }
 }

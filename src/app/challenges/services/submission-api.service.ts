@@ -17,7 +17,7 @@ export class SubmissionApiService extends BaseService<Submission>{
   }
 
   getByChallengeId(challengeId: number): Observable<Array<Submission>> {
-    const url = `${this.resourcePath()}?challengeId=${challengeId}`;
+    const url = `${this.resourcePath()}/challenge/${challengeId}`;
     return this.http.get<Array<Submission>>(url, this.httpOptions)
         .pipe(retry(2), catchError(this.handleError));
   }

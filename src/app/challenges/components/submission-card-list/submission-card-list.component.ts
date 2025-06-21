@@ -41,7 +41,7 @@ export class SubmissionCardListComponent implements OnInit {
 
         this.submissionService.getByChallengeId(this.currentChallengeId).subscribe({
             next: (submissions) => {
-                this.submissions = userRole === 'teacher'
+                this.submissions = userRole === 'ROLE_TEACHER'
                     ? submissions
                     : submissions.filter(submission => submission.studentId === this.currentUserId);
             },
