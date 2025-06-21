@@ -84,7 +84,7 @@ export class GroupMembersViewComponent implements OnInit {
   generateRandomCode(): string {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let result = '';
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 8; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return result;
@@ -107,22 +107,26 @@ export class GroupMembersViewComponent implements OnInit {
         }
       }
 
+      const currentDate = new Date();
+      const oneWeekLater = new Date();
+      oneWeekLater.setDate(currentDate.getDate() + 7);
+
       const newJoinCode: GroupJoinCode = new GroupJoinCode({
         key: this.newCode,
-        groupId: this.groupId
+        expiration: oneWeekLater,
       });
 
-      this.groupJoinCodeService.create(newJoinCode).subscribe({
-        next: () => {
-          this.groupJoinCode = this.newCode;
-          this.showCodeInput = false;
-          this.newCode = '';
-          this.snackBar.open('Código creado exitosamente', 'Cerrar', { duration: 3000 });
+      this.groupJoinCodeService.setForGroup(this.groupId, newJoinCode).subscribe({
+        next: (code: GroupJoinCode) => {
+          this.loadGroupJoinCode()
         },
         error: (err) => {
-          this.snackBar.open('Error al crear el código: ' + err.message, 'Cerrar', { duration: 5000 });
+          throw new Error(err.message)
         }
       });
+
+
+
     } catch (error) {
       this.snackBar.open('Error al generar código: ' + (error as Error).message, 'Cerrar', { duration: 5000 });
     }
@@ -181,13 +185,17 @@ export class GroupMembersViewComponent implements OnInit {
       next: (users) => {
         console.log(users);
         users.map((user) => {
-          if ( user.role == "teacher") {
+          if ( user.role == "ROLE_TEACHER") {
             this.teacher = user;
           } else {
             this.studentList.push(user);
           }
         })
         console.log(this.studentList);
+      },
+      error: (err) =>
+      {
+        throw new Error(err.message)
       }
     })
   }

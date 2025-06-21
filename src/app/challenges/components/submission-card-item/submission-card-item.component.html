@@ -12,6 +12,6 @@
 
     </mat-card-content>
     <mat-card-footer>
-        <button *ngIf="currentUser.role === 'teacher'" mat-button (click)="editSubmission()">Set Score</button>
+        <button *ngIf="currentUser.role === 'ROLE_TEACHER'" mat-button (click)="editSubmission()">Set Score</button>
     </mat-card-footer>
 </mat-card>
