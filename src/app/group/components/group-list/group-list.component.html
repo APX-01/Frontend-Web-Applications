@@ -1,8 +1,11 @@
-<div class="join-code-section">
-    @if (user.role == 'teacher') {
-        <h3>Create Group: </h3>
-        <button mat-icon-button (click)="openCreateGroupDialog()" style="margin-left: 10px"><mat-icon style="text-align: center">add_box</mat-icon></button>
-    } @else {
+@if (loadingGroups) {
+    <h3 style="text-align: center; margin-top: 50px">Loading Groups...</h3>
+} @else {
+    <div class="join-code-section">
+        @if (user.role == 'teacher') {
+            <h3>Create Group: </h3>
+            <button mat-icon-button (click)="openCreateGroupDialog()" style="margin-left: 10px"><mat-icon style="text-align: center">add_box</mat-icon></button>
+        } @else {
             <h3 style="padding: 10px">Join Group</h3>
             <mat-form-field style="padding: 10px" class="example-form-field">
                 <mat-label>Insert Code</mat-label>
@@ -16,12 +19,13 @@
             </mat-form-field>
             <button mat-flat-button (click)="submitCode()" style="padding: 10px">Join</button>
 
-    }
-</div>
-<h2 style="padding: 10px">Your Groups</h2>
-<br>
-<div class="group-cards">
-    @for (groupProfile of profilesInGroups; track groupProfile.groupId) {
-        <app-group-item [group]="findGroupById(groupProfile.groupId)" [groupProfile]="findGroupProfileById(groupProfile.groupId)"></app-group-item>
-    }
-</div>
+        }
+    </div>
+    <h2 style="padding: 10px">Your Groups</h2>
+    <br>
+    <div class="group-cards">
+        @for (groupProfile of profilesInGroups; track groupProfile.groupId) {
+            <app-group-item [group]="findGroupById(groupProfile.groupId)" [groupProfile]="findGroupProfileById(groupProfile.groupId)"></app-group-item>
+        }
+    </div>
+}

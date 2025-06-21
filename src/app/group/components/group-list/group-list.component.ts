@@ -35,6 +35,8 @@ import {Router} from "@angular/router";
 })
 export class GroupListComponent implements OnInit {
 
+  loadingGroups: boolean = true;
+
   user: User = new User({});
   profilesInGroups: ProfileInGroup[] = [];
 
@@ -83,6 +85,7 @@ export class GroupListComponent implements OnInit {
       this.groupService.getById(groupId).subscribe({
         next: group => {
           this.groups.push(group);
+          this.loadingGroups = false;
         },
         error: err => {
           console.error(`Error al obtener el grupo con ID ${groupId}:`, err);

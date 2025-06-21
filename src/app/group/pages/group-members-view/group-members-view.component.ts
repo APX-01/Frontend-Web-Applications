@@ -198,10 +198,17 @@ export class GroupMembersViewComponent implements OnInit {
 
   kickStudent(studentId: number) {
 
+    console.log(`Borrando estudiante con id: ${studentId}`)
+    console.log("Lista de estudiantes: ");
+    console.log(this.studentList);
+
     // Eliminar de lista local
     this.studentList = this.studentList.filter((student) => {
-      student.id !== studentId
+      return (student.id != studentId)
     })
+
+    console.log("Lista de estudiantes tras borrado")
+    console.log(this.studentList)
 
     // Eliminar profileInGroup del json-server
     let tempStudent: User = new User({});
