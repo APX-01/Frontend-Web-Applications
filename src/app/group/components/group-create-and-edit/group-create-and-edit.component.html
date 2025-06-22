@@ -13,11 +13,6 @@
             <textarea matInput [(ngModel)]="groupData.description" name="description" rows="3" required></textarea>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="full-width">
-            <mat-label>📚 Sección</mat-label>
-            <input matInput [(ngModel)]="groupData.seccion" name="section">
-        </mat-form-field>
-
         <button mat-raised-button color="accent" class="submit-button" type="submit"
                 [disabled]="groupForm.invalid">
             🐝 Crear Grupo
