@@ -30,5 +30,11 @@ export class SubmissionApiService extends BaseService<Submission>{
     return this.update(id, submission);
   }
 
+  getByStudentId(studentId: number): Observable<Submission[]> {
+    const url = `${this.resourcePath()}/student/${studentId}`;
+    return this.http.get<Submission[]>(url, this.httpOptions)
+        .pipe(retry(2), catchError(this.handleError));
+  }
+
 
 }
