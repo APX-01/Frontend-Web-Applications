@@ -24,6 +24,10 @@ export class GroupService extends BaseService<Group> {
     return this.http.post<Group>(`${this.resourcePath()}/teacher/${userId}`, JSON.stringify(group), this.httpOptions);
   }
 
+  public getGroupsByUserId(userId: number): Observable<Group[]> {
+    return this.http.get<Group[]>(`${this.resourcePath()}/user/${userId}`, this.httpOptions);
+  }
+
   
 
 }

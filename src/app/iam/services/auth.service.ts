@@ -19,9 +19,13 @@ export class AuthService extends BaseService<User> {
       this.resourceEndpoint= usersResourceEndpoint;
   }
 
+
   login(email: string, password: string): Observable<User> {
     return this.http.get<User>(`${this.resourcePath()}/email/${email}/password/${password}`)
+
   }
+
+
 
   updateUser(): void {
 
@@ -105,6 +109,12 @@ export class AuthService extends BaseService<User> {
         return this.http.delete<void>(url, this.httpOptions);
     }
 
+    updateUserProfile(userId: number, userData: Partial<User>): Observable<User> {
+        return this.http.put<User>(`${this.resourcePath()}/${userId}`, userData, this.httpOptions);
+    }
 
+    findById(userId: number): Observable<User> {
+        return this.http.get<User>(`${this.resourcePath()}/${userId}`, this.httpOptions);
+    }
 
 }

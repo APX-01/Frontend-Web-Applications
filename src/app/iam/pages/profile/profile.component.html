@@ -11,15 +11,18 @@
                 <p class="role">{{ user.role }}</p>
                 <p class="email">{{ user.email }}</p>
 
-                <button class="edit-button" (click)="edit()">Editar perfil</button>
+                <button class="edit-button" (click)="edit()">Editar contraseña</button>
 
                 <div class="stats">
                     <h3>Estadísticas</h3>
                     <ul>
-                        <li><strong>Badge general:</strong> Bronze 🥉</li>
-                        <li><strong>Retos completados:</strong> 0</li>
-                        <li><strong>Grupos unidos:</strong> 0</li>
-                        <li><strong>Grupo más activo:</strong> —</li>
+
+
+                        <li><strong>Grupos a los que está unido:</strong> {{ groupCount }}</li>
+                        <li *ngIf="user.role === 'ROLE_STUDENT'"><strong>Total de entregas realizadas:</strong> {{ submissionCount }}</li>
+                        <li *ngIf="user.role === 'ROLE_STUDENT'"><strong>Último grupo unido:</strong> {{ lastGroupName }}</li>
+                        <li *ngIf="user.role === 'ROLE_TEACHER'"><strong>Último grupo creado:</strong> {{ lastGroupName }}</li>
+                        <li *ngIf="user.role === 'ROLE_TEACHER'"><strong>Retos creados en {{ lastGroupName }}:</strong> {{ challengeCount }}</li>
                     </ul>
                 </div>
             </div>
