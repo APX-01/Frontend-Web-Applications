@@ -26,8 +26,6 @@ Chart.register(...registerables);
     MatIcon,
     MatProgressSpinnerModule // ✅ AÑADIDO PARA USAR <mat-spinner>
   ],
-  standalone: true,
-  styleUrls: ['./student-analytics.component.css']
 
 })
 export class StudentAnalyticsComponent implements OnInit {

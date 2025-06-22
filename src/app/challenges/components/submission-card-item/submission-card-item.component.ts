@@ -50,7 +50,7 @@ export class SubmissionCardItemComponent implements OnInit{
 
     }
 
-    editSubmission(): void {
+    /*editSubmission(): void {
         const dialogRef = this.dialog.open(SubmissionEditComponent, {
             width: '400px',
             data: { ...this.submission }
@@ -61,5 +61,5 @@ export class SubmissionCardItemComponent implements OnInit{
                 console.log('Datos editados:', result);
             }
         });
-    }
+    }*/
 }

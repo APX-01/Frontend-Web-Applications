@@ -41,7 +41,7 @@ import {Router} from "@angular/router";
   templateUrl: './group-list.component.html',
   styleUrl: './group-list.component.css'
 })
-export class GroupListComponent implements OnInit, AfterViewInit {
+export class GroupListComponent implements OnInit{
 
   @ViewChild('reactiveBox') reactiveBox!: ElementRef;
 
