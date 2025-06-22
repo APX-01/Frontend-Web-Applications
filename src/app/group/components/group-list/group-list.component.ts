@@ -1,4 +1,13 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+
 import {Group} from "../../model/group.entity";
 import {GroupService} from "../../services/group.service";
 import {GroupItemComponent} from "../group-item/group-item.component";
@@ -10,7 +19,6 @@ import {GroupJoinCode} from "../../model/group-join-code.entity";
 import {GroupJoinCodeService} from "../../services/group-join-code.service";
 import {AuthService} from "../../../iam/services/auth.service";
 import {ProfileInGroup} from "../../../iam/model/profile-in-group.entity";
-import {of} from "rxjs";
 import {User} from "../../../iam/model/user.entity";
 import {MatDialog} from "@angular/material/dialog";
 import {GroupCreateAndEditComponent} from "../group-create-and-edit/group-create-and-edit.component";
@@ -18,6 +26,7 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-group-list',
+  standalone: true,
   imports: [
     GroupItemComponent,
     MatFormField,
@@ -30,10 +39,11 @@ import {Router} from "@angular/router";
     MatHint
   ],
   templateUrl: './group-list.component.html',
-  standalone: true,
   styleUrl: './group-list.component.css'
 })
-export class GroupListComponent implements OnInit {
+export class GroupListComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('reactiveBox') reactiveBox!: ElementRef;
 
   loadingGroups: boolean = true;
 
@@ -41,12 +51,13 @@ export class GroupListComponent implements OnInit {
   profilesInGroups: ProfileInGroup[] = [];
 
   joinCodeString: string = '';
-
   joinCode!: GroupJoinCode;
   joinFailed: boolean = false;
 
-  availableGroups:number[]= [];
+  availableGroups: number[] = [];
   groups: Group[] = [];
+
+  bees = Array.from({ length: 10 }, (_, i) => i); // 10 abejas con índice
 
   constructor(
       private createDialog: MatDialog,
@@ -54,15 +65,13 @@ export class GroupListComponent implements OnInit {
       private groupJoinCodeService: GroupJoinCodeService,
       private authService: AuthService,
       private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
-    console.log('Is logged in:', this.authService.isUserLoggedIn());
-
     if (!this.authService.isUserLoggedIn()) {
       this.router.navigate(['login']);
     }
+
 
     this.getActualUser();
 
@@ -72,6 +81,7 @@ export class GroupListComponent implements OnInit {
   private getActualUser() {
     this.authService.updateUser();
     this.user = this.authService.getUser() || new User({});
+
   }
 
   private getAvailableGroups(): void {
@@ -93,6 +103,7 @@ export class GroupListComponent implements OnInit {
   submitCode(): void {
     this.joinCode = new GroupJoinCode({});
 
+
     this.groupJoinCodeService.joinUserToGroupByKey(this.user.id, this.joinCodeString).subscribe({
       next: (group) => {
         this.getActualUser();
@@ -102,6 +113,7 @@ export class GroupListComponent implements OnInit {
       {
         this.joinFailed = true;
         throw new Error(err.message)
+
       }
     })
   }
@@ -126,11 +138,12 @@ export class GroupListComponent implements OnInit {
     });
   }
 
-  private createGroup(groupData: {name: string, description: string}): void {
+  private createGroup(groupData: { name: string, description: string }): void {
     const newGroup = new Group({
       name: groupData.name,
       description: groupData.description,
     });
+
 
     console.log("Group to create: ");
     console.log(newGroup);
@@ -140,6 +153,7 @@ export class GroupListComponent implements OnInit {
         console.log(group);
         this.getActualUser();
         this.getAvailableGroups();
+
       },
       error: (err) => {
         throw new Error(err.message)

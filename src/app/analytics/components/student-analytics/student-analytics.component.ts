@@ -1,26 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AnalyticsService } from '../../services/analytics.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
-import { BaseChartDirective } from "ng2-charts";
-import { DecimalPipe, SlicePipe } from "@angular/common";
+import { BaseChartDirective } from 'ng2-charts';
+import { DecimalPipe, SlicePipe } from '@angular/common';
 import { Chart, registerables } from 'chart.js';
 import {ChallengeApiService} from "../../../challenges/services/challenge-api.service";
 import {forkJoin} from "rxjs";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // ✅ Spinner
+import { MatIcon } from '@angular/material/icon';
+
 
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-student-analytics',
+  standalone: true,
   templateUrl: './student-analytics.component.html',
+  styleUrls: ['./student-analytics.component.css'],
   imports: [
     RouterLink,
     BaseChartDirective,
     DecimalPipe,
-    SlicePipe
+    SlicePipe,
+    MatIcon,
+    MatProgressSpinnerModule // ✅ AÑADIDO PARA USAR <mat-spinner>
   ],
   standalone: true,
   styleUrls: ['./student-analytics.component.css']
+
 })
 export class StudentAnalyticsComponent implements OnInit {
   studentId!: number;
@@ -67,7 +75,7 @@ export class StudentAnalyticsComponent implements OnInit {
     this.groupId = +this.route.snapshot.paramMap.get('groupId')!;
 
     this.analyticsService.getStudentName(this.studentId).subscribe({
-      next: ({firstName, lastName}) => {
+      next: ({ firstName, lastName }) => {
         this.studentName = `${firstName} ${lastName}`.trim() || 'Estudiante';
       },
       error: () => {
@@ -85,7 +93,9 @@ export class StudentAnalyticsComponent implements OnInit {
         console.log(submissions)
         console.log(this.submissions)
 
+
         const scores = submissions.map(sub => sub.score);
+
 
         this.lineChartData = {
           datasets: [{
