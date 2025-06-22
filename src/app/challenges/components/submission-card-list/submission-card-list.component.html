@@ -1,5 +1,5 @@
 
-@if (currentUser.role==="teacher"){
+@if (currentUser.role==="ROLE_TEACHER"){
     <h3 style="margin-bottom: 20px;">Submissions</h3>
 } @else {
     <h3 style="margin-bottom: 20px;">Your Submissions</h3>
@@ -8,7 +8,10 @@
 
     @for (submission of submissions; track submission) {
         <mat-grid-tile>
-            <app-submission-card-item [submission]="submission"></app-submission-card-item>
+            <app-submission-card-item
+                    [submission]="submission"
+                    (submissionUpdated)="getAvailableSubmissions()">
+            </app-submission-card-item>
         </mat-grid-tile>
     }
 </mat-grid-list>

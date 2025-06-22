@@ -5,8 +5,11 @@ import { ChartConfiguration, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { DecimalPipe, SlicePipe } from '@angular/common';
 import { Chart, registerables } from 'chart.js';
-import { MatIcon } from '@angular/material/icon';
+import {ChallengeApiService} from "../../../challenges/services/challenge-api.service";
+import {forkJoin} from "rxjs";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // ✅ Spinner
+import { MatIcon } from '@angular/material/icon';
+
 
 Chart.register(...registerables);
 
@@ -22,7 +25,10 @@ Chart.register(...registerables);
     SlicePipe,
     MatIcon,
     MatProgressSpinnerModule // ✅ AÑADIDO PARA USAR <mat-spinner>
-  ]
+  ],
+  standalone: true,
+  styleUrls: ['./student-analytics.component.css']
+
 })
 export class StudentAnalyticsComponent implements OnInit {
   studentId!: number;
@@ -60,7 +66,8 @@ export class StudentAnalyticsComponent implements OnInit {
 
   constructor(
       private route: ActivatedRoute,
-      private analyticsService: AnalyticsService
+      private analyticsService: AnalyticsService,
+      private challengeService: ChallengeApiService
   ) {}
 
   ngOnInit(): void {
@@ -76,23 +83,20 @@ export class StudentAnalyticsComponent implements OnInit {
       }
     });
 
-    this.loadStudentScores();
+    this.loadStudentSubmissions(); // 👈 Nuevo método
   }
 
-  loadStudentScores() {
-    console.log('Cargando scores para estudiante:', this.studentId);
-
-    this.analyticsService.getStudentScores(this.studentId).subscribe({
-      next: ({ scores, submissions }) => {
-        console.log('Datos recibidos:', { scores, submissions });
-
-        if (submissions.length > 0 && submissions[0].studentName) {
-          this.studentName = submissions[0].studentName;
-        } else if (submissions.length > 0 && submissions[0].user) {
-          this.studentName = submissions[0].user.name || 'Estudiante';
-        }
-
+  loadStudentSubmissions() {
+    this.analyticsService.getSubmissionsByStudentIdAndGroupId(this.studentId,this.groupId).subscribe({
+      next: (submissions) => {
         this.submissions = submissions;
+        console.log(submissions)
+        console.log(this.submissions)
+
+
+        const scores = submissions.map(sub => sub.score);
+
+
         this.lineChartData = {
           datasets: [{
             data: scores,
@@ -103,10 +107,78 @@ export class StudentAnalyticsComponent implements OnInit {
           }],
           labels: submissions.map((_, i) => `Tarea ${i + 1}`)
         };
+
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Error al cargar scores:', err);
+        console.error('Error al cargar submissions del estudiante:', err);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  loadStudentSubmissionsByChallenge(challengeId: number) {
+    this.analyticsService.getStudentSubmissionByChallenge(this.studentId, challengeId).subscribe({
+      next: (submissions) => {
+        console.log('Submissions por challenge:', submissions);
+
+        this.submissions = submissions;
+        const scores = submissions.map(sub => sub.score);
+
+        this.lineChartData = {
+          datasets: [{
+            data: scores,
+            label: 'Notas del estudiante',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.3
+          }],
+          labels: submissions.map((_, i) => `Intento ${i + 1}`)
+        };
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error cargando submissions del estudiante:', err);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  loadStudentScores() {
+    console.log('Cargando scores para estudiante en grupo:', this.studentId, this.groupId);
+
+    this.challengeService.getChallengesByGroupId(this.groupId).subscribe({
+      next: (challenges) => {
+        const requests = challenges.map(ch =>
+            this.analyticsService.getStudentSubmissionByChallenge(this.studentId, ch.id)
+        );
+
+        forkJoin(requests).subscribe({
+          next: (responses) => {
+            const allSubmissions = responses.flat(); // une todos los arrays en uno solo
+            const scores = allSubmissions.map(sub => sub.score);
+
+            this.submissions = allSubmissions;
+            this.lineChartData = {
+              datasets: [{
+                data: scores,
+                label: 'Notas del estudiante',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                tension: 0.3
+              }],
+              labels: allSubmissions.map((_, i) => `Tarea ${i + 1}`)
+            };
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.error('Error cargando submissions del estudiante:', err);
+            this.isLoading = false;
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error cargando challenges del grupo:', err);
         this.isLoading = false;
       }
     });

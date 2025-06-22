@@ -60,7 +60,6 @@ export class GroupListComponent implements OnInit, AfterViewInit {
   bees = Array.from({ length: 10 }, (_, i) => i); // 10 abejas con índice
 
   constructor(
-      private changeDetector: ChangeDetectorRef,
       private createDialog: MatDialog,
       private groupService: GroupService,
       private groupJoinCodeService: GroupJoinCodeService,
@@ -73,83 +72,50 @@ export class GroupListComponent implements OnInit, AfterViewInit {
       this.router.navigate(['login']);
     }
 
+
+    this.getActualUser();
+
+    this.getAvailableGroups()
+  }
+
+  private getActualUser() {
+    this.authService.updateUser();
     this.user = this.authService.getUser() || new User({});
-    this.getUserGroupList();
-    this.getAvailableGroups();
-  }
 
-  ngAfterViewInit(): void {}
-
-  // 🐝 Estilo aleatorio para cada abeja
-  generateBeeStyle(index: number) {
-    const top = Math.random() * 100;
-    const left = Math.random() * 100;
-    const duration = 10 + Math.random() * 10;
-    const delay = Math.random() * 5;
-    const size = 16 + Math.random() * 16;
-
-    return {
-      top: `${top}%`,
-      left: `${left}%`,
-      width: `${size}px`,
-      height: `${size}px`,
-      animationDuration: `${duration}s`,
-      animationDelay: `${delay}s`
-    };
-  }
-
-  private getUserGroupList(): void {
-    this.profilesInGroups = this.authService.getUser()?.profilesInGroups || [];
-    for (let profile of this.profilesInGroups) {
-      this.availableGroups.push(profile.groupId);
-    }
   }
 
   private getAvailableGroups(): void {
-    this.groups = [];
-    this.availableGroups.map((groupId) => {
-      this.groupService.getById(groupId).subscribe({
-        next: group => {
-          this.groups.push(group);
-          this.loadingGroups = false;
-        },
-        error: err => {
-          console.error(`Error al obtener el grupo con ID ${groupId}:`, err);
-        }
-      });
-    });
+    this.groupService.getGroupsFromUser(this.user.id).subscribe(
+        {
+          next: (groups) => {
+            this.groups = groups;
+            this.loadingGroups = false
+          },
+          error: err => {
+            if (err.status === 404) {
+              this.groups = []
+              this.loadingGroups = false
+            }
+          }
+        })
   }
 
   submitCode(): void {
     this.joinCode = new GroupJoinCode({});
 
-    this.groupJoinCodeService.getByKey(this.joinCodeString).subscribe({
-      next: code => {
-        this.joinCode = code;
-        this.joinCodeString = '';
 
-        if (this.joinCode && !this.availableGroups.includes(this.joinCode.groupId)) {
-          if (this.user.profilesInGroups) {
-            this.user.profilesInGroups.push({ groupId: this.joinCode.groupId, score: 0 });
-          }
-          this.joinCode = new GroupJoinCode({});
-
-          this.authService.update(this.user.id, this.user).subscribe({
-            next: (user) => {
-              this.authService.setUser(user);
-              this.getUserGroupList();
-              this.getAvailableGroups();
-            }
-          });
-        } else {
-          this.joinFailed = true;
-        }
+    this.groupJoinCodeService.joinUserToGroupByKey(this.user.id, this.joinCodeString).subscribe({
+      next: (group) => {
+        this.getActualUser();
+        this.getAvailableGroups();
       },
-      error: err => {
-        console.error(`No existe el código: ${this.joinCodeString}:`, err);
+      error: (err) =>
+      {
         this.joinFailed = true;
+        throw new Error(err.message)
+
       }
-    });
+    })
   }
 
   findGroupById(id: number): Group {
@@ -178,26 +144,20 @@ export class GroupListComponent implements OnInit, AfterViewInit {
       description: groupData.description,
     });
 
-    this.groupService.create(newGroup).subscribe({
-      next: (createdGroup) => {
-        this.groups.push(createdGroup);
-        this.availableGroups.push(createdGroup.id);
 
-        if (this.user.profilesInGroups) {
-          this.user.profilesInGroups.push({ groupId: createdGroup.id, score: 0 });
-        }
+    console.log("Group to create: ");
+    console.log(newGroup);
 
-        this.authService.update(this.user.id, this.user).subscribe({
-          next: (user) => {
-            this.authService.setUser(user);
-            this.getUserGroupList();
-            this.getAvailableGroups();
-          }
-        });
+    this.groupService.createGroupAsTeacher(this.user.id, newGroup).subscribe({
+      next: (group) => {
+        console.log(group);
+        this.getActualUser();
+        this.getAvailableGroups();
+
       },
       error: (err) => {
-        console.error('Error creating group:', err);
+        throw new Error(err.message)
       }
-    });
+    })
   }
 }

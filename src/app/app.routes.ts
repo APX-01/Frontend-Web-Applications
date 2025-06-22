@@ -28,5 +28,9 @@ export const routes: Routes = [
   { path: 'group/:groupId/challenge/:challengeId', component: ChallengeViewComponent },
   { path: 'group/:groupId/student/:studentId/analytics', component: StudentAnalyticsComponent },
   { path: 'no-access', component: NoAccessPageComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  {
+    path: 'group/:groupId/student/:studentId/analytics',
+    component: StudentAnalyticsComponent
+  }
 ];

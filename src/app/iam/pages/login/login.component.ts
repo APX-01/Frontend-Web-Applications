@@ -43,7 +43,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: (user) => {
         alert(`Bienvenido, ${user.firstName}`);
+        localStorage.setItem('auth_token', 'fake-token');
+        localStorage.setItem('auth_user', JSON.stringify(user));
         this.router.navigate(['/dashboard']); // Cambia al route deseado
+      },
+      error: err => {
+        if (err.status === 404) {
+          throw new Error('Credenciales inválidas')
+        }
       }
     });
   }
