@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatLabel } from "@angular/material/form-field";
 
 import { ReactiveFormsModule } from "@angular/forms";
+import {MatIcon} from "@angular/material/icon";
 
 
 @Component({
@@ -30,7 +31,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatDatepickerModule,
     MatNativeDateModule, // ✅ importante para DateAdapter
     MatLabel,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIcon
   ],
   templateUrl: './challenge-create.component.html',
   standalone: true,
