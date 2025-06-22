@@ -50,16 +50,5 @@ export class SubmissionCardItemComponent implements OnInit{
 
     }
 
-    /*editSubmission(): void {
-        const dialogRef = this.dialog.open(SubmissionEditComponent, {
-            width: '400px',
-            data: { ...this.submission }
-        });
 
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                console.log('Datos editados:', result);
-            }
-        });
-    }*/
 }
