@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  @Output() registerEvent = new EventEmitter<boolean>();
+
   loginForm: FormGroup;
 
   constructor(
@@ -27,9 +30,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authService.isUserLoggedIn()) {
-      this.router.navigate(['/dashboard']);
-    }
   }
 
   onSubmit() {
@@ -53,6 +53,10 @@ export class LoginComponent implements OnInit {
         }
       }
     });
+  }
+
+  switchToRegister() {
+    this.registerEvent.emit(false);
   }
 
   navigateTo(url: string): void {

@@ -11,24 +11,18 @@ import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.comp
 
 export const routes: Routes = [
   { path: 'dashboard', component: HomeComponent },
-  {
-    path: '',
-    component: AuthLayoutComponent,
-    children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent }
-    ]
-  },
+  { path: 'auth', component: AuthLayoutComponent },
   {
     path: 'profile',
     loadComponent: () => import('./iam/pages/profile/profile.component').then(m => m.ProfileComponent)
   },
+
   { path: 'group/:groupId', component: GroupViewComponent },
   { path: 'group/:groupId/members', component: GroupMembersViewComponent },
   { path: 'group/:groupId/challenge/:challengeId', component: ChallengeViewComponent },
   { path: 'group/:groupId/student/:studentId/analytics', component: StudentAnalyticsComponent },
   { path: 'no-access', component: NoAccessPageComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/auth', pathMatch: 'full' },
   {
     path: 'group/:groupId/student/:studentId/analytics',
     component: StudentAnalyticsComponent

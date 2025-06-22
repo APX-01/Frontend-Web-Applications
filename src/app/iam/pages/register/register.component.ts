@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import {Router} from "@angular/router";
@@ -13,6 +13,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+
+  @Output() loginEvent = new EventEmitter<boolean>();
+
   form: FormGroup;
   error = '';
 
@@ -54,5 +57,9 @@ export class RegisterComponent {
       }
     });
 
+  }
+
+  switchToLogin() {
+    this.loginEvent.emit(true);
   }
 }

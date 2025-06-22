@@ -1,6 +1,5 @@
-
 .sidenav-container {
-  height: 100vh; /* Mantiene la altura total de la pantalla */
+  height: 100%; /* Mantiene la altura total de la pantalla */
   width: 100%;
 }
 
@@ -31,7 +30,7 @@ mat-toolbar {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra más marcada */
   transition: all 0.3s ease-in-out;
   z-index: 10;
-  position: relative;
+  position: absolute;
 }
 
 /* Cambios al pasar el mouse (dinamismo extra si aplicas hover a algún elemento) */

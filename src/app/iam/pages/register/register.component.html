@@ -1,17 +1,21 @@
-<h2>Sign Up</h2>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="fadeIn">
+    <h2>Sign Up</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <input formControlName="email" type="email" placeholder="Email" /><br>
+        <input formControlName="email" type="email" placeholder="Email" /><br>
 
-    <input formControlName="firstName" type="text" placeholder="First Name" /><br>
+        <input formControlName="firstName" type="text" placeholder="First Name" /><br>
 
-    <input formControlName="lastName" type="text" placeholder="Last Name" /><br>
+        <input formControlName="lastName" type="text" placeholder="Last Name" /><br>
 
-    <select formControlName="role" title="Role">
-        <option value="student">Student</option>
-        <option value="teacher">Teacher</option>
-    </select> <br>
+        <select formControlName="role" title="Role">
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+        </select> <br>
 
-    <input formControlName="password" type="password" placeholder="Password" />
-    <button type="submit">Continue</button>
-</form>
+        <input formControlName="password" type="password" placeholder="Password" />
+
+        <p (click)="switchToLogin()">Already have an account? Log In</p>
+        <button type="submit">Continue</button>
+    </form>
+</div>
