@@ -1,33 +1,55 @@
-import {Component, OnInit} from '@angular/core';
-import {MatCardModule} from "@angular/material/card";
+import { Component, OnInit } from '@angular/core';
+import { MatCardModule } from "@angular/material/card";
+import { AuthService } from '../../services/auth.service'; // Asegúrate de que esta ruta sea correcta
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
-  imports: [
-    MatCardModule,
-],
+  standalone: true,
+  imports: [MatCardModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
 
-  user: any = {
-    name: "Josue Flores",
-    email: "456@upc.edu.pe",
-    role: "student",
-    password: "456",
-    id: 2,
-    imageUrl: "https://static.dw.com/image/16440430_804.jpg"
-  }
+  user: any = null;
+
+  private imageOptions: string[] = [
+    'https://randomuser.me/api/portraits/men/15.jpg',
+    'https://randomuser.me/api/portraits/men/22.jpg',
+    'https://randomuser.me/api/portraits/men/33.jpg',
+    'https://randomuser.me/api/portraits/women/10.jpg',
+    'https://randomuser.me/api/portraits/women/18.jpg',
+    'https://randomuser.me/api/portraits/women/35.jpg'
+  ];
+
+  constructor(
+      private authService: AuthService,
+      private router: Router
+  ) {}
 
   ngOnInit(): void {
-    // Fetch user data from a service or API
-    // For now, we are using a static object
-    console.log("Profile component initialized with user data:", this.user);
+    const user = this.authService.getUser(); // <- aquí usamos tu método existente
+
+    if (!user) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.user = {
+      ...user,
+      imageUrl: this.getRandomImage()
+    };
+
+    console.log("Perfil cargado:", this.user);
+  }
+
+  getRandomImage(): string {
+    const index = Math.floor(Math.random() * this.imageOptions.length);
+    return this.imageOptions[index];
   }
 
   edit() {
-    // Logic to edit the profile
     console.log("Edit profile clicked");
   }
 }

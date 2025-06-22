@@ -1,16 +1,13 @@
-
-
-@if (currentUser.role==="teacher"){
-    <h3 style="margin-bottom: 20px;">Challenges</h3>
+@if (currentUser.role === "teacher") {
+    <h3>Challenges</h3>
 } @else {
-    <h3 style="margin-bottom: 20px;">Your Challenges</h3>
+    <h3>Your Challenges</h3>
 }
-<mat-grid-list cols="1" rowHeight="300px">
 
+<mat-grid-list cols="1" rowHeight="300px">
     @for (challenge of challenges; track challenge) {
         <mat-grid-tile>
             <app-challenge-card-item [challenge]="challenge"></app-challenge-card-item>
         </mat-grid-tile>
     }
 </mat-grid-list>
-

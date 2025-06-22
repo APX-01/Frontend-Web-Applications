@@ -29,7 +29,6 @@ const MAX_ATTEMPTS = 3;
     MatCard,
     MatCardActions,
     MatCardContent,
-    MatCardHeader,
     MatCardSubtitle,
     MatCardTitle,
     RouterLink,
