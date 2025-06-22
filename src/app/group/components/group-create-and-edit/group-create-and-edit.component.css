@@ -1,0 +1,36 @@
+.group-dialog {
+    background-color: #fef1cc;
+    padding: 50px;
+    border-radius: 8px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.group-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+}
+
+
+.overlay-text {
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 1px 1px 3px black;
+}
+
+.submit-button {
+    background-color: orange;
+    color: white;
+    transition: transform 0.2s ease;
+}
+
+.submit-button:hover {
+    transform: scale(1.05);
+    background-color: #ff9900;
+}

@@ -1,0 +1,27 @@
+<section>
+    <h1>Profile</h1>
+<hr>
+<div class="profile-card">
+            <div class="profile-image">
+                <img [src]="user.imageUrl" alt="Profile Image" />
+            </div>
+
+            <div class="profile-details">
+                <h2>{{ user.name }}</h2>
+                <p class="role">{{ user.role }}</p>
+                <p class="email">{{ user.email }}</p>
+
+                <button class="edit-button" (click)="edit()">Editar perfil</button>
+
+                <div class="stats">
+                    <h3>Estadísticas</h3>
+                    <ul>
+                        <li><strong>Badge general:</strong> Bronze 🥉</li>
+                        <li><strong>Retos completados:</strong> 0</li>
+                        <li><strong>Grupos unidos:</strong> 0</li>
+                        <li><strong>Grupo más activo:</strong> —</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</section>

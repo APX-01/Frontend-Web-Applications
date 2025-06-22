@@ -1,23 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AnalyticsService } from '../../services/analytics.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
-import { BaseChartDirective } from "ng2-charts";
-import { DecimalPipe, SlicePipe } from "@angular/common";
+import { BaseChartDirective } from 'ng2-charts';
+import { DecimalPipe, SlicePipe } from '@angular/common';
 import { Chart, registerables } from 'chart.js';
+import { MatIcon } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // ✅ Spinner
 
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-student-analytics',
+  standalone: true,
   templateUrl: './student-analytics.component.html',
+  styleUrls: ['./student-analytics.component.css'],
   imports: [
     RouterLink,
     BaseChartDirective,
     DecimalPipe,
-    SlicePipe
-  ],
-  styleUrls: ['./student-analytics.component.css']
+    SlicePipe,
+    MatIcon,
+    MatProgressSpinnerModule // ✅ AÑADIDO PARA USAR <mat-spinner>
+  ]
 })
 export class StudentAnalyticsComponent implements OnInit {
   studentId!: number;
@@ -61,8 +66,9 @@ export class StudentAnalyticsComponent implements OnInit {
   ngOnInit(): void {
     this.studentId = +this.route.snapshot.paramMap.get('studentId')!;
     this.groupId = +this.route.snapshot.paramMap.get('groupId')!;
+
     this.analyticsService.getStudentName(this.studentId).subscribe({
-      next: ({firstName, lastName}) => {
+      next: ({ firstName, lastName }) => {
         this.studentName = `${firstName} ${lastName}`.trim() || 'Estudiante';
       },
       error: () => {
@@ -77,8 +83,8 @@ export class StudentAnalyticsComponent implements OnInit {
     console.log('Cargando scores para estudiante:', this.studentId);
 
     this.analyticsService.getStudentScores(this.studentId).subscribe({
-      next: ({scores, submissions}) => {
-        console.log('Datos recibidos:', {scores, submissions});
+      next: ({ scores, submissions }) => {
+        console.log('Datos recibidos:', { scores, submissions });
 
         if (submissions.length > 0 && submissions[0].studentName) {
           this.studentName = submissions[0].studentName;
