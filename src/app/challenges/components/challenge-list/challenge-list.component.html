@@ -1,7 +1,7 @@
 
 
 
-@if (currentUser.role==="ROLE_TEACHER"){
+@if (currentUser.roles[0] === "ROLE_TEACHER"){
     <h3 style="margin-bottom: 20px;">Challenges</h3>
 
 } @else {
