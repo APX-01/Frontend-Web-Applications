@@ -24,7 +24,7 @@
                 <button mat-raised-button routerLink="/dashboard">Back to Groups</button>
                 <button mat-raised-button [routerLink]="['/group', group.id, 'members']">See Members</button>
                 <div class="button-spacer"></div>
-                @if (user.role == "ROLE_TEACHER") {
+                @if (user.roles[0] == "ROLE_TEACHER") {
                     <button mat-flat-button class="create-challenge-button" (click)="openCreateChallengeDialog()">Create Challenge</button>
                     <button mat-flat-button class="leave-button" (click)="deleteGroup()" routerLink="/dashboard">Delete Group</button>
                 } @else {

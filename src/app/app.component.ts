@@ -19,21 +19,10 @@ export class AppComponent implements OnInit{
 
   constructor(private authService: AuthService) {
     console.log(localStorage.getItem('auth_user'),'AppComponent cargado');
-    this.loadUserFromStorage()
   }
 
   ngOnInit(): void {
-    this.loadUserFromStorage(); // Carga el usuario al iniciar
-  }
 
-  private loadUserFromStorage(): void {
-    if (this.authService.getUser()!== null) {
-      this.authService.getById(this.authService.getUser()?.id).subscribe(
-        (user: User) => {
-          this.authService.setUser(user);
-        }
-      )
-    }
   }
 
 }

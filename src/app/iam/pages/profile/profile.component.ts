@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
 
     this.user = {
       ...user,
-      imageUrl: this.getImageByRole(user.role)
+      imageUrl: this.getImageByRole(user.roles[0])
     };
 
     // 🔥 Obtener grupos del usuario

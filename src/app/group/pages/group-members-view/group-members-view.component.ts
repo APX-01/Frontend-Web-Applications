@@ -202,7 +202,7 @@ export class GroupMembersViewComponent implements OnInit {
       next: (users) => {
         console.log(users);
         users.map((user) => {
-          if ( user.role == "ROLE_TEACHER") {
+          if ( user.roles[0] == "ROLE_TEACHER") {
             this.teacher = user;
           } else {
             this.studentList.push(user);

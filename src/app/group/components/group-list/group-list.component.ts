@@ -53,11 +53,7 @@ export class GroupListComponent implements OnInit{
   joinCodeString: string = '';
   joinCode!: GroupJoinCode;
   joinFailed: boolean = false;
-
-  availableGroups: number[] = [];
   groups: Group[] = [];
-
-  bees = Array.from({ length: 10 }, (_, i) => i); // 10 abejas con índice
 
   constructor(
       private createDialog: MatDialog,
@@ -79,9 +75,7 @@ export class GroupListComponent implements OnInit{
   }
 
   private getActualUser() {
-    this.authService.updateUser();
     this.user = this.authService.getUser() || new User({});
-
   }
 
   private getAvailableGroups(): void {
@@ -149,7 +143,7 @@ export class GroupListComponent implements OnInit{
     console.log("Group to create: ");
     console.log(newGroup);
 
-    this.groupService.createGroupAsTeacher(this.user.id, newGroup).subscribe({
+    this.groupService.createGroupAsTeacher(newGroup).subscribe({
       next: (group) => {
         console.log(group);
         this.getActualUser();

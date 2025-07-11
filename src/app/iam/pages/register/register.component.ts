@@ -45,7 +45,13 @@ export class RegisterComponent {
         break;
     }
 
-    this.auth.register(this.form.value).subscribe({
+    this.auth.register({
+      email: this.form.value.email,
+      password: this.form.value.password,
+      firstName: this.form.value.firstName,
+      lastName: this.form.value.lastName,
+      roles: [this.form.value.role]
+    }).subscribe({
       next: (user) => {
         alert('Registrado con éxito');
         this.form.reset({ role: 'student' });
@@ -53,7 +59,9 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.log(err);
-        this.error = err.message
+        if (err.status === 401) {
+          this.error = "Este email ya está en uso"
+        }
       }
     });
 

@@ -39,7 +39,7 @@ export class SubmissionCardListComponent implements OnInit {
 
     public getAvailableSubmissions(): void {
         this.currentUserId = this.authService.getUser()?.id || 0;
-        const userRole = this.authService.getUser()?.role || 'student'; // Asume 'student' por defecto
+        const userRole = this.authService.getUser()?.roles[0] || 'ROLE_STUDENT'; // Asume 'student' por defecto
         this.submissions = [];
 
         this.submissionService.getByChallengeId(this.currentChallengeId).subscribe({

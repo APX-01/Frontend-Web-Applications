@@ -18,6 +18,9 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  loginError: boolean = false;
+  errorMessage: string = "";
+
   constructor(
       private fb: FormBuilder,
       private authService: AuthService,
@@ -43,13 +46,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: (user) => {
         alert(`Bienvenido, ${user.firstName}`);
-        localStorage.setItem('auth_token', 'fake-token');
+        localStorage.setItem('auth_token', user.token);
         localStorage.setItem('auth_user', JSON.stringify(user));
-        this.router.navigate(['/dashboard']); // Cambia al route deseado
+        this.router.navigate(['/dashboard']);
       },
       error: err => {
-        if (err.status === 404) {
-          throw new Error('Credenciales inválidas')
+        this.loginError = true;
+        if (err.status === 401) {
+          this.errorMessage = "Usuario o contraseña inválidos";
         }
       }
     });

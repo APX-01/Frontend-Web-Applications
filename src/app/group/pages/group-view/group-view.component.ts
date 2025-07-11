@@ -63,7 +63,6 @@ export class GroupViewComponent implements OnInit {
   }
 
   private getActualUser() {
-    this.authService.updateUser();
     this.user = this.authService.getUser() || new User({});
   }
 

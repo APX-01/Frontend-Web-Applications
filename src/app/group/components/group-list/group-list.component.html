@@ -1,7 +1,7 @@
 
     <div class="join-code-section">
 
-        @if (user.role == 'ROLE_TEACHER') {
+        @if (user.roles[0] == 'ROLE_TEACHER') {
             <div class="create-group-container">
               <h3 style="margin: 0;">Create a new group: </h3>
               <button mat-icon-button (click)="openCreateGroupDialog()" class="create-button" style="margin-left: 10px"><mat-icon style="text-align: center">add_box</mat-icon></button>
