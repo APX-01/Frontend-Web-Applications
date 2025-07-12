@@ -52,4 +52,13 @@ export class SubmissionApiService extends BaseService<Submission>{
     return this.http.get<Submission[]>(`${this.resourcePath()}/students/${studentId}/challenges/${challengeId}`, this.httpOptions)
   }
 
+  getSubmissionsByGroupId(groupId: number): Observable<Submission[]> {
+    const url = `${this.resourcePath()}/group/${groupId}`;
+    return this.http.get<Submission[]>(url, this.httpOptions)
+        .pipe(
+            retry(2),
+            catchError(this.handleError)
+        );
+  }
+
 }

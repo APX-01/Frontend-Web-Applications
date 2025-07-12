@@ -39,6 +39,9 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Role</th>
+        @if (user.roles[0] === 'ROLE_TEACHER') {
+            <th>Actions</th>
+        }
     </tr>
     </thead>
     <tbody>
@@ -52,14 +55,48 @@
                   {{teacher.roles[0] === 'ROLE_STUDENT' ? 'Estudiante' : 'Profesor'}}
                 </span>
                 </td>
+                @if (user.roles[0] === 'ROLE_TEACHER') {
+                <td>
+                    <button mat-icon-button
+                            [routerLink]="['/group', groupId, 'pie-analytics']"
+                            matTooltip="Ver analytics del grupo">
+                        <mat-icon>info</mat-icon>
+                    </button>
+                </td>
+                }
             </tr>
 
     </tbody>
 </table>
 
+
+
 <table class="user-table">
     <thead>
     <h2>Alumnos</h2>
+    <tr>
+        <td colspan="6">
+            <div style="display: flex; align-items: center;">
+                <mat-form-field appearance="fill" style="width: 300px; margin-right: 10px;">
+                    <mat-label>Seleccionar un alumno</mat-label>
+                    <mat-select [(ngModel)]="selectedStudentId">
+                        <mat-option [value]="null">Todos los estudiantes</mat-option>
+                        <mat-option *ngFor="let student of studentList" [value]="student.id">
+                            <div style="display: flex; align-items: center;">
+                                <img
+                                        [src]="studentImg"
+                                        alt="student"
+                                        width="48"
+                                        height="48"
+                                        style="border-radius: 50%; object-fit: cover;">
+                                <span>{{ student.firstName }} {{ student.lastName }}</span>
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </td>
+    </tr>
     <tr>
         <th>Name</th>
         <th>Last Name</th>
@@ -69,29 +106,9 @@
         <th>Actions</th>
 
     </tr>
-    <tr>
-        <td colspan="6">
-            <mat-form-field appearance="fill" style="width: 300px;">
-                <mat-label>Seleccionar un alumno</mat-label>
-                <mat-select [(ngModel)]="selectedStudentId">
-                    <mat-option *ngFor="let student of studentList" [value]="student.id">
-                        <div style="display: flex; align-items: center;">
-                            <img
-                                    [src]="studentImg"
-                                    alt="student"
-                                    width="48"
-                                    height="48"
-                                    style="border-radius: 50%; object-fit: cover;">
-                            <span>{{ student.firstName }} {{ student.lastName }}</span>
-                        </div>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </td>
-    </tr>
     </thead>
     <tbody>
-        @for (student of studentList; track student.id) {
+        @for (student of filteredStudents; track student.id) {
             <tr>
                 <td>{{student.firstName}}</td>
                 <td>{{student.lastName}}</td>
