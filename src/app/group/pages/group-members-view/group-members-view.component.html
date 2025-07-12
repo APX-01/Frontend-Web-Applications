@@ -2,6 +2,10 @@
 <div class="code-section">
     <button mat-flat-button [routerLink]="['/group', groupId]" style="margin-right: auto; margin-left: 10px">Back to Group</button>
 
+    <button mat-flat-button [routerLink]="['/group', groupId, 'challenge-analytics']" style="margin-right: auto; margin-left: 10px">
+        Challenge analytics
+    </button>
+
     @if (user.roles[0] === 'ROLE_TEACHER') {
         <div class="join-code-container">
             @if (groupJoinCode != '') {
