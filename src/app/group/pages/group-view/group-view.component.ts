@@ -12,16 +12,18 @@ import {GroupJoinCodeService} from "../../services/group-join-code.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ChallengeCreateComponent} from "../../../challenges/components/challenge-create/challenge-create.component";
 import {ChallengeApiService} from "../../../challenges/services/challenge-api.service";
+import {TranslatePipe} from "@ngx-translate/core";
 
 
 @Component({
   selector: 'app-group-view',
-  imports: [
-    MatCardModule,
-    MatButton,
-    RouterLink,
-    ChallengeListComponent
-  ],
+    imports: [
+        MatCardModule,
+        MatButton,
+        RouterLink,
+        ChallengeListComponent,
+        TranslatePipe
+    ],
   templateUrl: './group-view.component.html',
   standalone: true,
   styleUrl: './group-view.component.css'

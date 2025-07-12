@@ -12,6 +12,7 @@ import { MatButton, MatIconButton } from "@angular/material/button";
 import { ProfileInGroup } from "../../../iam/model/profile-in-group.entity";
 import { RouterLink } from "@angular/router";
 import { MatIcon } from "@angular/material/icon";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-group-item',
@@ -25,7 +26,8 @@ import { MatIcon } from "@angular/material/icon";
         RouterLink,
         MatCardImage,
         MatIcon,
-        MatIconButton
+        MatIconButton,
+        TranslatePipe
     ],
     templateUrl: './group-item.component.html',
     standalone: true,

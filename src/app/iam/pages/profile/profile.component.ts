@@ -10,11 +10,12 @@ import {SubmissionApiService} from "../../../challenges/services/submission-api.
 import {ChallengeApiService} from "../../../challenges/services/challenge-api.service";
 import {NgIf} from "@angular/common";
 import {User} from "../../model/user.entity";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [MatCardModule, MatDialogModule, NgIf],
+  imports: [MatCardModule, MatDialogModule, NgIf, TranslatePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

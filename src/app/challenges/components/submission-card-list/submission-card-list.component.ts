@@ -6,13 +6,15 @@ import {SubmissionApiService} from "../../services/submission-api.service";
 import {SubmissionCardItemComponent} from "../submission-card-item/submission-card-item.component";
 import {AuthService} from "../../../iam/services/auth.service";
 import {User} from "../../../iam/model/user.entity";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-submission-card-list',
     imports: [
         MatGridList,
         MatGridTile,
-        SubmissionCardItemComponent
+        SubmissionCardItemComponent,
+        TranslatePipe
     ],
     templateUrl: './submission-card-list.component.html',
     standalone: true,

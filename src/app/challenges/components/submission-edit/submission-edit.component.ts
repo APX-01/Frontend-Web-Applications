@@ -9,17 +9,19 @@ import {Submission} from "../../model/submission.entity";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../../../iam/services/auth.service";
 import {User} from "../../../iam/model/user.entity";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-submission-edit',
   templateUrl: './submission-edit.component.html',
-  imports: [
-    MatInput,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatButton,
-    NgIf,
-  ],
+    imports: [
+        MatInput,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatButton,
+        NgIf,
+        TranslatePipe,
+    ],
   standalone: true,
   styleUrls: ['./submission-edit.component.css']
 })

@@ -2,12 +2,14 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import {Router} from "@angular/router";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-register',
-  imports: [
-    ReactiveFormsModule,
-  ],
+    imports: [
+        ReactiveFormsModule,
+        TranslatePipe,
+    ],
   templateUrl: './register.component.html',
   standalone: true,
   styleUrls: ['./register.component.css']

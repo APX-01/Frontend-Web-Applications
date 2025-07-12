@@ -23,6 +23,7 @@ import {User} from "../../../iam/model/user.entity";
 import {MatDialog} from "@angular/material/dialog";
 import {GroupCreateAndEditComponent} from "../group-create-and-edit/group-create-and-edit.component";
 import {Router} from "@angular/router";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-group-list',
@@ -36,7 +37,8 @@ import {Router} from "@angular/router";
     MatIcon,
     MatIconButton,
     MatButton,
-    MatHint
+    MatHint,
+    TranslatePipe
   ],
   templateUrl: './group-list.component.html',
   styleUrl: './group-list.component.css'
