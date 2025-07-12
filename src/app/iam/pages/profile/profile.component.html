@@ -3,13 +3,13 @@
 <hr>
 <div class="profile-card">
             <div class="profile-image">
-                <img [src]="user.roles[0] === 'ROLE_TEACHER' ? teacherImg : studentImg" alt="Profile Image" />
+                <img [src]="user?.roles?.[0] === 'ROLE_TEACHER' ? teacherImg : studentImg" alt="Profile Image" />
             </div>
 
             <div class="profile-details">
-                <h2>{{ user.firstName }} {{ user.lastName }}</h2>
-                <p class="role">{{ user.roles[0] }}</p>
-                <p class="email">{{ user.email }}</p>
+                <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
+                <p class="role">{{ user?.roles?.[0] }}</p>
+                <p class="email">{{ user?.email }}</p>
 
                 <button class="edit-button" (click)="edit()">Editar contraseña</button>
 
@@ -19,10 +19,10 @@
 
 
                         <li><strong>Grupos a los que está unido:</strong> {{ groupCount }}</li>
-                        <li *ngIf="user.roles[0] === 'ROLE_STUDENT'"><strong>Total de entregas realizadas:</strong> {{ submissionCount }}</li>
-                        <li *ngIf="user.roles[0] === 'ROLE_STUDENT'"><strong>Último grupo unido:</strong> {{ lastGroupName }}</li>
-                        <li *ngIf="user.roles[0] === 'ROLE_TEACHER'"><strong>Último grupo creado:</strong> {{ lastGroupName }}</li>
-                        <li *ngIf="user.roles[0] === 'ROLE_TEACHER'"><strong>Retos creados en {{ lastGroupName }}:</strong> {{ challengeCount }}</li>
+                        <li *ngIf="user?.roles[0] === 'ROLE_STUDENT'"><strong>Total de entregas realizadas:</strong> {{ submissionCount }}</li>
+                        <li *ngIf="user?.roles[0] === 'ROLE_STUDENT'"><strong>Último grupo unido:</strong> {{ lastGroupName }}</li>
+                        <li *ngIf="user?.roles[0] === 'ROLE_TEACHER'"><strong>Último grupo creado:</strong> {{ lastGroupName }}</li>
+                        <li *ngIf="user?.roles[0] === 'ROLE_TEACHER'"><strong>Retos creados en {{ lastGroupName }}:</strong> {{ challengeCount }}</li>
                     </ul>
                 </div>
             </div>

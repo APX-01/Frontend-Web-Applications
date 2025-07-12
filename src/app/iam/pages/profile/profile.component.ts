@@ -41,74 +41,60 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let user: User = this.authService.getUser() || new User({});
-    this.authService.getUserById(user?.id || 0).subscribe(
-        {
-          next: (response) => {
-            if (this.user != null) {
-              this.user.firstName = response.firstName;
-              this.user.lastName = response.lastName;
-              this.user.roles = response.roles;
-              this.user.email = response.email
-            }
-            console.log(user);
-          },
-          error: (err) => {
-            throw new Error(err);
-          }
-        }
-    );
-
-    if (!user) {
+    let localUser: User = this.authService.getUser() || new User({});
+    if (!localUser) {
       this.router.navigate(['/login']);
       return;
     }
 
-    this.user = {
-      ...this.user,
-      imageUrl: this.getImageByRole(user.roles[0])
-    };
+    this.authService.getUserById(localUser.id).subscribe({
+      next: (response) => {
+        this.user = {
+          ...response,
+          imageUrl: this.getImageByRole(response.roles?.[0])
+        };
+        console.log("Usuario cargado:", this.user);
 
-    // 🔥 Obtener grupos del usuario
-    this.groupService.getGroupsByUserId(user.id).subscribe({
-      next: (groups) => {
-        // ✅ solo contamos los grupos
-        this.groupCount = groups.length;
+        // Grupos del usuario
+        this.groupService.getGroupsByUserId(localUser.id).subscribe({
+          next: (groups) => {
+            this.groupCount = groups.length;
+            const lastGroup = groups[groups.length - 1];
+            this.lastGroupName = lastGroup?.name ?? '—';
 
-        // ✅ Obtener el último grupo creado (último de la lista)
-        const lastGroup = groups[groups.length - 1];
-        this.lastGroupName = lastGroup?.name ?? '—'; // Puedes mostrarlo en el HTM
+            if (this.user.roles?.[0] === 'ROLE_TEACHER') {
+              this.challengeService.getChallengesByGroupId(lastGroup?.id).subscribe({
+                next: (challenges) => {
+                  this.challengeCount = challenges.length;
+                },
+                error: (err) => {
+                  console.error('Error al cargar retos:', err);
+                }
+              });
+            }
+          },
+          error: (err) => {
+            console.error('Error al cargar grupos:', err);
+          }
+        });
 
-        // 👨‍🏫 Si es profesor, obtener retos del último grupo
-        if (this.user.role === 'ROLE_TEACHER') {
-          this.challengeService.getChallengesByGroupId(lastGroup.id).subscribe({
-            next: (challenges) => {
-              this.challengeCount = challenges.length;
+        if (this.user.roles?.[0] === 'ROLE_STUDENT') {
+          this.submissionService.getByStudentId(localUser.id).subscribe({
+            next: (submissions) => {
+              this.submissionCount = submissions.length;
             },
             error: (err) => {
-              console.error('Error al cargar retos:', err);
+              console.error('Error al cargar submissions del usuario:', err);
             }
           });
         }
-
       },
       error: (err) => {
-        console.error('Error al cargar grupos del usuario:', err);
+        console.error('Error al obtener usuario:', err);
       }
     });
-
-    // 🔥 Obtener submissions por estudiante
-    this.submissionService.getByStudentId(user.id).subscribe({
-      next: (submissions) => {
-        this.submissionCount = submissions.length;
-      },
-      error: (err) => {
-        console.error('Error al cargar submissions del usuario:', err);
-      }
-    });
-
-    console.log("Perfil cargado:", this.user);
   }
+
 
   edit():void {
     const dialogRef = this.dialog.open(EditProfileDialogComponent, {
