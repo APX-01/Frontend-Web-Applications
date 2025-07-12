@@ -8,6 +8,19 @@
             [type]="pieChartType">
     </canvas>
 
+    <div class="stats" style="display: flex; justify-content: center; margin-top: 30px;">
+        <div class="stat-item" style="display: flex; align-items: center; margin: 0 20px; color: #c62828;">
+            <mat-icon class="icon" style="color: #c62828; margin-right: 5px;">functions</mat-icon>
+            <span>Promedio:</span>
+            <strong style="margin-left: 5px;">{{ calculateAverage() | number:'1.1-1' }}</strong>
+        </div>
+        <div class="stat-item" style="display: flex; align-items: center; margin: 0 20px; color: #c62828;">
+            <mat-icon class="icon" style="color: #c62828; margin-right: 5px;">assignment</mat-icon>
+            <span>Total Submissions:</span>
+            <strong style="margin-left: 5px;">{{ submissions.length }}</strong>
+        </div>
+    </div>
+
     <!-- Detalle de Submissions -->
     <div class="submissions-list" style="margin-top: 40px;">
         <h3><mat-icon class="icon">list</mat-icon> Detalle de Submissions</h3>

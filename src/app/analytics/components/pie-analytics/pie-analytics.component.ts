@@ -79,7 +79,11 @@ export class PieAnalyticsComponent implements OnInit {
         });
   }
 
-
+  calculateAverage(): number {
+    if (!this.submissions?.length) return 0;
+    const sum = this.submissions.reduce((acc, sub) => acc + sub.score, 0);
+    return sum / this.submissions.length;
+  }
 
 
 }
