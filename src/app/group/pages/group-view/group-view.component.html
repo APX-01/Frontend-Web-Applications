@@ -25,7 +25,7 @@
                 <div class="button-spacer"></div>
                 @if (user.roles[0] == "ROLE_TEACHER") {
                     <button mat-flat-button class="create-challenge-button" (click)="openCreateChallengeDialog()">Create Challenge</button>
-                    <button mat-flat-button class="leave-button" (click)="deleteGroup()" routerLink="/dashboard">Delete Group</button>
+                    <button mat-flat-button class="leave-button" (click)="deleteGroup()">Delete Group</button>
                 } @else {
                     <button mat-flat-button class="leave-button" (click)="leaveGroup()">Leave Group</button>
                 }

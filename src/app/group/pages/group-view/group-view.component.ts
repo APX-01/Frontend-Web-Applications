@@ -93,12 +93,10 @@ export class GroupViewComponent implements OnInit {
 
   leaveGroup(): void {
     const studentId = this.user.id;
-    console.log(`Borrando estudiante con id: ${studentId}`);
 
     this.authService.leaveGroup(this.groupId).subscribe({
       next: () => {
-        console.log(`Estudiante ${studentId} eliminado del grupo ${this.groupId}`);
-        this.router.navigate(['/dashboard']); // Redirige al dashboard tras dejar el grupo
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         console.error(`Error al eliminar estudiante del grupo:`, err);
@@ -109,8 +107,7 @@ export class GroupViewComponent implements OnInit {
   deleteGroup(): void {
     this.groupService.delete(this.groupId).subscribe({
       next: (group) => {
-        console.log("Deleted Group: ");
-        console.log(group);
+        this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         throw new Error("")
