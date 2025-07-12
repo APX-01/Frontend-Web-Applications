@@ -97,6 +97,10 @@ export class AuthService extends BaseService<User> {
       return groups.includes(groupId)
   }
 
+  getUserById(id: number): Observable<User> {
+      return this.http.get<User>(`${this.resourcePath()}/${id}`, this.httpOptions);
+  }
+
 
 
     leaveGroup(groupId: number): Observable<void> {

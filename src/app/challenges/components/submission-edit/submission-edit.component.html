@@ -1,27 +1,26 @@
 <form [formGroup]="submissionForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-        <mat-label>ID (Auto)</mat-label>
-        <input matInput formControlName="id" type="number" readonly />
-    </mat-form-field>
 
-    <mat-form-field appearance="fill">
-        <mat-label>🐝 Challenge ID</mat-label>
-        <input matInput formControlName="challengeId" type="number" />
-    </mat-form-field>
+    @if (student) {
+        <p>🎓 Estudiante: {{student.firstName}} {{student.lastName}}</p>
+    }
 
-    <mat-form-field appearance="fill">
-        <mat-label>🎓 Student ID</mat-label>
-        <input matInput formControlName="studentId" type="number" />
-    </mat-form-field>
+    <div style="height: 10px"></div>
+    <div class="submission-content-title">
+        📄 Contenido:
+    </div>
+    <div class="submission-content">
+        <p>{{data.content}}</p>
+    </div>
 
-    <mat-form-field appearance="fill">
-        <mat-label>📄 Contenido</mat-label>
-        <textarea matInput formControlName="content" rows="4"></textarea>
-    </mat-form-field>
+
+
 
     <mat-form-field appearance="fill">
         <mat-label>⭐ Puntaje</mat-label>
-        <input matInput formControlName="score" type="number" />
+        <input matInput formControlName="score" type="number" min="0" max="20"/>
+        <mat-error *ngIf="submissionForm.get('score')?.hasError('max')">
+            El valor no puede ser mayor a 20 ni menor a 0
+        </mat-error>
     </mat-form-field>
 
 

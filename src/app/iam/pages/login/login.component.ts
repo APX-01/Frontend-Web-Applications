@@ -45,10 +45,10 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(email, password).subscribe({
       next: (user) => {
+        window.location.reload();
         alert(`Bienvenido, ${user.firstName}`);
         localStorage.setItem('auth_token', user.token);
         localStorage.setItem('auth_user', JSON.stringify(user));
-        this.router.navigate(['/dashboard']);
       },
       error: err => {
         this.loginError = true;

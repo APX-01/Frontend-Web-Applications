@@ -29,11 +29,21 @@ export class SubmissionCardItemComponent implements OnInit{
  @Input() submission!: Submission;
  @Output() submissionUpdated = new EventEmitter<void>();
  currentUser: User = new User({});
+ student: User = new User({});
  constructor(private authService: AuthService, private dialog: MatDialog) {
  }
 
     ngOnInit() {
         this.currentUser= this.authService.getUser() || new User({});
+
+        this.authService.getUserById(this.submission.studentId).subscribe({
+            next: (submission) => {
+                this.student = submission;
+            },
+            error: (err) => {
+                throw new Error(err.message);
+            }
+        })
     }
 
     editSubmission(): void {

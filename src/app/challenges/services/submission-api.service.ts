@@ -22,8 +22,12 @@ export class SubmissionApiService extends BaseService<Submission>{
         .pipe(retry(2), catchError(this.handleError));
   }
 
-  createSubmission(submission: Submission):Observable<Submission> {
-    return this.create(submission);
+  createSubmission(submission: {
+    challengeId: number,
+    content: String,
+    imageUrl: string
+  }):Observable<Submission> {
+    return this.http.post<Submission>(`${this.resourcePath()}`, submission, this.httpOptions);
   }
 
   updateSubmission(id: number, submission: Submission): Observable<Submission> {
@@ -36,5 +40,8 @@ export class SubmissionApiService extends BaseService<Submission>{
         .pipe(retry(2), catchError(this.handleError));
   }
 
+  gradeSubmission(id: number, score: number): Observable<Submission> {
+    return this.http.put<Submission>(`${this.resourcePath()}/${id}/grade`, { score: score }, this.httpOptions)
+  }
 
 }

@@ -19,9 +19,6 @@ import {User} from "../../../iam/model/user.entity";
     styleUrl: './submission-card-list.component.css'
 })
 export class SubmissionCardListComponent implements OnInit {
-
-
-
     submissions: Submission[] = [];
     currentUser: User = new User({});
 

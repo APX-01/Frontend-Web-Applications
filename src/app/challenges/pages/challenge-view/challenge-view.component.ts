@@ -98,16 +98,12 @@ export class ChallengeViewComponent implements OnInit {
   }
 
   createSubmission(): void {
-    const submission :Submission= {
-      id: 0,
-      challengeId: this.challenge.id,
-      studentId: this.tempUser.id,
-      content: this.challengeToSubmit.content,
-      score: 0,
-      imageUrl: this.challengeToSubmit.imageUrl,
-    };
 
-    this.submissionService.createSubmission(submission).subscribe({
+    this.submissionService.createSubmission({
+      challengeId: this.challenge.id,
+      content: this.challengeToSubmit.content,
+      imageUrl: this.challengeToSubmit.imageUrl
+    }).subscribe({
       next: (response) => {
         console.log('Submission creada exitosamente:', response);
         this.isSubmissionFormVisible = false;
