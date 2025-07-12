@@ -70,6 +70,26 @@
             <th>Actions</th>
         }
     </tr>
+    <tr>
+        <td colspan="6">
+            <mat-form-field appearance="fill" style="width: 300px;">
+                <mat-label>Seleccionar un alumno</mat-label>
+                <mat-select [(ngModel)]="selectedStudentId">
+                    <mat-option *ngFor="let student of studentList" [value]="student.id">
+                        <div style="display: flex; align-items: center;">
+                            <img
+                                    [src]="studentImg"
+                                    alt="student"
+                                    width="48"
+                                    height="48"
+                                    style="border-radius: 50%; object-fit: cover;">
+                            <span>{{ student.firstName }} {{ student.lastName }}</span>
+                        </div>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </td>
+    </tr>
     </thead>
     <tbody>
         @for (student of studentList; track student.id) {

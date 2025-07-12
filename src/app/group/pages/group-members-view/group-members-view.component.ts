@@ -14,6 +14,9 @@ import {catchError, firstValueFrom, of} from "rxjs";
 import {MatTooltip} from "@angular/material/tooltip";
 import {ChallengeApiService} from "../../../challenges/services/challenge-api.service";
 import {Challenge} from "../../../challenges/model/challenge.entity";
+import {MatSelect} from "@angular/material/select";
+import {MatOption} from "@angular/material/core";
+import {NgForOf, NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-group-members-view',
@@ -26,7 +29,10 @@ import {Challenge} from "../../../challenges/model/challenge.entity";
     MatLabel,
     MatInput,
     FormsModule,
-    MatTooltip
+    MatTooltip,
+    MatSelect,
+    MatOption,
+    NgForOf
   ],
   templateUrl: './group-members-view.component.html',
   standalone: true,
@@ -46,6 +52,10 @@ export class GroupMembersViewComponent implements OnInit {
   newCode: string = '';
 
   challenges: Challenge[] = [];
+
+  selectedStudentId: number | null = null;
+
+  studentImg: string = 'https://randomuser.me/api/portraits/lego/1.jpg';
 
   constructor(
       private authService: AuthService,
