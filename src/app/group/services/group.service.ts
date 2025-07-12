@@ -12,15 +12,9 @@ const groupsResourceEndpoint = environment.groupsEndpointPath;
 })
 export class GroupService extends BaseService<Group> {
 
-  constructor(
-      private authService: AuthService,
-  ) {
+  constructor() {
     super();
     this.resourceEndpoint = groupsResourceEndpoint;
-
-    if (this.authService.getToken() != null) {
-      this.httpOptions.headers = this.httpOptions.headers.append("Authorization", "Bearer " + this.authService.getToken());
-    }
   }
 
   public getGroupsFromUser(userId: number): Observable<Group[]> {

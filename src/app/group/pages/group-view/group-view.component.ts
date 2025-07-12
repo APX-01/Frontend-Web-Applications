@@ -20,8 +20,7 @@ import {ChallengeApiService} from "../../../challenges/services/challenge-api.se
     MatCardModule,
     MatButton,
     RouterLink,
-    ChallengeListComponent,
-
+    ChallengeListComponent
   ],
   templateUrl: './group-view.component.html',
   standalone: true,
@@ -57,9 +56,9 @@ export class GroupViewComponent implements OnInit {
     console.log('Is logged in:', this.authService.isUserLoggedIn());
     console.log('Is in group:', this.authService.userIsInGroup(this.groupId));
 
-    if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
-      this.router.navigate(['no-access']);
-    }
+    // if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
+    //   this.router.navigate(['no-access']);
+    // }
   }
 
   private getActualUser() {

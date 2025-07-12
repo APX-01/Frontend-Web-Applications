@@ -9,13 +9,20 @@ import {environment} from "../../../environments/environment";
  */
 export abstract class BaseService<T> {
   /** HTTP headers configuration for JSON communication */
-  protected httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'})};
+  protected httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json'}) };
   /** Base URL for the server API */
   protected serverBaseUrl: string = `${environment.serverBaseUrl}`;
   /** Endpoint path for the specific resource */
   protected resourceEndpoint: string = '/resources';
   /** HTTP client for making API request */
   protected http: HttpClient = inject(HttpClient);
+
+  protected constructor() {
+    if (localStorage.getItem('auth_token') !== null) {
+      console.log('auth_token: ' + localStorage.getItem('auth_token'));
+      this.httpOptions.headers = this.httpOptions.headers.append("Authorization", "Bearer " + localStorage.getItem('auth_token'));
+    }
+  }
 
   protected handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

@@ -15,9 +15,9 @@ const authenticationResourceEndpoint = environment.authenticationEndpointPath;
 })
 export class AuthService extends BaseService<User> {
 
-    private authenticationPath: string = "/resources";
+    private readonly authenticationPath: string;
 
-  constructor(private groupJoinCodeService: GroupJoinCodeService ) {
+  constructor() {
       super();
       this.resourceEndpoint = usersResourceEndpoint;
       this.authenticationPath = authenticationResourceEndpoint;

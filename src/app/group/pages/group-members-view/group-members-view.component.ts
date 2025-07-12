@@ -76,9 +76,9 @@ export class GroupMembersViewComponent implements OnInit {
       }
     });
 
-    if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
-      this.router.navigate(['no-access']);
-    }
+    // if (!this.authService.userIsInGroup(this.groupId) || !this.authService.isUserLoggedIn()) {
+    //   this.router.navigate(['no-access']);
+    // }
 
   }
 

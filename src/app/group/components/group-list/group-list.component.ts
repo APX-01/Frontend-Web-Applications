@@ -98,7 +98,7 @@ export class GroupListComponent implements OnInit{
     this.joinCode = new GroupJoinCode({});
 
 
-    this.groupJoinCodeService.joinUserToGroupByKey(this.user.id, this.joinCodeString).subscribe({
+    this.groupJoinCodeService.joinUserToGroupByKey(this.joinCodeString).subscribe({
       next: (group) => {
         this.getActualUser();
         this.getAvailableGroups();
