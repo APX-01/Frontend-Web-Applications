@@ -9,6 +9,7 @@ import {GroupService} from "../../../group/services/group.service";
 import {SubmissionApiService} from "../../../challenges/services/submission-api.service";
 import {ChallengeApiService} from "../../../challenges/services/challenge-api.service";
 import {NgIf} from "@angular/common";
+import {User} from "../../model/user.entity";
 
 @Component({
   selector: 'app-profile',
@@ -44,7 +45,23 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const user = this.authService.getUser(); // <- aquí usamos tu método existente
+    let user: User = this.authService.getUser() || new User({});
+    this.authService.getUserById(user?.id || 0).subscribe(
+        {
+          next: (response) => {
+            if (this.user != null) {
+              this.user.firstName = response.firstName;
+              this.user.lastName = response.lastName;
+              this.user.roles = response.roles;
+              this.user.email = response.email
+            }
+            console.log(user);
+          },
+          error: (err) => {
+            throw new Error(err);
+          }
+        }
+    );
 
     if (!user) {
       this.router.navigate(['/login']);
@@ -52,7 +69,7 @@ export class ProfileComponent implements OnInit {
     }
 
     this.user = {
-      ...user,
+      ...this.user,
       imageUrl: this.getImageByRole(user.roles[0])
     };
 
