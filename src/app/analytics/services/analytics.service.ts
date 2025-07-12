@@ -7,7 +7,7 @@ import {Submission} from "../../challenges/model/submission.entity";
 @Injectable({
     providedIn: 'root'
 })
-export class AnalyticsService {
+export class AnalyticsService  {
     private apiUrl = environment.serverBaseUrl;
 
     constructor(private http: HttpClient) {}

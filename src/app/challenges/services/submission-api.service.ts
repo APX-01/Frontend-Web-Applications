@@ -44,4 +44,12 @@ export class SubmissionApiService extends BaseService<Submission>{
     return this.http.put<Submission>(`${this.resourcePath()}/${id}/grade`, { score: score }, this.httpOptions)
   }
 
+  getSubmissionsByStudentIdAndGroupId(studentId: number, groupId: number): Observable<Submission[]> {
+    return this.http.get<Submission[]>(`${this.resourcePath()}/student/${studentId}/group/${groupId}`, this.httpOptions)
+  }
+
+  getByStudentIdAndChallengeId(studentId: number, challengeId: number): Observable<Submission[]> {
+    return this.http.get<Submission[]>(`${this.resourcePath()}/students/${studentId}/challenges/${challengeId}`, this.httpOptions)
+  }
+
 }

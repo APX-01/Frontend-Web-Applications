@@ -9,6 +9,8 @@ import {ChallengeApiService} from "../../../challenges/services/challenge-api.se
 import {forkJoin} from "rxjs";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // ✅ Spinner
 import { MatIcon } from '@angular/material/icon';
+import {SubmissionApiService} from "../../../challenges/services/submission-api.service";
+import {AuthService} from "../../../iam/services/auth.service";
 
 
 Chart.register(...registerables);
@@ -64,28 +66,29 @@ export class StudentAnalyticsComponent implements OnInit {
 
   constructor(
       private route: ActivatedRoute,
-      private analyticsService: AnalyticsService,
-      private challengeService: ChallengeApiService
+      private challengeService: ChallengeApiService,
+      private submissionsService: SubmissionApiService,
+      private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.studentId = +this.route.snapshot.paramMap.get('studentId')!;
     this.groupId = +this.route.snapshot.paramMap.get('groupId')!;
 
-    this.analyticsService.getStudentName(this.studentId).subscribe({
-      next: ({ firstName, lastName }) => {
-        this.studentName = `${firstName} ${lastName}`.trim() || 'Estudiante';
+    this.authService.getUserById(this.studentId).subscribe({
+      next: (user) => {
+        this.studentName = `${user.firstName} ${user.lastName}`.trim() || 'Estudiante';
       },
       error: () => {
         this.studentName = 'Estudiante';
       }
     });
 
-    this.loadStudentSubmissions(); // 👈 Nuevo método
+    this.loadStudentSubmissions();
   }
 
   loadStudentSubmissions() {
-    this.analyticsService.getSubmissionsByStudentIdAndGroupId(this.studentId,this.groupId).subscribe({
+    this.submissionsService.getSubmissionsByStudentIdAndGroupId(this.studentId,this.groupId).subscribe({
       next: (submissions) => {
         this.submissions = submissions;
         console.log(submissions)
@@ -116,7 +119,7 @@ export class StudentAnalyticsComponent implements OnInit {
   }
 
   loadStudentSubmissionsByChallenge(challengeId: number) {
-    this.analyticsService.getStudentSubmissionByChallenge(this.studentId, challengeId).subscribe({
+    this.submissionsService.getByStudentIdAndChallengeId(this.studentId, challengeId).subscribe({
       next: (submissions) => {
         console.log('Submissions por challenge:', submissions);
 
@@ -148,7 +151,7 @@ export class StudentAnalyticsComponent implements OnInit {
     this.challengeService.getChallengesByGroupId(this.groupId).subscribe({
       next: (challenges) => {
         const requests = challenges.map(ch =>
-            this.analyticsService.getStudentSubmissionByChallenge(this.studentId, ch.id)
+            this.submissionsService.getByStudentIdAndChallengeId(this.studentId, ch.id)
         );
 
         forkJoin(requests).subscribe({
