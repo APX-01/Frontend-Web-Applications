@@ -58,6 +58,10 @@ export class AuthService extends BaseService<User> {
       return localStorage.getItem('auth_token');
   }
 
+  setToken(token: string) {
+      this.tokenService.setToken(token)
+  }
+
   setUser(user: User): void {
       localStorage.setItem('auth_user', JSON.stringify(user));
   }
