@@ -35,15 +35,7 @@ export class GroupItemComponent implements OnInit {
     @Input() group: Group = new Group({});
     @Input() groupProfile: ProfileInGroup = new ProfileInGroup({});
 
-    randomDuration: string = '';
-
     ngOnInit(): void {
-        this.randomDuration = this.generateRandomDuration();
-    }
 
-    private generateRandomDuration(): string {
-        const hours = Math.floor(Math.random() * 4) + 1; // 1 to 4 hours
-        const minutes = Math.floor(Math.random() * 60);  // 0 to 59 minutes
-        return `${hours} hour${hours > 1 ? 's' : ''} ${minutes} minute${minutes !== 1 ? 's' : ''}`;
     }
 }
