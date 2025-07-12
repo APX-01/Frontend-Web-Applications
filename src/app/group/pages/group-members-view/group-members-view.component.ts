@@ -55,6 +55,8 @@ export class GroupMembersViewComponent implements OnInit {
 
   selectedStudentId: number | null = null;
 
+
+
   studentImg: string = 'https://randomuser.me/api/portraits/lego/1.jpg';
 
   constructor(
@@ -251,4 +253,16 @@ export class GroupMembersViewComponent implements OnInit {
       }
     });
   }
+
+  get filteredStudents(): User[] {
+    if (this.selectedStudentId) {
+      return this.studentList.filter(s => s.id === this.selectedStudentId);
+    }
+    return this.studentList;
+  }
+
+  clearSelection() {
+    this.selectedStudentId = null;
+  }
+
 }
