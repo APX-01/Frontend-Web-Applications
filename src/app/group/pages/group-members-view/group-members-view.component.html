@@ -66,9 +66,8 @@
         <th>Email</th>
         <th>Role</th>
         <th>Score</th>
-        @if (user.roles[0] == 'ROLE_TEACHER') {
-            <th>Actions</th>
-        }
+        <th>Actions</th>
+
     </tr>
     </thead>
     <tbody>
@@ -86,17 +85,23 @@
                 <td>
                     {{getUserScore(student)}}
                 </td>
-                @if (user.roles[0] == 'ROLE_TEACHER') {
+
                     <td>
-                        <button mat-icon-button aria-label="kick" (click)="kickStudent(student.id)"><mat-icon>cancel</mat-icon></button>
+                        @if (user.roles[0] == "ROLE_TEACHER")
+                        {
+                            <button mat-icon-button aria-label="kick" (click)="kickStudent(student.id)"><mat-icon>cancel</mat-icon></button>
+                        }
                         <!-- Botón para los analytics -->
-                        <button mat-icon-button
-                                [routerLink]="['/group', groupId, 'student', student.id, 'analytics']"
-                                matTooltip="Ver analytics del estudiante">
-                            <mat-icon>info</mat-icon>
-                        </button>
+                        @if (user.roles[0] == "ROLE_TEACHER" || student.id == user.id)
+                        {
+                            <button mat-icon-button
+                                    [routerLink]="['/group', groupId, 'student', student.id, 'analytics']"
+                                    matTooltip="Ver analytics del estudiante">
+                                <mat-icon>info</mat-icon>
+                            </button>
+                        }
+
                     </td>
-                }
             </tr>
         } @empty {
             <tr>

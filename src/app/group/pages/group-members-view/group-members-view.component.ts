@@ -38,7 +38,7 @@ export class GroupMembersViewComponent implements OnInit {
 
   teacher: User = new User({});
   
-  studentList: Array<User> = [];
+  studentList: User[] = [];
   groupId!: number;
 
   groupJoinCode: string = '';
@@ -197,24 +197,27 @@ export class GroupMembersViewComponent implements OnInit {
     });
   }
 
-  private getUserListForGroup(groupId: number){
+  private getUserListForGroup(groupId: number) {
     this.authService.getUsersByGroupId(groupId).subscribe({
-      next: (users) => {
-        console.log(users);
-        users.map((user) => {
-          if ( user.roles[0] == "ROLE_TEACHER") {
-            this.teacher = user;
-          } else {
-            this.studentList.push(user);
-          }
-        })
-        console.log(this.studentList);
+      next: (users: User[]) => {
+        this.studentList = []; // Reset the array
+        this.teacher = new User({}); // Reset teacher
+
+        if (users && Array.isArray(users)) {
+          users.forEach((user) => {
+            if (user.roles?.[0] === "ROLE_TEACHER") {
+              this.teacher = user;
+            } else {
+              this.studentList.push(user);
+            }
+          });
+        }
       },
-      error: (err) =>
-      {
-        throw new Error(err.message)
+      error: (err) => {
+        console.error('Error loading users:', err);
+        this.studentList = []; // Ensure it's always an array
       }
-    })
+    });
   }
 
   getUserScore(user: User): number {
