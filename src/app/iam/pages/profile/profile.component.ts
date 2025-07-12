@@ -26,14 +26,10 @@ export class ProfileComponent implements OnInit {
   submissionCount: number = 0;
   challengeCount: number = 0;
 
-  private imageOptions: string[] = [
-    'https://randomuser.me/api/portraits/men/15.jpg',
-    'https://randomuser.me/api/portraits/men/22.jpg',
-    'https://randomuser.me/api/portraits/men/33.jpg',
-    'https://randomuser.me/api/portraits/women/10.jpg',
-    'https://randomuser.me/api/portraits/women/18.jpg',
-    'https://randomuser.me/api/portraits/women/35.jpg'
-  ];
+  studentImg: string = 'https://randomuser.me/api/portraits/lego/1.jpg';
+  teacherImg: string = 'https://randomuser.me/api/portraits/lego/2.jpg';
+
+
 
   constructor(
       private authService: AuthService,
@@ -111,15 +107,7 @@ export class ProfileComponent implements OnInit {
       }
     });
 
-
-
-
     console.log("Perfil cargado:", this.user);
-  }
-
-  getRandomImage(): string {
-    const index = Math.floor(Math.random() * this.imageOptions.length);
-    return this.imageOptions[index];
   }
 
   edit():void {

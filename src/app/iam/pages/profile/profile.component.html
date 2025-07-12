@@ -3,7 +3,7 @@
 <hr>
 <div class="profile-card">
             <div class="profile-image">
-                <img [src]="user.imageUrl" alt="Profile Image" />
+                <img [src]="user.roles[0] === 'ROLE_TEACHER' ? teacherImg : studentImg" alt="Profile Image" />
             </div>
 
             <div class="profile-details">

@@ -15,7 +15,7 @@
 
         <span style="text-align: center">
             <strong>Score:</strong>
-            @if (submission.state == "NOT_GRADED") {
+            @if (submission.status == "NOT_GRADED") {
                 <span class="not-graded">Not graded yet</span>
             } @else {
                 <span [class.red-score]="submission.score <= 12"
