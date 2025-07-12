@@ -20,25 +20,27 @@ import {FormsModule} from "@angular/forms";
 import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
 import {SubmissionApiService} from "../../services/submission-api.service";
 import {Submission} from "../../model/submission.entity";
+import {TranslatePipe} from "@ngx-translate/core";
 
 const MAX_ATTEMPTS = 3;
 @Component({
   selector: 'app-challenge-view',
-  imports: [
-    MatButton,
-    MatCard,
-    MatCardActions,
-    MatCardContent,
-    MatCardSubtitle,
-    MatCardTitle,
-    RouterLink,
-    SubmissionCardListComponent,
-    NgIf,
-    FormsModule,
-    MatFormField,
-    MatInput,
+    imports: [
+        MatButton,
+        MatCard,
+        MatCardActions,
+        MatCardContent,
+        MatCardSubtitle,
+        MatCardTitle,
+        RouterLink,
+        SubmissionCardListComponent,
+        NgIf,
+        FormsModule,
+        MatFormField,
+        MatInput,
+        TranslatePipe,
 
-  ],
+    ],
   templateUrl: './challenge-view.component.html',
   standalone: true,
   styleUrl: './challenge-view.component.css'

@@ -2,12 +2,14 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-login',
-  imports: [
-    ReactiveFormsModule,
-  ],
+    imports: [
+        ReactiveFormsModule,
+        TranslatePipe,
+    ],
   templateUrl: './login.component.html',
   standalone: true,
   styleUrls: ['./login.component.css']

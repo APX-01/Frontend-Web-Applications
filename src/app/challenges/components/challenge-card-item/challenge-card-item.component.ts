@@ -7,6 +7,7 @@ import {AuthService} from "../../../iam/services/auth.service";
 import {User} from "../../../iam/model/user.entity";
 import {NgIf} from "@angular/common";
 import {MatIconModule} from "@angular/material/icon";
+import {TranslatePipe} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-challenge-card-item',
@@ -18,7 +19,8 @@ import {MatIconModule} from "@angular/material/icon";
         RouterLink,
         MatButton,
         MatCardImage,
-        MatIconModule
+        MatIconModule,
+        TranslatePipe
     ],
     templateUrl: './challenge-card-item.component.html',
     standalone: true,

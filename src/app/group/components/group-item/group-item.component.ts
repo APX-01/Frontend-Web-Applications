@@ -12,9 +12,13 @@ import { MatButton, MatIconButton } from "@angular/material/button";
 import { ProfileInGroup } from "../../../iam/model/profile-in-group.entity";
 import { RouterLink } from "@angular/router";
 import { MatIcon } from "@angular/material/icon";
+
+import {TranslatePipe} from "@ngx-translate/core";
+
 import {AuthService} from "../../../iam/services/auth.service";
 import {SubmissionApiService} from "../../../challenges/services/submission-api.service";
 import {User} from "../../../iam/model/user.entity";
+
 
 @Component({
     selector: 'app-group-item',
@@ -28,7 +32,8 @@ import {User} from "../../../iam/model/user.entity";
         RouterLink,
         MatCardImage,
         MatIcon,
-        MatIconButton
+        MatIconButton,
+        TranslatePipe
     ],
     templateUrl: './group-item.component.html',
     standalone: true,

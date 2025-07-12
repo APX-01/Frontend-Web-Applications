@@ -8,7 +8,8 @@ import {AuthService} from "../../../iam/services/auth.service";
 import {User} from "../../../iam/model/user.entity";
 import {MatDialog} from "@angular/material/dialog";
 import {SubmissionEditComponent} from "../submission-edit/submission-edit.component";
-import { MatIconModule } from '@angular/material/icon'; // 👈 Importa MatIconModule
+import { MatIconModule } from '@angular/material/icon';
+import {TranslatePipe} from "@ngx-translate/core"; // 👈 Importa MatIconModule
 @Component({
     selector: 'app-submission-card-item',
     imports: [
@@ -19,7 +20,8 @@ import { MatIconModule } from '@angular/material/icon'; // 👈 Importa MatIconM
         MatCardImage,
         MatButton,
         MatIconModule, // ✅ Aquí lo agregas
-        NgIf
+        NgIf,
+        TranslatePipe
     ],
     templateUrl: './submission-card-item.component.html',
     standalone: true,
