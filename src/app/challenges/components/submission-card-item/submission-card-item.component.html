@@ -18,8 +18,8 @@
             @if (submission.state == "NOT_GRADED") {
                 <span class="not-graded">Not graded yet</span>
             } @else {
-                <span [class.red-score]="submission.score <= 13"
-                      [class.green-score]="submission.score > 13">
+                <span [class.red-score]="submission.score <= 12"
+                      [class.green-score]="submission.score > 12">
                     {{submission.score}}
                 </span>
             }
