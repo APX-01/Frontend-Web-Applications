@@ -50,7 +50,7 @@ export class ChallengeViewComponent implements OnInit {
   @ViewChild(SubmissionCardListComponent)
   submissionListComponent!: SubmissionCardListComponent;
 
-  challengeToSubmit: Submission = new Submission({});
+  submissionToSubmit: Submission = new Submission({});
   challenge:Challenge =new Challenge({})  ;
   isLoading = true;
   tempUser= new User({});
@@ -103,8 +103,8 @@ export class ChallengeViewComponent implements OnInit {
 
     this.submissionService.createSubmission({
       challengeId: this.challenge.id,
-      content: this.challengeToSubmit.content,
-      imageUrl: this.challengeToSubmit.imageUrl
+      content: this.submissionToSubmit.content,
+      imageUrl: this.submissionToSubmit.imageUrl
     }).subscribe({
       next: (response) => {
         console.log('Submission creada exitosamente:', response);
@@ -116,7 +116,7 @@ export class ChallengeViewComponent implements OnInit {
         }
 
         // Limpiar el contenido para evitar duplicación
-        this.challengeToSubmit.content = '';
+        this.submissionToSubmit.content = '';
 
         this.remainingAttempts--;
         localStorage.setItem('remainingAttempts', this.remainingAttempts.toString());
@@ -136,6 +136,16 @@ export class ChallengeViewComponent implements OnInit {
   resetAttempts(): void {
     this.remainingAttempts = MAX_ATTEMPTS;
     localStorage.setItem('remainingAttempts', this.remainingAttempts.toString());
+  }
+
+  public formatDate() {
+    let deadline: Date = new Date(this.challenge.deadline);
+    console.log(deadline);
+
+    const padZero = (num: number): string => num < 10 ? `0${num}` : `${num}`;
+
+    return `${deadline.getDate()}/${deadline.getMonth() + 1}/${deadline.getFullYear()} at ` +
+        `${padZero(deadline.getHours())}:${padZero(deadline.getMinutes())}:${padZero(deadline.getSeconds())}`;
   }
 
 

@@ -24,12 +24,10 @@
                 <button mat-raised-button [routerLink]="['/group', group.id, 'members']">{{ 'seeMembers' | translate }}</button>
                 <div class="button-spacer"></div>
                 @if (user.roles[0] == "ROLE_TEACHER") {
-                    <button mat-flat-button class="create-challenge-button" (click)="openCreateChallengeDialog()">
-                        {{ 'createChallenge' | translate }}
-                    </button>
-                    <button mat-flat-button class="leave-button" (click)="deleteGroup()" routerLink="/dashboard">
-                        {{ 'deleteGroup' | translate }}
-                    </button>
+
+                    <button mat-flat-button class="create-challenge-button" (click)="openCreateChallengeDialog()">{{ 'createChallenge' | translate }}</button>
+                    <button mat-flat-button class="leave-button" (click)="deleteGroup()">{{ 'deleteGroup' | translate }}</button>
+
                 } @else {
                     <button mat-flat-button class="leave-button" (click)="leaveGroup()">
                         {{ 'leaveGroup' | translate }}

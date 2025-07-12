@@ -17,6 +17,8 @@ import {Challenge} from "../../../challenges/model/challenge.entity";
 import {MatSelect} from "@angular/material/select";
 import {MatOption} from "@angular/material/core";
 import {NgForOf, NgOptimizedImage} from "@angular/common";
+import {SubmissionApiService} from "../../../challenges/services/submission-api.service";
+import {Submission} from "../../../challenges/model/submission.entity";
 
 @Component({
   selector: 'app-group-members-view',
@@ -55,7 +57,7 @@ export class GroupMembersViewComponent implements OnInit {
 
   selectedStudentId: number | null = null;
 
-
+  studentScores: {[key: number]: number} = {};
 
   studentImg: string = 'https://randomuser.me/api/portraits/lego/1.jpg';
 
@@ -65,7 +67,8 @@ export class GroupMembersViewComponent implements OnInit {
       private groupJoinCodeService: GroupJoinCodeService,
       private snackBar: MatSnackBar,
       private router: Router,
-      private challengeService: ChallengeApiService
+      private challengeService: ChallengeApiService,
+      private submissionService: SubmissionApiService
   ) {
   }
 
@@ -97,6 +100,12 @@ export class GroupMembersViewComponent implements OnInit {
   private loadData(): void {
     this.groupId = Number(this.route.snapshot.paramMap.get('groupId')) || 0;
     this.getUserListForGroup(this.groupId)
+  }
+
+  async loadStudentScores() {
+    for (const student of this.studentList) {
+      this.studentScores[student.id] = await this.getUserScore(student);
+    }
   }
 
   private loadGroupJoinCode(): void {
@@ -224,6 +233,8 @@ export class GroupMembersViewComponent implements OnInit {
             }
           });
         }
+
+        this.loadStudentScores().then(r => console.log(r));
       },
       error: (err) => {
         console.error('Error loading users:', err);
@@ -232,8 +243,21 @@ export class GroupMembersViewComponent implements OnInit {
     });
   }
 
-  getUserScore(user: User): number {
-    return (user.profilesInGroups?.find((profile) => { profile.groupId === this.groupId })?.score) || 0
+  async getUserScore(user: User): Promise<number> {
+    try {
+      const submissions = await this.submissionService
+          .getSubmissionsByStudentIdAndGroupId(user.id, this.groupId)
+          .toPromise();
+
+      if (!submissions) {
+        return 0;
+      }
+
+      return submissions.reduce((total, submission) => total + (submission.score || 0), 0);
+    } catch (error) {
+      console.error('Error fetching submissions:', error);
+      return 0;
+    }
   }
 
   kickStudent(studentId: number) {

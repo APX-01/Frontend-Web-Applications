@@ -12,7 +12,11 @@ import {GroupJoinCodeService} from "../../services/group-join-code.service";
 import {MatDialog} from "@angular/material/dialog";
 import {ChallengeCreateComponent} from "../../../challenges/components/challenge-create/challenge-create.component";
 import {ChallengeApiService} from "../../../challenges/services/challenge-api.service";
+
 import {TranslatePipe} from "@ngx-translate/core";
+
+import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+
 
 
 @Component({
@@ -94,51 +98,51 @@ export class GroupViewComponent implements OnInit {
   }
 
   leaveGroup(): void {
-    const studentId = this.user.id;
-    console.log(`Borrando estudiante con id: ${studentId}`);
+    const dialogRef = this.createDialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Leave Group',
+        message: 'Are you sure you want to leave this group? You will lose access to all its challenges.'
+      }
+    });
 
-    this.authService.leaveGroup(this.groupId).subscribe({
-      next: () => {
-        console.log(`Estudiante ${studentId} eliminado del grupo ${this.groupId}`);
-        this.router.navigate(['/dashboard']); // Redirige al dashboard tras dejar el grupo
-      },
-      error: (err) => {
-        console.error(`Error al eliminar estudiante del grupo:`, err);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const studentId = this.user.id;
+        this.authService.leaveGroup(this.groupId).subscribe({
+          next: () => {
+            this.router.navigate(['/dashboard']);
+          },
+          error: (err) => {
+            console.error(`Error al eliminar estudiante del grupo:`, err);
+          }
+        });
       }
     });
   }
 
   deleteGroup(): void {
-    this.groupService.delete(this.groupId).subscribe({
-      next: (group) => {
-        console.log("Deleted Group: ");
-        console.log(group);
-      },
-      error: (err) => {
-        throw new Error("")
+    const dialogRef = this.createDialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Delete Group',
+        message: 'Are you sure you want to delete this group? This action cannot be undone and all challenges will be lost.'
       }
-    })
-  }
-
-  /*openCreateChallengeDialog(): void {
-    const dialogRef = this.createDialog.open(ChallengeCreateComponent, {
-      width: "600px",
-      data: {groupId: this.groupId}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.challengeService.create(result).subscribe({
-          next: () => {
-            const challengeList = document.querySelector('app-challenge-list');
-            if (challengeList) {
-              (challengeList as any).getAvailableChallenges();
-            }
+        this.groupService.delete(this.groupId).subscribe({
+          next: (group) => {
+            this.router.navigate(['/dashboard']);
+          },
+          error: (err) => {
+            console.error('Error deleting group:', err);
           }
-        })
+        });
       }
     });
-  }*/
+  }
+
+
 
   openCreateChallengeDialog(): void {
     const dialogRef = this.createDialog.open(ChallengeCreateComponent, {
