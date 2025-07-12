@@ -45,6 +45,7 @@ export class SidebarComponent {
 
   LogOut() {
       this.authService.logout()
+      this.router.navigate(['auth']);
   }
 
   IsUserConnected() {

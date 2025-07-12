@@ -87,16 +87,11 @@ export class ChallengeViewComponent implements OnInit {
         next: (challenge) => {
           this.challenge = challenge;
           this.isLoading = false;
-          if (!this.authService.userIsInGroup(this.groupId) ||
-              !this.authService.isUserLoggedIn() ||
-              this.challenge.groupId != this.groupId) {
-
-            this.router.navigate(['no-access']);
-          }
         },
         error: (err) => {
           console.error('Error loading challenge:', err);
           this.isLoading = false;
+          this.router.navigate(['no-access']);
         }
       });
     }

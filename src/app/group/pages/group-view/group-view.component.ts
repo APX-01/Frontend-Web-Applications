@@ -78,6 +78,7 @@ export class GroupViewComponent implements OnInit {
         error: (err) => {
           console.error('Error loading group:', err);
           this.isLoading = false;
+          this.router.navigate(['no-access']);
         }
       });
     }
@@ -94,7 +95,7 @@ export class GroupViewComponent implements OnInit {
     const studentId = this.user.id;
     console.log(`Borrando estudiante con id: ${studentId}`);
 
-    this.authService.leaveGroup(studentId, this.groupId).subscribe({
+    this.authService.leaveGroup(this.groupId).subscribe({
       next: () => {
         console.log(`Estudiante ${studentId} eliminado del grupo ${this.groupId}`);
         this.router.navigate(['/dashboard']); // Redirige al dashboard tras dejar el grupo

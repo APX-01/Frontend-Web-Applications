@@ -99,8 +99,8 @@ export class AuthService extends BaseService<User> {
 
 
 
-    leaveGroup(userId: number, groupId: number): Observable<void> {
-        const url = `${this.resourcePath()}/leave/${userId}/${groupId}`;
+    leaveGroup(groupId: number): Observable<void> {
+        const url = `${this.resourcePath()}/leave/${groupId}`;
         return this.http.delete<void>(url, this.httpOptions);
     }
 

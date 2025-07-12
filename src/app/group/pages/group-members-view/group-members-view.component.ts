@@ -232,7 +232,7 @@ export class GroupMembersViewComponent implements OnInit {
     console.log(this.studentList);
 
     // Llamar a leaveGroup del servicio
-    this.authService.leaveGroup(studentId, this.groupId).subscribe({
+    this.authService.leaveGroup(this.groupId).subscribe({
       next: () => {
         console.log(`Estudiante ${studentId} eliminado del grupo ${this.groupId}`);
       },
