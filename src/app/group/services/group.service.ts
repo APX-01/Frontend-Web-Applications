@@ -29,6 +29,10 @@ export class GroupService extends BaseService<Group> {
     return this.http.get<Group[]>(`${this.resourcePath()}/user/${userId}`, this.httpOptions);
   }
 
+  public kickStudentFromGroup(studentId: number, groupId: number): Observable<void> {
+    return this.http.delete<void>(`${this.resourcePath()}/${groupId}/students/${studentId}`, this.httpOptions);
+  }
+
   
 
 }

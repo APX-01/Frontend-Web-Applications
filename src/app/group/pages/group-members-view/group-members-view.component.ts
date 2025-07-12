@@ -68,7 +68,8 @@ export class GroupMembersViewComponent implements OnInit {
       private snackBar: MatSnackBar,
       private router: Router,
       private challengeService: ChallengeApiService,
-      private submissionService: SubmissionApiService
+      private submissionService: SubmissionApiService,
+      private groupService: GroupService,
   ) {
   }
 
@@ -271,7 +272,7 @@ export class GroupMembersViewComponent implements OnInit {
     console.log(this.studentList);
 
     // Llamar a leaveGroup del servicio
-    this.authService.leaveGroup(this.groupId).subscribe({
+    this.groupService.kickStudentFromGroup(studentId,this.groupId).subscribe({
       next: () => {
         console.log(`Estudiante ${studentId} eliminado del grupo ${this.groupId}`);
       },
