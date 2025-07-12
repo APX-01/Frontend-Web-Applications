@@ -14,7 +14,7 @@
 
                     <div class="challenge-meta">
                         <p class="challenge-description">{{ challenge.description }}</p>
-                        <p class="challenge-deadline">📅 <strong>Deadline:</strong> {{ challenge.deadline }}</p>
+                        <p class="challenge-deadline">📅 <strong>Deadline:</strong> {{ formatDate() }}</p>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 <div *ngIf="isSubmissionFormVisible" class="submission-form-container">
                     <form (ngSubmit)="createSubmission()">
                         <mat-form-field>
-                            <textarea matInput [(ngModel)]="challengeToSubmit.content" name="description" placeholder="Colocar aqui su resolucion." required></textarea>
+                            <textarea matInput [(ngModel)]="submissionToSubmit.content" name="description" placeholder="Colocar aqui su resolucion." required></textarea>
                         </mat-form-field>
                         <button mat-raised-button color="primary" type="submit">Enviar</button>
                         <button mat-raised-button color="warn" type="button" (click)="toggleSubmissionForm()">Cancelar</button>
